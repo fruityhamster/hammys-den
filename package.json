@@ -1,8 +1,22 @@
 {
-  "name": "electron-app",
+  "name": "electron-app-template",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "./src/main/main.js",
+  "homepage": "./",
   "scripts": {
-    "start": "electron ."
+    "dev": "vite",
+    "electron": "electron .",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^41.1.1",
+    "vite": "^8.0.3",
+    "wait-on": "^9.0.4"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-calendar": "^6.0.0",
+    "react-dom": "^19.2.4"
   }
 }
