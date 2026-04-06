@@ -23,7 +23,7 @@ function TodoList() {
   return (
     <div>
       <h2>Todo List</h2>
-      <input value={input} onChange={e => setInput(e.target.value)} placeholder="Nova tarefa"/>
+      <input aria-label="Nova tarefa" value={input} onChange={e => setInput(e.target.value)} placeholder="Nova tarefa"/>
       <button onClick={addTask}>Adicionar</button>
       <ul>
         {tasks.map((task, i) => (
