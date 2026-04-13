@@ -1,3 +1,6 @@
+/* imports: fonts, taildwind */
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -7,32 +10,93 @@
   --color-hammy-beige: #fff8e1;
   
   --font-pixel-1: "Pixelify Sans", sans-serif;
-  --font-pixel-2: "Silkscreen", silkscreen;
+  --font-pixel-2: "Silkscreen", sans-serif;
+}
+
+html, body, #root {
+  background: transparent !important; 
+  width: 450px;
+  height: 550px;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden; /* impede scroll lateral ou vertical na janela principal, makes sure doesnt show scrollbars */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*width: 100vw;
+  min-height: 100vh;*/
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* classes used in all pages */
+/* principal container*/
+.app-container {
+  width: 450px;
+  height: 550px;
+  border-radius: 20px;
+  background-color: var(--color-hammy-brown-dark);
+  font-family: var(--font-pixel-1);
+  display: grid;
+  flex-direction: column;
+  grid-template-rows: 40px 450px;
+  grid-template-columns: 400px;
+  padding: 30px;
+  justify-content: center;
+  
+  /*display: grid;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: start;
+  align-content: space-between;
+  justify-items: start;
+  row-gap: 10px;
+  */
+}
 
-body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: white;
+/* title: hammy's den */
+.main-title {
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+  height: 44px;
+  letter-spacing: 0px;
+  margin-left: 10px;
+  color: var(--color-hammy-beige);
   user-select: none;
-  -webkit-app-region: drag;
 }
 
-.app {
-  padding: 16px;
+/* minimize & close buttons */
+.min-close-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--color-hammy-brown);
+  user-select: none;
+  padding-bottom: 5px;
+  font-size: 48px;
+  color: var(--color-hammy-beige);
+  align-content: center;
+  justify-content: center;
 }
 
-button,
-input,
-textarea,
-select {
-  -webkit-app-region: no-drag;
-  cursor: pointer;
+
+/* background retangle - base used in all pages (can change color) */
+.base-background {
+  grid-column: 1;
+  grid-row: 2;
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  display: grid;
 }
+
+/* dashboard */
