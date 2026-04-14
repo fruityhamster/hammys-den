@@ -211,12 +211,12 @@ input, textarea {
   color: var(--color-hammy-brown-dark);
   font-size: 36px;
   top: 35%;
-  right: 35%;
+  right: 36%;
 }
  /* weekday text */
 .cal-weekday {
   color: var(--color-hammy-brown-dark);
   font-size: 24px;
   top: 75%;
-  right: 25%;
+  justify-content: center;
 }

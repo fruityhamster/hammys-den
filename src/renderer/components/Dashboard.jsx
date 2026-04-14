@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // images imports
 import to_do_list from '../assets/dashboard-to-do-list.png'; 
@@ -7,9 +7,23 @@ import timer from '../assets/dashboard-timer.png';
 import history from '../assets/dashboard-history.png';
 
 const Dashboard = ({ onNavigate }) => {
-    // to get current date
-    const today = new Date();
-    const month = today.toLocaleString('en-US', { month: 'long' }).toUpperCase();
+    // date state
+    const [today, setToday] = useState(new Date());
+    // function checks the time every minute (60 seconds)
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date();
+            // if the day changes, time is updated
+            if (now.getDate() !== today.getDate()) {
+                setToday(now);
+            }
+            console.log("Verifiquei a hora!"); // for tests
+        }, 60000);
+        // clear timer when not in the page
+        return () => clearInterval(timer);
+    }, [today]);
+
+    const month = today.toLocaleString('en-US', { month: 'long' });
     const dayNum = today.getDate().toString().padStart(2, '0');
     const weekDay = today.toLocaleString('en-US', { weekday: 'long' });
 
@@ -80,6 +94,7 @@ const Dashboard = ({ onNavigate }) => {
                             <img src={mod.img} alt="" draggable="false"/>
                         )}
                         
+                        {/* texts under buttons */}
                         <span>{mod.label}</span> 
                     </button>
                 ))}
