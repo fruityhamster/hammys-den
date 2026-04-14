@@ -34,6 +34,15 @@ body {
 
 * {
   box-sizing: border-box;
+  /* disables text and image selection everywhere */
+  -webkit-user-select: none;  /* Safari/Chrome/Electron */
+  user-select: none;
+}
+
+/* for input - activate selection */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* classes used in all pages */
@@ -81,29 +90,18 @@ body {
   height: 40px;
   border-radius: 10px;
   background-color: var(--color-hammy-brown);
-  user-select: none;
   padding-bottom: 5px;
   font-size: 48px;
   color: var(--color-hammy-beige);
   align-content: center;
   justify-content: center;
+  /* button shadow */
+  transition: all 0.1s ease;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
-/* buttons animation - Estado normal da app
-.app-window {
-  transition: all 0.3s ease-in-out;
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Estado quando está a fechar ou minimizar
-.app-window-hidden {
-  opacity: 0;
-  transform: scale(0.9) translateY(20px); /* Encolhe e desce um pouco
-  pointer-events: none;
-}*/
-
-/* background retangle - base used in all pages (can change color) */
+/* background retangle - base used in all pages (colour changes) */
 .base-background {
   display: grid;
   grid-column: 1;
@@ -116,8 +114,66 @@ body {
 /* dashboard */
 .dashboard {
   display: grid;
-
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-rows: 180px 180px;
+  grid-template-columns: 180px 180px;
+  gap: 40px 15px;
+  padding: 15px;
+  border-radius: 20px;
+  position: relative;
+  align-content: top;
+  justify-content: center;
 }
 
-/*  */
+/* buttons */
+.grid-button {
+  display: flex;
+  width: 180px;
+  position: relative;
+  height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-hammy-beige-dark);
+  border-radius: 20px;
+  border: none;
+  /* button shadow */
+  border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  padding: 10px;
+  cursor: pointer;
+}
 
+/* image inside button */
+.grid-button img {
+  width: 180px;
+  height: 180px;
+  padding: 8px;
+  object-fit: contain;
+  image-rendering: pixelated; /* maintains the crisp pixel art look */
+}
+
+/* text under button */
+.grid-button span {
+  font-family: var(--font-pixel-1);
+  color: var(--color-hammy-beige);
+  text-transform: lowercase;
+  font-size: 18px;
+  position: absolute;
+  bottom: -35px;
+}
+
+/* hover effect */
+.grid-button:hover,
+.min-close-buttons:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1.5px);
+}
+
+/* click effect */
+.grid-button:active,
+.min-close-buttons:active {
+  border-bottom-width: 0;
+  transform: translateY(1px);
+}
