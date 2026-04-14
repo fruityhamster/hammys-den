@@ -7,6 +7,12 @@ import timer from '../assets/dashboard-timer.png';
 import history from '../assets/dashboard-history.png';
 
 const Dashboard = ({ onNavigate }) => {
+    // to get current date
+    const today = new Date();
+    const month = today.toLocaleString('en-US', { month: 'long' }).toUpperCase();
+    const dayNum = today.getDate().toString().padStart(2, '0');
+    const weekDay = today.toLocaleString('en-US', { weekday: 'long' });
+
     // buttons configurations - avoids repeting code
     const modules = [
         { id: 'todo', label:'to-do list', img: to_do_list },
@@ -53,10 +59,29 @@ const Dashboard = ({ onNavigate }) => {
             <div className="dashboard" style={{ WebkitAppRegion: 'no-drag' }}>
                 {modules.map((mod) => (
                     <button key={mod.id} className="grid-button" onClick={() => onNavigate(mod.id)}>
-                        <img src={mod.img} alt="" draggable="false"/>
+                        
+                        {/* calendar logic */}
+                        {mod.id === 'calendar' ? (
+                            <div className="calendar-widget">
+                                {/* month */}
+                                <span className="cal-month">{month}</span>
+                                
+                                {/* day */}
+                                <div>
+                                    <img src={mod.img} alt="" className="cal-seed-img" />
+                                    <span className="cal-day-number">{dayNum}</span>
+                                </div>
+                                
+                                {/* weekday */}
+                                <span className="cal-weekday">{weekDay}</span>
+                            </div>
+                        ) : (
+                            // normal logic for other images/buttons
+                            <img src={mod.img} alt="" draggable="false"/>
+                        )}
+                        
                         <span>{mod.label}</span> 
                     </button>
-                    
                 ))}
             </div>
         </div>
