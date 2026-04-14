@@ -1,10 +1,10 @@
 /* all components imported */
-import TodoList from "../components/TodoList";
-import Timer from "../components/Timer";
-import MyCalendar from "../components/Calendar";
 import Dashboard from "../components/Dashboard";
-/*  import Login from '../components/login';
-    import History from '../components/history';
+import TodoList from "../components/TodoList";
+import MyCalendar from "../components/Calendar";
+import Timer from "../components/Timer";
+/*  import History from '../components/history';
+    import Login from '../components/login';
 */
 
 function App() {

@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 @import "tailwindcss";
 
+/* variables */
 @theme {
   --color-hammy-brown-dark: #3d1f18;
   --color-hammy-brown: #6d4c41;
@@ -20,7 +21,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   border-radius: 20px;
-  overflow: hidden; /* impede scroll lateral ou vertical na janela principal, makes sure doesnt show scrollbars */
+  overflow: hidden; /* disables scroll in the main window (doesnt show scrollbars) */
 }
 
 body {
@@ -88,15 +89,35 @@ body {
   justify-content: center;
 }
 
+/* buttons animation - Estado normal da app
+.app-window {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Estado quando está a fechar ou minimizar
+.app-window-hidden {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px); /* Encolhe e desce um pouco
+  pointer-events: none;
+}*/
 
 /* background retangle - base used in all pages (can change color) */
 .base-background {
+  display: grid;
   grid-column: 1;
   grid-row: 2;
   position: relative;
   width: 100%;
   border-radius: 20px;
-  display: grid;
 }
 
 /* dashboard */
+.dashboard {
+  display: grid;
+
+}
+
+/*  */
+
