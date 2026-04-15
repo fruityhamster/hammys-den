@@ -1,43 +1,33 @@
-## Electron App Template 
+# Hammy's Den
 
-**IMPORTANT:** Click & open README.md for full instruction. The preview gets cut off. 
+> **Hammy's Den** is a productivity and organization desktop app that offers a cozy environment with a minimalist aesthetic based on Pixel Art. It was developed using Electron, JavaScript/React, and Vite. The app allows you to manage tasks, organize your week, time activities, and track progress.
 
-A simple ElectronJS starter template for building desktop applications using HTML, CSS, and JavaScript.
+## Inspiration
 
-This repo is part of my YouTube tutorial on setting up your very first Electron desktop app. It’s designed to be simple, beginner-friendly, and easy to customize for any project.
+During high school time, I experienced firsthand the challenge of maintaining focus and organization amidst so many subjects and deadlines. Back then, having a tool where I could organize tasks and time my study sessions in one place would have made all the difference.
 
----
-
-## Tutorial Video
-
-This repo is a part of my Youtube video tutorial on how to set up your very first desktop application. See the video here: https://www.youtube.com/watch?v=btxGSJ3Dh8E&t=373s
-
-This repo is only for the basic Electron template that you can clone to build whatever you want. But if you're interested in a beginner demonstration tutorial too, see this repositary for a simple Calendar Widget: https://github.com/nasha-wanich/little-calendar 
+The visual idea and the final push came from content creators on YouTube. They showed me that a work tool could be a pleasant and visually comforting space. That's how the concept of "Hammy" came about: a pixelated companion that transforms the study routine into a welcoming environment.
 
 ---
 
-## What’s Included
+## Technology Used
 
-- Basic Electron setup
-- Single window configuration
-- Frameless, non-resizable window
-- Draggable app window using CSS
-- Plain HTML / CSS / JavaScript (no frameworks)
-
-You can now customize the UI, add features, or turn this into any desktop app you want.
+... Electron, React, Vite, CSS Grid/Flexbox.
+- [React.js](https://reactjs.org/) - Biblioteca para a interface.
+- [Electron](https://www.electronjs.org/) - Framework para apps desktop.
+- [Vite](https://vitejs.dev/) - Build tool ultra-rápida.
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) - Layouts com Grid e Flexbox.
 
 ---
 
-## What this template is for 
+## Functionalities
 
-This template is great if you are:
-
-- New to ElectronJS
-- A designer or frontend developer exploring desktop apps
-- Building quick prototypes or side projects
-- Looking for a clean starting point without extra complexity
-
-If you’re looking for a guided beginner project after setting up this template, check out this calendar demo repo: https://github.com/nasha-wanich/little-calendar
+... Listar o Calendário dinâmico, To-do list, etc.
+- **Dashboard Modular:** Interface intuitiva para acesso rápido a todas as ferramentas.
+- **Calendário Dinâmico:** Widget em tempo real que atualiza automaticamente à meia-noite, exibindo a data atualizada sobre um design temático.
+- **To-Do List:** Gestão eficiente de tarefas (em desenvolvimento).
+- **Estética Customizada:** Interface 100% personalizada com CSS, incluindo efeitos 3D nos botões e tipografia Pixel Art.
+- **Multiplataforma:** Graças ao Electron, funciona em Windows, macOS e Linux.
 
 ---
 
@@ -45,51 +35,41 @@ If you’re looking for a guided beginner project after setting up this template
 
 ```
 electron-app-template
-├── node_modules
-├── main.js
-├──index.html
-├── styles.css
-├── script.js
-├── package.json
-└── package-lock.json
+├── node_modules/
+├── src/
+│   ├── main.jsx                
+│   ├── styles.css              # CSS Global e variáveis de cor. Styles for your app UI, including draggable window behavior.
+│   ├── main/                   # Electron’s main process
+│   │   └── main.js             # Creates e gere the app window, e ciclo de vida da app, and loads the HTML file.
+│   └── renderer/               # frontend em React
+│       ├── assets/             # ícone e imagens em Pixel Art
+│       ├── components/         # componentes modulares (Dashboard, Calendar, etc.)
+│       │   ├── Calendar.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── History.jsx
+│       │   ├── Login.jsx
+│       │   ├── Timer.jsx
+│       │   └── TodoList. jsx  
+│       └── pages/
+│           └── App.jsx         # roteamento e lógica principal
+├── index.html                  # the main UI layout of the desktop app
+├── package-lock.json
+├── package.json                # dependências e scripts de execução. App configuration, dependencies, and run scripts.
+└── vite.config.js              # configuração de build do Vite
 ```
-
-### Core Files Explained
-
-- **`main.js`**
-    
-    Electron’s main process. Creates the app window and loads the HTML file.
-    
-- **`index.html`**
-    
-    The main UI layout of your desktop app.
-    
-- **`styles.css`**
-    
-    Styles for your app UI, including draggable window behavior.
-    
-- **`script.js`**
-    
-    Frontend JavaScript logic for interactivity.
-    
-- **`package.json`**
-    
-    App configuration, dependencies, and run scripts.
-
 
 ---
 
-## Prerequisites
+## How to Launch App
 
+... pre-requisites + Instruções do `npm install` e `npm run start`.
 Before using this template, make sure you have:
 
 - **Node.js**
 - **Homebrew** (macOS)
 - A code editor (VS Code recommended)
 
----
-
-## Step by step set up
+Step by step set up
 
 ### 1. Install Package Managers (if you don’t have one on your computer)
 
@@ -144,17 +124,14 @@ npm run start
 
 This will launch a simple Electron desktop window.
 
----
+## 💻 Como Executar
 
-## Next Steps
+1. Clone o repositório:
+   ```bash
+   git clone [https://github.com/teu-utilizador/hammys-den.git](https://github.com/teu-utilizador/hammys-den.git)
 
-- Modify `index.html` to build your app layout
-- Style your app UI in `styles.css`
-- Add your app logic in `script.js`
-- Adjust window behavior in `main.js`  (ex. size, transparency etc.)
+   install dependencies:
+   npm install
 
----
-
-## Want a Beginner Walkthrough Project?
-
-If you want a step-by-step desktop app beginner tutorial, check out this repo where we build a calendar widget together: https://github.com/nasha-wanich/little-calendar
+   execute app:
+   npm run start
