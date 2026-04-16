@@ -61,13 +61,13 @@ electron-app-template
 ## How to Launch App
 
 Before using this repository, make sure you have:
-- Node.js - You can download directly from https://nodejs.org and follow their installation instructions.
-- a code editor (Visual Studio Code)
+- Node.js - you can download directly from https://nodejs.org and follow their installation instructions.
+- A code editor (Visual Studio Code)
 
 ### Step by Step Set Up
 1. Clone this repository:
 ```bash
-git clone [https://github.com/fruityhamster/hammys-den.git](https://github.com/fruityhamster/hammys-den.git)
+git clone https://github.com/fruityhamster/hammys-den.git
 ```
 2. Enter the folder:
 ```bash
@@ -89,4 +89,5 @@ If both commands return version numbers, you’re good to go
 npm run start
 ```
 
-This will launch the Electron desktop window and you'll be able to enjoy it. 
+This will launch the Electron desktop window.
+Now you can enjoy organising and focusing in the company of your adorable hammy. 
