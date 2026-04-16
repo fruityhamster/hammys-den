@@ -12,22 +12,20 @@ The visual idea and the final push came from content creators on YouTube. They s
 
 ## Technology Used
 
-... Electron, React, Vite, CSS Grid/Flexbox.
-- [React.js](https://reactjs.org/) - Biblioteca para a interface.
-- [Electron](https://www.electronjs.org/) - Framework para apps desktop.
-- [Vite](https://vitejs.dev/) - Build tool ultra-rápida.
-- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) - Layouts com Grid e Flexbox.
+- [React.js](https://reactjs.org/) - Interface library.
+- [Electron](https://www.electronjs.org/) - Framework for desktop apps.
+- [Vite](https://vitejs.dev/) - Build tool.
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - Layouts with Grid and Flexbox.
 
 ---
 
 ## Functionalities
 
-... Listar o Calendário dinâmico, To-do list, etc.
-- **Dashboard Modular:** Interface intuitiva para acesso rápido a todas as ferramentas.
-- **Calendário Dinâmico:** Widget em tempo real que atualiza automaticamente à meia-noite, exibindo a data atualizada sobre um design temático.
-- **To-Do List:** Gestão eficiente de tarefas (em desenvolvimento).
-- **Estética Customizada:** Interface 100% personalizada com CSS, incluindo efeitos 3D nos botões e tipografia Pixel Art.
-- **Multiplataforma:** Graças ao Electron, funciona em Windows, macOS e Linux.
+- **Dashboard Modular:** Intuitive interface for quick access to all tools.
+- **To-Do List:** Task management.
+- **Calendar:** Real-time widget that automatically updates at midnight, displaying the current date. Allows monthly viewing and adding future appointments.
+- **Timer:** Pomodoro Timer (goes up to 60 minutes) to help focus on tasks.
+- **History:** History of focus sessions. Allows viewing past sessions and what was done in each one.
 
 ---
 
@@ -37,101 +35,58 @@ The visual idea and the final push came from content creators on YouTube. They s
 electron-app-template
 ├── node_modules/
 ├── src/
-│   ├── main.jsx                
-│   ├── styles.css              # CSS Global e variáveis de cor. Styles for your app UI, including draggable window behavior.
-│   ├── main/                   # Electron’s main process
-│   │   └── main.js             # Creates e gere the app window, e ciclo de vida da app, and loads the HTML file.
-│   └── renderer/               # frontend em React
-│       ├── assets/             # ícone e imagens em Pixel Art
-│       ├── components/         # componentes modulares (Dashboard, Calendar, etc.)
-│       │   ├── Calendar.jsx
-│       │   ├── Dashboard.jsx
-│       │   ├── History.jsx
-│       │   ├── Login.jsx
-│       │   ├── Timer.jsx
-│       │   └── TodoList. jsx  
-│       └── pages/
-│           └── App.jsx         # roteamento e lógica principal
-├── index.html                  # the main UI layout of the desktop app
+│   ├── main/                   # Electron main process
+│   │   └── main.js             # Window management and OS-level logic
+│   ├── renderer/               # React Frontend Process (UI)
+│   │   ├── assets/             # Pixel Art sprites and icons
+│   │   ├── components/         # Functional UI components
+│   │   │   ├── Calendar.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── History.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Timer.jsx
+│   │   │   └── TodoList.jsx  
+│   │   └── pages/
+│   │       └── App.jsx         # Main router and state management
+│   ├── main.jsx                # React entry point (mounting the app)
+│   └── styles.css              # Global styles (CSS) and Pixel Art design variables
+├── index.html                  # HTML template for the renderer process and React root container
 ├── package-lock.json
-├── package.json                # dependências e scripts de execução. App configuration, dependencies, and run scripts.
-└── vite.config.js              # configuração de build do Vite
+├── package.json                # App metadata, scripts, and dependencies
+└── vite.config.js              # Vite bundler configuration
 ```
 
 ---
 
 ## How to Launch App
 
-... pre-requisites + Instruções do `npm install` e `npm run start`.
-Before using this template, make sure you have:
+Before using this repository, make sure you have:
+- Node.js - You can download directly from https://nodejs.org and follow their installation instructions.
+- a code editor (Visual Studio Code)
 
-- **Node.js**
-- **Homebrew** (macOS)
-- A code editor (VS Code recommended)
-
-Step by step set up
-
-### 1. Install Package Managers (if you don’t have one on your computer)
-
-MacOS: Homebrew ([https://brew.sh](https://brew.sh/))
-
-Window: Chocolatey (https://chocolatey.org/install)
-
-### 2. Install Node.js
-
-You can install Node.js in two ways:
-
-### Option A: Use a package manager (mine is Homebrew which I used in the tutorial)
-
+### Step by Step Set Up
+1. Clone this repository:
 ```bash
-brew install node
+git clone [https://github.com/fruityhamster/hammys-den.git](https://github.com/fruityhamster/hammys-den.git)
 ```
-
-Verify installation:
-
+2. Enter the folder:
+```bash
+cd hammys-den
+```
+3. Install dependencies:
+```bash
+npm install
+```
+4. Verify installation:
 ```bash
 node -v
 npm -v
 ```
-
 If both commands return version numbers, you’re good to go 
 
-### Option B: Download Installer
-
-Download Node.js directly from: https://nodejs.org
-
-and follow their installation instructions.
-
-
-### 3. Clone This Repo
-
-```bash
-gitclone https://github.com/nasha-wanich/electron-app-template.git
-cd electron-app-template
-```
-
-### 4. Install Dependencies
-
-```bash
-npm install
-```
-
-### 5. Run the App
-
+5. Execute app:
 ```bash
 npm run start
 ```
 
-This will launch a simple Electron desktop window.
-
-## 💻 Como Executar
-
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/teu-utilizador/hammys-den.git](https://github.com/teu-utilizador/hammys-den.git)
-
-   install dependencies:
-   npm install
-
-   execute app:
-   npm run start
+This will launch the Electron desktop window and you'll be able to enjoy it. 
