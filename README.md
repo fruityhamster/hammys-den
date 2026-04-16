@@ -90,4 +90,4 @@ npm run start
 ```
 
 This will launch the Electron desktop window.
-Now you can enjoy organising and focusing in the company of your adorable hammy. 
+Now you can enjoy organising and focusing in the company of your adorable hammy! <3
