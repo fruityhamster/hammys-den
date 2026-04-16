@@ -68,7 +68,7 @@ const Dashboard = ({ onNavigate }) => {
                 </div>
             </div>
 
-            <div className="base-background bg-[var(--color-hammy-brown)]"></div>
+            <div className="base-background"></div>
 
             <div className="dashboard" style={{ WebkitAppRegion: 'no-drag' }}>
                 {modules.map((mod) => (
