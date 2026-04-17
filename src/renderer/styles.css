@@ -327,8 +327,10 @@ input, textarea {
   align-items: center;
   background-color: #fcf0d9;
   padding: 5px 10px;
+  gap: 5px;
   width: 100%;
   border-radius: 10px;
+  box-sizing: border-box;
   border: 1px solid var(--color-hammy-brown);
   color: var(--color-hammy-brown-dark);
   font-family: var(--font-pixel-1);
@@ -364,7 +366,7 @@ input, textarea {
 .task-actions {
   display: flex;
   gap: 4px;
-  margin-left: 10px;
+  margin-left: auto;
 }
 
 /* base for circular buttons */
