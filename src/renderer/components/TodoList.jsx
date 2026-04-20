@@ -2,38 +2,38 @@
 import React, { useState } from 'react';
 import seedImg from '../assets/dashboard-almond.png';
 
-// O componente recebe 'onBack' como propriedade para o botão home funcionar
+// the component has 'onBack' as a property so home button functions
 const TodoList = ({ onBack }) => {
-  // Estado para controlar o que o utilizador escreve no input
+  // state to control what the user writes in the input
   const [taskInput, setTaskInput] = useState('');
   
-  // Estado para guardar a lista de tarefas (começa vazia como na imagem)
+  // state to save task list (starts empty)
   const [tasks, setTasks] = useState([]);
 
-  // Função para adicionar uma nova semente (tarefa)
+  // function to add a new task
   const addNewSeed = () => {
     if (taskInput.trim()) {
-      // Cria uma nova semente/tarefa
+      // new task
       const newSeed = {
         id: Date.now(),
         text: taskInput,
-        germinated: false // 'completed' no contexto do Hammy
+        germinated: false // task 'not completed'
       };
-      // Adiciona à lista
+      // add task to the list
       setTasks([...tasks, newSeed]);
-      // Limpa o input
+      // cleans input
       setTaskInput('');
     }
   };
 
-  // Função para alternar o estado de concluído (riscar)
+  // function to change the conclusion state (cross out)
   const toggleComplete = (id) => {
     setTasks(tasks.map(task => 
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
 
-  // Função para apagar a tarefa
+  // function to delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
