@@ -85,9 +85,16 @@ const TodoList = ({ onBack }) => {
         <input type="text"
           value={taskInput}
           onChange={(e) => setTaskInput(e.target.value)}
+          /* allows using Enter key to add task */
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              addNewSeed();
+            }
+          }}
           placeholder="add a new seed..." 
           className="input-field" 
           style={{ imageRendering: 'pixelated' }}/>
+          
       </div>
 
       {/* tasks added */}

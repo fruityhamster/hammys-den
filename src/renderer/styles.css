@@ -334,7 +334,7 @@ input, textarea {
   border: 1px solid var(--color-hammy-brown);
   color: var(--color-hammy-brown-dark);
   font-family: var(--font-pixel-1);
-  font-size: 18px;
+  font-size: 16px;
   animation: popIn 0.3s ease-out; /* small animação when it shows */
 
   /* doesn't let the text get outside the rectangle */
