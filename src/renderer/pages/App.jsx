@@ -4,28 +4,35 @@ import React, { useState } from 'react';
 /* all components imported */
 import Dashboard from "../components/Dashboard";
 import TodoList from "../components/TodoList";
-import MyCalendar from "../components/Calendar";
+import CalendarPage from "../components/Calendar";
 import Timer from "../components/Timer";
-/*  import History from '../components/history';
-    import Login from '../components/login';
-*/
+import History from '../components/History';
+/* import Login from '../components/login'; */
 
 function App() {
   // state to know what page we are on (log in ainda não está feito, começa na Dashboard)
   const [currentPage, setCurrentPage] = useState('dashboard');
 
-  // Função para mudar de página
+  // function to change pages
   const navigateTo = (page) => setCurrentPage(page);
 
   return (
     <div>
-      {/* a app escolhe o que renderizar baseada no estado */}
+      {/* app chooses what to render based on the state */}
       {currentPage === 'dashboard' && <Dashboard onNavigate={navigateTo} />}
 
-      {/* Se o estado mudar para 'todo', montamos a página da To-do List */}
+      {/* if state changes to 'todo' shows 'To-do List' page */}
       {currentPage === 'todo' && <TodoList onBack={() => setCurrentPage('dashboard')} />}
 
-    </div>    
+      {/* if state changes to 'calendar' shows 'Calendar' page */}
+      {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} />}
+      
+      {/* if state changes to 'timer' shows 'Timer' page */}
+      {currentPage === 'timer' && <Timer onBack={() => setCurrentPage('dashboard')} />}
+
+      {/* if state changes to 'history' shows 'History' page */}
+      {currentPage === 'history' && <History onBack={() => setCurrentPage('dashboard')} />}
+    </div>
   );
 }
 
