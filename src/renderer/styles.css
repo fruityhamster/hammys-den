@@ -5,10 +5,13 @@
 
 /* variables */
 @theme {
-  --color-hammy-brown-dark: #3d1f18;
-  --color-hammy-brown: #6d4c41;
-  --color-hammy-beige-dark: #dacfcc;
-  --color-hammy-beige: #fff8e1;
+  --colour-hammy-brown-dark: #3d1f18;
+  --colour-hammy-brown: #6d4c41;
+  --colour-hammy-beige-dark: #dacfcc;
+  --colour-hammy-beige: #fff8e1;
+  --colour-check-button: #9be27a;
+  --colour-delete-button: #ee7a7a;
+  --colour-hover-calendar: #63413e;
   
   --font-pixel-1: "Pixelify Sans", sans-serif;
   --font-pixel-2: "Silkscreen", sans-serif;
@@ -51,7 +54,7 @@ input, textarea {
   width: 450px;
   height: 550px;
   border-radius: 20px;
-  background-color: var(--color-hammy-brown-dark);
+  background-color: var(--colour-hammy-brown-dark);
   font-family: var(--font-pixel-1);
   display: grid;
   flex-direction: column;
@@ -59,15 +62,6 @@ input, textarea {
   grid-template-columns: 400px;
   padding: 30px;
   justify-content: center;
-  
-  /*display: grid;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: start;
-  align-content: space-between;
-  justify-items: start;
-  row-gap: 10px;
-  */
 }
 
 /* title: hammy's den */
@@ -78,7 +72,7 @@ input, textarea {
   height: 44px;
   letter-spacing: 0px;
   margin-left: 10px;
-  color: var(--color-hammy-beige);
+  color: var(--colour-hammy-beige);
   user-select: none;
 }
 
@@ -89,10 +83,10 @@ input, textarea {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background-color: var(--color-hammy-brown);
+  background-color: var(--colour-hammy-brown);
   padding-bottom: 5px;
   font-size: 48px;
-  color: var(--color-hammy-beige);
+  color: var(--colour-hammy-beige);
   align-content: center;
   justify-content: center;
   /* button shadow */
@@ -109,10 +103,13 @@ input, textarea {
   position: relative;
   width: 100%;
   border-radius: 20px;
-  background-color: var(--color-hammy-brown);
+  background-color: var(--colour-hammy-brown);
 }
 
-/* dashboard */
+/* ===========
+    DASHBOARD
+   =========== */
+
 .dashboard {
   display: grid;
   grid-column: 1;
@@ -136,8 +133,8 @@ input, textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-hammy-beige-dark);
-  color: var(--color-hammy-beige);
+  background-color: var(--colour-hammy-beige-dark);
+  color: var(--colour-hammy-beige);
   font-family: var(--font-pixel-1);
   font-size: 18px;
   border-radius: 20px;
@@ -190,7 +187,6 @@ input, textarea {
   align-items: center;
   left: 0;
   top: 0;
-  /* pointer-events: none; /* o clique passa para o botão pai (?) */
 }
 
 /* seed image */
@@ -202,7 +198,7 @@ input, textarea {
 /* month text */
 .cal-month {
   position: absolute;
-  color: var(--color-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
   font-size: 24px;
   text-transform: uppercase;
   width: 100%;
@@ -213,23 +209,27 @@ input, textarea {
 .cal-day-number {
   position: absolute;
   font-family: var(--font-pixel-2);
-  color: var(--color-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
   font-size: 36px;
   top: 35%;
   right: 36%;
 }
  /* weekday text */
 .cal-weekday {
-  color: var(--color-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
   font-size: 24px;
   top: 75%;
   justify-content: center;
 }
 
+/* ============
+    TO-DO LIST
+   ============ */
+
 /* page tittle */
 .page-title {
   font-family: var(--font-pixel-1);
-  color: var(--color-hammy-beige);
+  color: var(--colour-hammy-beige);
   position: absolute;
   font-size: 24px;
   top: 15%;
@@ -239,8 +239,8 @@ input, textarea {
 
 /* 1 button in the end of the page */
 .button-center1 {
-  background-color: var(--color-hammy-brown-dark);
-  color: var(--color-hammy-beige);
+  background-color: var(--colour-hammy-brown-dark);
+  color: var(--colour-hammy-beige);
   font-family: var(--font-pixel-1);
   font-size: 24px;
   padding: 0px 15px;
@@ -264,9 +264,9 @@ input, textarea {
 .add-button {
   width: 35px;
   height: 35px;
-  background-color: var(--color-hammy-brown-dark);
+  background-color: var(--colour-hammy-brown-dark);
   border-radius: 10px; 
-  color: var(--color-hammy-beige);
+  color: var(--colour-hammy-beige);
   font-family: var(--font-pixel-1);
   font-size: 36px;
   cursor: pointer;
@@ -282,9 +282,9 @@ input, textarea {
 .input-field {
   position: absolute;
   height: 35px;
-  background-color: var(--color-hammy-beige);
+  background-color: var(--colour-hammy-beige);
   font-family: var(--font-pixel-1);
-  color: var(--color-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
   font-size: 18px;
   border-radius: 10px;
   padding: 0 10px;
@@ -296,7 +296,7 @@ input, textarea {
 
 /* rectangle where shows the tasks added */
 .task-show-field {
-  background-color: var(--color-hammy-beige);
+  background-color: var(--colour-hammy-beige);
   position: absolute;
   border-radius: 10px;
   padding: 15px;
@@ -312,10 +312,11 @@ input, textarea {
   gap: 12px;
 }
 
+/* almond image as a marker */
 .task-seed-icon {
   width: 20px;
   height: 20px;
-  /* image-rendering: pixelated; */
+  /* image-rendering: pixelated; - use for a more defined image */
   margin-right: 10px;
   flex-shrink: 0;
   transform: rotate(45deg); /* rotate image */
@@ -331,8 +332,8 @@ input, textarea {
   width: 100%;
   border-radius: 10px;
   box-sizing: border-box;
-  border: 1px solid var(--color-hammy-brown);
-  color: var(--color-hammy-brown-dark);
+  border: 1px solid var(--colour-hammy-brown);
+  color: var(--colour-hammy-brown-dark);
   font-family: var(--font-pixel-1);
   font-size: 16px;
   animation: popIn 0.3s ease-out; /* small animação when it shows */
@@ -357,8 +358,8 @@ input, textarea {
 
 /* scroll bar: moving bar */
 ::-webkit-scrollbar-thumb {
-  background: var(--color-hammy-brown);
-  border: 4px solid var(--color-hammy-beige);
+  background: var(--colour-hammy-brown);
+  border: 4px solid var(--colour-hammy-beige);
   border-radius: 10px; 
 }
 
@@ -380,14 +381,10 @@ input, textarea {
 }
 
 /* button check colour */
-.btn-check {
-  background-color: #9be27a;
-}
+.btn-check { background-color: var(--colour-check-button); }
 
 /* button delete colour*/
-.btn-delete {
-  background-color: #ee7a7a;
-}
+.btn-delete { background-color: var(--colour-delete-button); }
 
 /* cross out text effect */
 .task-text.completed {
@@ -401,3 +398,184 @@ input, textarea {
   transform: scale(1.2);
   filter: brightness(1.05);
 }
+
+/* ===========
+    CALENDAR
+   =========== */
+
+/* main container - calendar */
+.calendar-main-box .react-calendar {
+  background: var(--colour-hammy-brown-dark);
+  border: none;
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-beige);
+  width: 80%;
+  position: absolute;
+  top: 125px;
+  left: 45px;
+  border-radius: 15px;
+}
+
+/* calendar "header" (month/year and arrows) */
+.react-calendar__navigation {
+  color: var(--colour-hammy-beige);
+  font-size: 24px;
+  font-family: var(--font-pixel-1);
+  margin-bottom: 4px;
+  border-radius: 15px;
+}
+
+/* title and year */
+.calendar-title-container {
+  display: flex;
+  justify-content: space-between; /* opposite sides */
+  width: 100%;
+}
+
+/* year font */
+.calendar-title-year { font-family: var(--font-pixel-2); }
+
+/* header buttons */
+.react-calendar__navigation button {
+  min-width: 20px;
+  padding: 8px;
+}
+
+/* header buttons hover colour */
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus { background-color: var(--colour-hover-calendar); }
+
+/* week days (S, M, T, W, T, F, S) */
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  /* separation lines */
+  border-top: 3px solid var(--colour-hammy-brown);
+  border-bottom: 3px solid var(--colour-hammy-brown);
+}
+
+/* removes default dotted line from week days */
+.react-calendar__month-view__weekdays__weekday abbr { text-decoration: none !important; }
+
+/* square of days */
+.react-calendar__tile {
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-2);
+  padding: 10px 5px;
+  background: none;
+}
+
+/* size of the number of days */
+.react-calendar__month-view__days__day { font-size: 20px; }
+
+/* weekend days */
+.react-calendar__tile.weekend-tile { color:var(--colour-hammy-beige-dark); }
+
+/* selected/hovered day */
+.react-calendar__tile--active, 
+.react-calendar__tile:enabled:hover {
+  background: var(--colour-hover-calendar);
+  border-radius: 15px;
+}
+
+/* days of other months */
+.react-calendar__month-view__days__day--neighboringMonth { opacity: 0.4;}
+
+/* actual day underlined */
+.react-calendar__tile.is-today {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* task dot (under number) */
+.task-dot {
+  color: var(--colour-hammy-beige);
+  font-size: 24px;
+  line-height: 0;
+  bottom: 4px;
+  display: block;
+  text-align: center;
+}
+
+/* =========== CALENDAR - PAGE 2 (adding tasks) =========== */
+
+/* subtitle: chosen day */
+.selected-date-title {
+ font-family: var(--font-pixel-2);
+ font-size: 18px;
+ position: absolute;
+ color: var(--colour-hammy-beige);
+ top: 21%;
+ left: 35%; 
+}
+
+/* add task button "+" */
+.add-button-calendar {
+  width: 35px;
+  height: 35px;
+  background-color: var(--colour-hammy-brown-dark);
+  border-radius: 10px; 
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 36px;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 27%;
+  left: 10%;
+}
+
+/* time input */
+.time-input-box {
+  background-color: var(--colour-hammy-beige);
+  color: var(--colour-hammy-brown-dark);
+  font-family: var(--font-pixel-2);
+  border-radius: 10px;
+  width: 100px;
+  height: 35px;
+  padding: 5px;
+  position: absolute;
+  top: 27%;
+  left: 20%;
+}
+
+/* text (task) input */
+.input-field-calendar {
+  position: absolute;
+  height: 35px;
+  background-color: var(--colour-hammy-beige);
+  color: var(--colour-hammy-brown-dark);
+  font-family: var(--font-pixel-1);
+  font-size: 18px;
+  outline: none;
+  border-radius: 10px;
+  width: 45%;
+  padding: 0 10px;
+  top: 27%;
+  right: 10%;
+}
+
+/* time inside tasks list */
+.task-time-text {
+  font-family: var(--font-pixel-2);
+  color: var(--colour-hammy-brown);
+  font-size: 14px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+/* =======
+    TIMER
+   ======= */
+
+/*  */
+
+/* =========
+    HISTORY
+   ========= */
+
+/*  */
