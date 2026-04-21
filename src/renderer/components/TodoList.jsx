@@ -1,6 +1,7 @@
 // src/renderer/components/TodoList.jsx
 import React, { useState } from 'react';
 import seedImg from '../assets/dashboard-almond.png';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 // the component has 'onBack' as a property so home button functions
 const TodoList = ({ onBack }) => {
@@ -24,6 +25,17 @@ const TodoList = ({ onBack }) => {
       // cleans input
       setTaskInput('');
     }
+  };
+
+  // allows the user to order the tasks
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(tasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setTasks(items); // updates the state with the new order
   };
 
   // function to change the conclusion state (cross out)
@@ -82,7 +94,8 @@ const TodoList = ({ onBack }) => {
         <button onClick={addNewSeed} className="add-button">+</button>
         
         {/* input field */}
-        <input type="text"
+        <input 
+          type="text"
           value={taskInput}
           onChange={(e) => setTaskInput(e.target.value)}
           /* allows using Enter key to add task */
@@ -99,21 +112,32 @@ const TodoList = ({ onBack }) => {
 
       {/* tasks added */}
       <div className="task-show-field">
-        {/*show tasks */}
-        <ul className="space-y-3 overflow-y-auto max-h-[260px]">
-          {tasks.map(task => (
-            <li key={task.id} className="task-item">
-              {/* seed image */}
-              <img src={seedImg} alt="seed" className="task-seed-icon" />
-              {/* conditional class to cross out the task */}
-              <span className={`task-text ${task.completed ? 'completed' : ''}`}>{task.text}</span>
-              <div className="task-actions">
-                <button onClick={() => toggleComplete(task.id)} className="btn-check"></button>
-                <button onClick={() => deleteTask(task.id)} className="btn-delete"></button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="tasks">
+            {(provided) => (
+              // show tasks
+              <ul className="space-y-3 overflow-y-auto max-h-[260px]" {...provided.droppableProps} ref={provided.innerRef}>
+                {tasks.map((task, index) => (
+                  <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                    {(provided) => (
+                      <li className="task-item" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        {/* seed image */}
+                        <img src={seedImg} alt="seed" className="task-seed-icon" />
+                        {/* conditional class to cross out the task */}
+                        <span className={`task-text ${task.completed ? 'completed' : ''}`}>{task.text}</span>
+                        <div className="task-actions">
+                          <button onClick={() => toggleComplete(task.id)} className="btn-check"></button>
+                          <button onClick={() => deleteTask(task.id)} className="btn-delete"></button>
+                        </div>
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
 
       {/* "home" button */}
