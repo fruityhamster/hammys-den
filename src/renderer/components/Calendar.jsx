@@ -7,7 +7,7 @@ const CalendarPage = ({ onBack }) => {
 
   const [date, setDate] = useState(new Date());
 
-  // Função para adicionar classes especiais aos dias
+  // function to add especial classes to days
   const getTileClassName = ({ date: tileDate, view }) => {
     if (view === 'month') {
       const today = new Date();
@@ -17,20 +17,20 @@ const CalendarPage = ({ onBack }) => {
 
       let classes = "";
       
-      // Se for hoje, adiciona a classe 'is-today'
+      // if it's today, add 'is-today'
       if (isToday) classes += " is-today";
       
-      // Se for fim de semana (Sábado=6, Domingo=0)
+      // if it's weekend (Sábado=6, Domingo=0)
       if (tileDate.getDay() === 0 || tileDate.getDay() === 6) classes += " weekend-tile";
 
       return classes;
     }
   };
 
-  // Função para colocar o pontinho/semente nos dias com tarefas
+  // function to show the dot on days with tasks added
   const getTileContent = ({ date, view: calendarView }) => {
     if (calendarView === 'month') {
-      // Mesma lógica aqui para o pontinho aparecer no dia certo
+      // to show on the correct date
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
@@ -43,15 +43,15 @@ const CalendarPage = ({ onBack }) => {
     return null;
   };
 
-  const [view, setView] = useState("calendar"); // "calendar" ou "day-tasks"
+  const [view, setView] = useState("calendar");
   const [selectedDate, setSelectedDate] = useState(null);
   const [tasksByDate, setTasksByDate] = useState({});
 
-  // Função para abrir as tasks de um dia
+  // function to open tasks from the selected day
   const handleDayClick = (date) => {
-    // Em vez de toISOString(), usamos métodos locais para evitar saltos de dia
+    // local methods to prevent skipping days
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     
     const dateStr = `${year}-${month}-${day}`;
@@ -77,35 +77,33 @@ const CalendarPage = ({ onBack }) => {
     };
 
     setTasksByDate(prev => {
-      // 1. Pegamos na lista de tarefas que já existe para aquele dia (ou uma vazia [])
+      // gets the existing tasks list from the day (or empty)
       const existingTasks = prev[selectedDate] || [];
-      // 2. Criamos o novo objeto com a nova tarefa adicionada
+      // creates the new object with new the new task added
       return {
         ...prev,
         [selectedDate]: [...existingTasks, newTask]
       };
     });
-    
+    // cleans input
     setTaskTime("");
-    setTaskInput(""); // Limpa o input
+    setTaskInput("");
     };
 
-
-
-  // 1. Pegamos na lista original (ou vazia)
+  // gets the original list (or empty)
   const currentTasksUnsorted = tasksByDate[selectedDate] || [];
 
-  // 2. Criamos uma versão ordenada
+  // create a new orderedd version
   const currentTasks = [...currentTasksUnsorted].sort((a, b) => {
-    // Se 'a' não tiver hora mas 'b' tiver, 'a' vai para baixo
+    // if 'a' doesn't has a time but 'b' has, 'a' goes under (vice versa)
     if (!a.time && b.time) return 1;
-    // Se 'b' não tiver hora mas 'a' tiver, 'b' vai para baixo
     if (a.time && !b.time) return -1;
   
-  // Se ambos tiverem hora, comparamos as strings (ex: "09:00" < "14:00")
-  return a.time.localeCompare(b.time);
-});
+    // if both have time, compare strings/time
+    return a.time.localeCompare(b.time);
+  });
 
+  // complete button
   const toggleComplete = (id) => {
     setTasksByDate(prev => ({
       ...prev,
@@ -115,6 +113,7 @@ const CalendarPage = ({ onBack }) => {
     }));
   };
 
+  // delete button
   const deleteTask = (id) => {
     setTasksByDate(prev => ({
       ...prev,
@@ -122,7 +121,7 @@ const CalendarPage = ({ onBack }) => {
     }));
   };
 
-  // Função para formatar a data de 2026-04-09 para 09-04-2026
+  // function to format date (2026-04-09 to 09-04-2026)
   const formatDateDisplay = (dateStr) => {
     if (!dateStr) return "";
     const [year, month, day] = dateStr.split("-");
@@ -165,6 +164,7 @@ const CalendarPage = ({ onBack }) => {
 
     <h2 className="page-title">calendar</h2>
 
+    {/* page: monthly view */}
     {view === "calendar" ? (
       <>
         <div className="calendar-main-box">
@@ -184,8 +184,8 @@ const CalendarPage = ({ onBack }) => {
                 </span>
               </div>
             )}
-            onClickDay={handleDayClick} // AQUI: Abre as tasks ao clicar
-            tileContent={getTileContent} // AQUI: Mostra o pontinho
+            onClickDay={handleDayClick} // opens tasks when clicked
+            tileContent={getTileContent} // shows dot under the day with tasks added
           />
         </div>
 
@@ -196,13 +196,14 @@ const CalendarPage = ({ onBack }) => {
       </>
     ) : (
       <>
+        {/* page: tasks for the specific day with time */}
         <h3 className="selected-date-title">{formatDateDisplay(selectedDate)}</h3>
         {/* add button + input section */}
         <div className="add-input-group">
           {/* add button */}
           <button onClick={addNewSeed} className="add-button-calendar">+</button>
 
-          {/* Input field hours */}
+          {/* input field hours */}
           <input
             type="time" 
             value={taskTime} 
