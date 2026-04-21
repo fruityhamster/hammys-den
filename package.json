@@ -16,6 +16,7 @@
     "wait-on": "^9.0.4"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
     "@tailwindcss/vite": "^4.2.2",
     "electron-reload": "^2.0.0-alpha.1",
     "react": "^19.2.4",
