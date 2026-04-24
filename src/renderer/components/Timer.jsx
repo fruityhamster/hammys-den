@@ -13,7 +13,19 @@ const Timer = ({ onBack }) => {
   { id: 2, name: 'sushi', img: sushi },
   { id: 3, name: 'blueberry_cake', img: blueberry_cake },
   { id: 4, name: 'pancakes', img: pancakes },
-];
+  ];
+
+  const [step, setStep] = useState('recipes');
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  // function called when cliking on the food
+  const handleRecipeClick = (recipe) => {
+    setSelectedRecipe(recipe);
+    setStep('select-time');
+  };
+
+  // storage the minutes selected
+  const [selectedTime, setSelectedTime] = useState();
 
   // minimize app
   const minimizeApp = () => {
@@ -49,23 +61,46 @@ const Timer = ({ onBack }) => {
       </div>
       <div className="base-background"></div>
 
-      <h2 className="page-title">cooking recipes</h2>
+      {step === 'recipes' ? (
+        <>
+          <h2 className="page-title">cooking recipes</h2>
 
-      {/* recipes buttons */}
-      <div className="recipes-grid">
-        {recipes.map((recipe) => (
-          <button key={recipe.id} className="recipe-card">
-            <img src={recipe.img} alt="" draggable="false"/>
-          </button>
-        ))}
-      </div>
+          {/* recipes buttons */}
+          <div className="recipes-grid">
+            {recipes.map((recipe) => (
+              <button key={recipe.id} className="recipe-card" onClick={() => handleRecipeClick(recipe)}>
+                <img src={recipe.img} alt="" draggable="false"/>
+              </button>
+            ))}
+          </div>
 
-      {/* "home" button */}
-      <div className="flex justify-center">
-        <button onClick={onBack} className="button-center1">home</button>
+          {/* "home" button */}
+          <div className="flex justify-center">
+            <button onClick={onBack} className="button-center1">home</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 className="page-title">select timer</h2>
+          <h3 className="page-subtitle">minutes</h3>
+
+          <div className="time-picker-container">
+              {/* numbers list with scroll */}
+              <div className="time-list">
+                  {[...Array(60)].map((_, i) => (
+                    <div key={i} className="time-item">{(i + 1).toString().padStart(2, '0')}</div>
+                  ))}
+              </div>
+            </div>
+
+            <div className="button-group">
+              <button className="button-left" onClick={() => setStep('countdown')}>confirm</button>
+              <button onClick={() => setStep('recipes')} className="button-right">back</button>
+            </div>
+          </>
+        )}
       </div>
-    </div>
-  );
+    );
 };
 
 export default Timer;
