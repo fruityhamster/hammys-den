@@ -17,16 +17,15 @@ const Timer = ({ onBack }) => {
 
   const [step, setStep] = useState('recipes');
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+
 
   // function called when cliking on the food
   const handleRecipeClick = (recipe) => {
     setSelectedRecipe(recipe);
     setStep('select-time');
   };
-
-  // storage the minutes selected
-  const [selectedTime, setSelectedTime] = useState();
-
+  
   // minimize app
   const minimizeApp = () => {
       if (window.require) {
@@ -61,14 +60,15 @@ const Timer = ({ onBack }) => {
       </div>
       <div className="base-background"></div>
 
-      {step === 'recipes' ? (
+      {/* 1 - recipes */}
+      {step === 'recipes' && (
         <>
           <h2 className="page-title">cooking recipes</h2>
 
           {/* recipes buttons */}
           <div className="recipes-grid">
             {recipes.map((recipe) => (
-              <button key={recipe.id} className="recipe-card" onClick={() => handleRecipeClick(recipe)}>
+              <button key={recipe.id} className="recipe-card" onClick={() => { handleRecipeClick(recipe); ('select-time'); }}>
                 <img src={recipe.img} alt="" draggable="false"/>
               </button>
             ))}
@@ -79,7 +79,9 @@ const Timer = ({ onBack }) => {
             <button onClick={onBack} className="button-center1">home</button>
           </div>
         </>
-      ) : (
+      )}
+      {/* 2 - select time/minutes */}
+      {step === 'select-time' && (
         <>
           <h2 className="page-title">select timer</h2>
           <h3 className="page-subtitle">minutes</h3>
@@ -87,26 +89,44 @@ const Timer = ({ onBack }) => {
           <div className="time-picker-container">
             {/* numbers list with scroll */}
             <div className="time-list">
-              {[...Array(60)].map((_, i) => {
-                const minute = i + 1;
-                return (
-                  <div 
-                    key={minute} 
-                    className={`time-item ${selectedTime === minute ? 'active' : ''}`}
-                    onClick={() => setSelectedTime(minute)}
-                  >
-                    {minute.toString().padStart(2, '0')}
-                  </div>
-                );
-              })}
+              {[...Array(60)].map((_, i) => (
+              <div 
+                key={i+1} 
+                className={`time-item ${selectedTime === i+1 ? 'active' : ''}`}
+                onClick={() => setSelectedTime(i+1)}
+              >
+                {(i+1).toString().padStart(2, '0')}
+              </div>
+              ))}
             </div>
           </div>
 
           <div className="button-group">
             <button className="button-left" onClick={() => setStep('countdown')}>confirm</button>
-            <button onClick={() => setStep('recipes')} className="button-right">back</button>
+            <button className="button-right" onClick={() => setStep('recipes')} >back</button>
           </div>
         </>
+      )}
+
+      {/* 3 - countdown */}
+      {step === 'countdown' && (
+        <>
+          <h2 className="page-title">your recipe is done in ...</h2>
+        <div>  
+          <div className="selected-recipe-display">
+            <img src={selectedRecipe?.img} alt=""/>
+          </div>
+
+          <div className="timer-display">
+            {selectedTime.toString().padStart(2, '0')} : 00
+          </div>
+
+          <div className="button-group">
+            <button className="button-left">start</button>
+            <button onClick={onBack} className="button-right">home</button>
+          </div>
+        </div>
+      </>
       )}
     </div>
   );

@@ -244,6 +244,7 @@ input, textarea {
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
+  white-space: nowrap; /* text in only 1 line */
 }
 
 /* 1 button in the end of the page */
@@ -693,8 +694,34 @@ input, textarea {
 }
 
 /* ======= timer 3rd page ======= */
-/*  */
+/* recipe square */
+.selected-recipe-display {
+  background: var(--colour-hammy-beige-dark);
+  padding: 30px;
+  border-radius: 20px;
+  margin: 20px 0;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  position: absolute;
+  bottom: 35%;
+  left: 30%;
+  justify-content: center;
+  align-items: center;
+  image-rendering: pixelated;
+}
 
+/* timer countdown */
+.timer-display {
+  font-family: var(--font-pixel-2);
+  font-size: 30px;
+  color: var(--colour-hammy-beige);
+  letter-spacing: 5px;
+  margin: 15px 0;
+  position: absolute;
+  bottom: 20%;
+  left: 32.5%;
+}
 
 /* =========
     HISTORY
