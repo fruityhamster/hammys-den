@@ -106,6 +106,28 @@ input, textarea {
   background-color: var(--colour-hammy-brown);
 }
 
+/* =========== buttons =========== */
+
+/* hover effect */
+.grid-button:hover,
+.min-close-buttons:hover,
+.add-button:hover,
+.button-center1:hover,
+.recipe-card:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1.5px);
+}
+
+/* click effect */
+.grid-button:active,
+.min-close-buttons:active,
+.add-button:active,
+.button-center1:active,
+.recipe-card:active {
+  border-bottom-width: 0;
+  transform: translateY(1px);
+}
+
 /* ===========
     DASHBOARD
    =========== */
@@ -159,24 +181,6 @@ input, textarea {
 .grid-button span {
   position: absolute;
   bottom: -35px;
-}
-
-/* hover effect */
-.grid-button:hover,
-.min-close-buttons:hover,
-.add-button:hover,
-.button-center1:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1.5px);
-}
-
-/* click effect */
-.grid-button:active,
-.min-close-buttons:active,
-.add-button:active,
-.button-center1:active {
-  border-bottom-width: 0;
-  transform: translateY(1px);
 }
 
 /* calendar */
@@ -572,7 +576,49 @@ input, textarea {
     TIMER
    ======= */
 
-/*  */
+/* recipes grid (for the squares) */
+.recipes-grid {
+  display: grid;
+  position: absolute;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  /* fixed height so scrolling exists */
+  width: 390px;
+  height: 320px; 
+  padding-top: 2px; /* for the button animation*/
+  padding-bottom: 2px; /* for the button animation*/
+  top: 25%;
+  left: 8%;
+  overflow-y: auto; /* activates the scroll when multiple items exist */
+  /* scroll bar */
+  scrollbar-width: thin;
+  scrollbar-color: #5c3a2e transparent;
+}
+
+/* recipe card (square) */
+.recipe-card {
+  background: var(--colour-hammy-beige-dark);
+  height: 180px;
+  width: 180px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* button shadow */
+  border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* image inside the square (food/drink) */
+.recipe-card img {
+  width: 90%; 
+  height: 90%; 
+  object-fit: contain;  
+  image-rendering: pixelated;
+}
 
 /* =========
     HISTORY
