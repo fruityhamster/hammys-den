@@ -85,22 +85,31 @@ const Timer = ({ onBack }) => {
           <h3 className="page-subtitle">minutes</h3>
 
           <div className="time-picker-container">
-              {/* numbers list with scroll */}
-              <div className="time-list">
-                  {[...Array(60)].map((_, i) => (
-                    <div key={i} className="time-item">{(i + 1).toString().padStart(2, '0')}</div>
-                  ))}
-              </div>
+            {/* numbers list with scroll */}
+            <div className="time-list">
+              {[...Array(60)].map((_, i) => {
+                const minute = i + 1;
+                return (
+                  <div 
+                    key={minute} 
+                    className={`time-item ${selectedTime === minute ? 'active' : ''}`}
+                    onClick={() => setSelectedTime(minute)}
+                  >
+                    {minute.toString().padStart(2, '0')}
+                  </div>
+                );
+              })}
             </div>
+          </div>
 
-            <div className="button-group">
-              <button className="button-left" onClick={() => setStep('countdown')}>confirm</button>
-              <button onClick={() => setStep('recipes')} className="button-right">back</button>
-            </div>
-          </>
-        )}
-      </div>
-    );
+          <div className="button-group">
+            <button className="button-left" onClick={() => setStep('countdown')}>confirm</button>
+            <button onClick={() => setStep('recipes')} className="button-right">back</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Timer;

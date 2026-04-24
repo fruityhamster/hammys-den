@@ -664,7 +664,7 @@ input, textarea {
   cursor: pointer;
 }
 
-.time-item:hover {
+.time-item:hover, .time-item.active {
   background: var(--colour-hammy-beige);
 }
 
