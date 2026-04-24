@@ -1,19 +1,19 @@
 import { useState } from "react"; /* useEffect */
+/* import recipes images */
+import bubble_tea from '../assets/timer-bubble-tea.png'; 
+import sushi from '../assets/timer-sushi.png';
+import blueberry_cake from '../assets/timer-blueberry-cake.png';
+import pancakes from '../assets/timer-pancakes.png';
 
 const Timer = ({ onBack }) => {
-  /* 
-  const [seconds, setSeconds] = useState(1500); // 25 min
-  const [running, setRunning] = useState(false);
-
-  useEffect(() => {
-    if (!running) return;
-    const interval = setInterval(() => {
-      setSeconds(prev => prev - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [running]);
-
- const formatTime = (sec) => `${Math.floor(sec/60)}:${sec % 60 < 10 ? "0" : ""}${sec % 60}`; */
+  
+  // recipes images (add here for future images)
+  const recipes = [
+  { id: 1, name: 'bubble_tea', img: bubble_tea },
+  { id: 2, name: 'sushi', img: sushi },
+  { id: 3, name: 'blueberry_cake', img: blueberry_cake },
+  { id: 4, name: 'pancakes', img: pancakes },
+];
 
   // minimize app
   const minimizeApp = () => {
@@ -49,9 +49,16 @@ const Timer = ({ onBack }) => {
       </div>
       <div className="base-background"></div>
 
-      <h2 className="page-title">timer</h2>
+      <h2 className="page-title">cooking recipes</h2>
 
-
+      {/* recipes buttons */}
+      <div className="recipes-grid">
+        {recipes.map((recipe) => (
+          <button key={recipe.id} className="recipe-card">
+            <img src={recipe.img} alt="" draggable="false"/>
+          </button>
+        ))}
+      </div>
 
       {/* "home" button */}
       <div className="flex justify-center">
