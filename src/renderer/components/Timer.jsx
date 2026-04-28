@@ -1,4 +1,4 @@
-import { useState } from "react"; /* useEffect */
+import { useState, useEffect } from "react";
 /* import recipes images */
 import bubble_tea from '../assets/timer-bubble-tea.png'; 
 import sushi from '../assets/timer-sushi.png';
@@ -18,7 +18,11 @@ const Timer = ({ onBack }) => {
   const [step, setStep] = useState('recipes');
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-
+  const [secondsLeft, setSecondsLeft] = useState(0); // all secounds
+  const [isActive, setIsActive] = useState(false); // counting or paused
+  const minutes = Math.floor(secondsLeft / 60);
+  const seconds = secondsLeft % 60;
+  const [endDate, setEndDate] = useState('');
 
   // function called when cliking on the food
   const handleRecipeClick = (recipe) => {
@@ -26,15 +30,35 @@ const Timer = ({ onBack }) => {
     setStep('select-time');
   };
   
-  // function for the minutes selection and confirm button
+  // convert minutes to seconds
   const handleConfirmTime = () => {
-    // if there's no time selected - blocks
-    if (!selectedTime) {
-      return; 
-    }
-    // of there's time selected - moves to 'countdown'
+    if (!selectedTime) return;
+    setSecondsLeft(selectedTime * 60);
     setStep('countdown');
   };
+
+  // if timer is active: -1sec
+  useEffect(() => {
+    let interval = null;
+
+    if (isActive && secondsLeft > 0) {
+      interval = setInterval(() => {
+        setSecondsLeft((seconds) => seconds - 1);
+      }, 1000);
+    } else if (secondsLeft === 0 && isActive) {
+      setIsActive(false);
+      clearInterval(interval);
+
+      // Captura a data atual e formata como DD-MM-AAAA
+      const now = new Date();
+      const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
+      
+      setEndDate(formattedDate);
+      setStep('finished');
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, secondsLeft]);
 
   // minimize app
   const minimizeApp = () => {
@@ -78,7 +102,7 @@ const Timer = ({ onBack }) => {
           {/* recipes buttons */}
           <div className="recipes-grid">
             {recipes.map((recipe) => (
-              <button key={recipe.id} className="recipe-card" onClick={() => { handleRecipeClick(recipe); ('select-time'); }}>
+              <button key={recipe.id} className="recipe-card" onClick={() => { handleRecipeClick(recipe) }}>
                 <img src={recipe.img} alt="" draggable="false"/>
               </button>
             ))}
@@ -113,7 +137,7 @@ const Timer = ({ onBack }) => {
 
           <div className="button-group">
             <button className={`button-left ${!selectedTime ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={handleConfirmTime}>confirm</button>
-            <button className="button-right" onClick={() => setStep('recipes')} >back</button>
+            <button className="button-right" onClick={() => setStep('recipes')}>back</button>
           </div>
         </>
       )}
@@ -128,16 +152,35 @@ const Timer = ({ onBack }) => {
           </div>
 
           <div className="timer-display">
-            {selectedTime.toString().padStart(2, '0')} : 00
+            {minutes.toString().padStart(2, '0')} : {seconds.toString().padStart(2, '0')}
           </div>
 
           <div className="button-group">
-            <button className="button-left">start</button>
-            <button onClick={onBack} className="button-right">home</button>
+            <button className="button-left" onClick={() => setIsActive(!isActive)}>{!isActive && secondsLeft === selectedTime * 60 ? 'start' : isActive ? 'pause' : 'continue'}</button>
+            <button onClick={onBack} className="button-right">cancel</button>
           </div>
         </div>
       </>
       )}
+      {/* 4 - finished */}
+      {step === 'finished' && (
+        <>
+          <h2 className="page-title">your recipe is ready! enjoy!</h2>
+          
+          <div className="selected-recipe-display">
+            <img src={selectedRecipe?.img} alt="" className="pulse-animation" />
+          </div>
+
+          <p className="finished">you focused for</p>
+          <p className="finished-day-date"> {selectedTime} {selectedTime === 1 ? 'minute' : 'minutes'} on {endDate}</p>
+
+          <div className="button-group">
+            <button className="button-left" onClick={() => {setStep('recipes'); setSelectedTime(null); setIsActive(false)}}>summary</button>
+            <button onClick={onBack} className="button-right">home</button>
+          </div>
+        </>
+      )}
+
     </div>
   );
 };
