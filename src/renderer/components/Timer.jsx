@@ -171,8 +171,12 @@ const Timer = ({ onBack }) => {
             <img src={selectedRecipe?.img} alt="" className="pulse-animation" />
           </div>
 
-          <p className="finished">you focused for</p>
-          <p className="finished-day-date"> {selectedTime} {selectedTime === 1 ? 'minute' : 'minutes'} on {endDate}</p>
+          <p className="finished">you focused for{' '}
+            <br />
+            <span className="finished-number">{selectedTime}</span>
+            {' '}{selectedTime === 1 ? 'minute' : 'minutes'} on{' '}
+            <span className="finished-number">{endDate}</span>
+          </p>
 
           <div className="button-group">
             <button className="button-left" onClick={() => {setStep('recipes'); setSelectedTime(null); setIsActive(false)}}>summary</button>

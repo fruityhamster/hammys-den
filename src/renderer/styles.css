@@ -714,38 +714,33 @@ input, textarea {
 /* timer countdown */
 .timer-display {
   font-family: var(--font-pixel-2);
-  font-size: 30px;
+  font-size: 36px;
   color: var(--colour-hammy-beige);
   letter-spacing: 5px;
   margin: 15px 0;
   position: absolute;
   bottom: 20%;
-  left: 32.5%;
+  left: 29%;
 }
 
 /* =========
     HISTORY
    ========= */
 
-/*  */
+/* finished recipe page - text */
 .finished {
-  font-family: var(--font-pixel-1);
   color: var(--colour-hammy-beige);
-  position: absolute;
-  font-size: 22px;
-  bottom: 28%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap; /* text in only 1 line */
-}
-
-.finished-day-date {
-  font-family: var(--font-pixel-1);
-  color: var(--colour-hammy-beige);
+  text-align: center;
   position: absolute;
   font-size: 22px;
   bottom: 22%;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap; /* text in only 1 line */
+}
+
+/* text - number */
+.finished-number {
+  font-family: var(--font-pixel-2);
+  font-size: 19px;
 }
