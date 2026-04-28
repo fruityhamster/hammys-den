@@ -677,7 +677,7 @@ input, textarea {
   flex-direction: row;
   justify-content: center;
   gap: 15px;
-  width: 90%;
+  width: 85%;
 }
 
 /* buttons (2) */
@@ -723,10 +723,7 @@ input, textarea {
   left: 29%;
 }
 
-/* =========
-    HISTORY
-   ========= */
-
+/* ======== timer 4th page ======== */
 /* finished recipe page - text */
 .finished {
   color: var(--colour-hammy-beige);
@@ -739,8 +736,39 @@ input, textarea {
   white-space: nowrap; /* text in only 1 line */
 }
 
-/* text - number */
+/* finished recipe page - text (number) */
 .finished-number {
   font-family: var(--font-pixel-2);
   font-size: 19px;
 }
+
+/* text container */
+.summary-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 23%;
+    left: 10%;
+}
+
+/* ======== timer 5th page ======== */
+/* inside text container */
+.summary-text {
+  width: 360px;
+  height: 310px;
+  background-color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 14px;
+  color: var(--colour-hammy-brown-dark);
+  border-radius: 20px;
+  padding: 20px;
+  resize: none; /* prevents resizing the text box */
+  outline: none; /* removes outline when clicking in the box */
+  line-height: 1.5;
+  scrollbar-width: none;
+}
+
+/* =========
+    HISTORY
+   ========= */
+/*  */
