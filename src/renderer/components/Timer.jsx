@@ -23,6 +23,7 @@ const Timer = ({ onBack }) => {
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;
   const [endDate, setEndDate] = useState('');
+  const [summaryText, setSummaryText] = useState('> '); // starts with 1st topic
 
   // function called when cliking on the food
   const handleRecipeClick = (recipe) => {
@@ -59,6 +60,48 @@ const Timer = ({ onBack }) => {
 
     return () => clearInterval(interval);
   }, [isActive, secondsLeft]);
+
+  const handleSummaryKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Impede o Enter normal de apenas saltar a linha
+      setSummaryText(prev => prev + '\n> '); // Adiciona linha nova + o símbolo
+    }
+  };
+
+  const handleSummaryChange = (e) => {
+    const value = e.target.value;
+    // Garante que o utilizador não apaga o primeiro ">" por acidente
+    if (!value.startsWith('> ')) {
+      setSummaryText('> ' + value.replace(/^>+/, '').trimStart());
+    } else {
+      setSummaryText(value);
+    }
+  };
+
+  const handleSaveSummary = () => {
+    // 1. Criar o objeto da sessão atual
+    const newSession = {
+      id: Date.now(), // ID único baseado no tempo
+      recipe: selectedRecipe.name,
+      img: selectedRecipe.img,
+      duration: selectedTime,
+      date: endDate,
+      notes: summaryText
+    };
+
+    // 2. Obter o histórico antigo do LocalStorage (ou criar um vazio)
+    const existingHistory = JSON.parse(localStorage.getItem('focusHistory')) || [];
+
+    // 3. Adicionar a nova sessão ao início da lista
+    const updatedHistory = [newSession, ...existingHistory];
+
+    // 4. Guardar de volta no LocalStorage
+    localStorage.setItem('focusHistory', JSON.stringify(updatedHistory));
+
+    // 5. Feedback visual e voltar para a Home
+    console.log("Sessão guardada com sucesso!");
+    onBack(); // Volta para o ecrã inicial da app
+  };
 
   // minimize app
   const minimizeApp = () => {
@@ -162,6 +205,7 @@ const Timer = ({ onBack }) => {
         </div>
       </>
       )}
+
       {/* 4 - finished */}
       {step === 'finished' && (
         <>
@@ -179,8 +223,30 @@ const Timer = ({ onBack }) => {
           </p>
 
           <div className="button-group">
-            <button className="button-left" onClick={() => {setStep('recipes'); setSelectedTime(null); setIsActive(false)}}>summary</button>
-            <button onClick={onBack} className="button-right">home</button>
+            <button className="button-left" onClick={() => {setStep('summary'); setSelectedTime(null); setIsActive(false)}}>summary</button>
+            <button className="button-right" onClick={onBack}>home</button>
+          </div>
+        </>
+      )}
+
+      {/* 5 - summary */}
+      {step === 'summary' && (
+        <>
+          <h2 className="page-title">summary</h2>
+
+          <div className="summary-container">
+            <textarea
+              className="summary-text"
+              value={summaryText}
+              onChange={handleSummaryChange}
+              onKeyDown={handleSummaryKeyDown}
+              spellCheck="false"
+            />
+          </div>
+
+          <div className="button-group">
+            <button className="button-left" onClick={handleSaveSummary}>save</button>
+            <button className="button-right" onClick={onBack}>home</button>
           </div>
         </>
       )}
