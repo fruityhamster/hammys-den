@@ -26,6 +26,16 @@ const Timer = ({ onBack }) => {
     setStep('select-time');
   };
   
+  // function for the minutes selection and confirm button
+  const handleConfirmTime = () => {
+    // if there's no time selected - blocks
+    if (!selectedTime) {
+      return; 
+    }
+    // of there's time selected - moves to 'countdown'
+    setStep('countdown');
+  };
+
   // minimize app
   const minimizeApp = () => {
       if (window.require) {
@@ -102,7 +112,7 @@ const Timer = ({ onBack }) => {
           </div>
 
           <div className="button-group">
-            <button className="button-left" onClick={() => setStep('countdown')}>confirm</button>
+            <button className={`button-left ${!selectedTime ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={handleConfirmTime}>confirm</button>
             <button className="button-right" onClick={() => setStep('recipes')} >back</button>
           </div>
         </>
