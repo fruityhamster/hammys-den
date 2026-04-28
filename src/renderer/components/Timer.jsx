@@ -50,7 +50,7 @@ const Timer = ({ onBack }) => {
       setIsActive(false);
       clearInterval(interval);
 
-      // Captura a data atual e formata como DD-MM-AAAA
+      // gets the atual date and formats DD-MM-AAAA
       const now = new Date();
       const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
       
@@ -63,14 +63,14 @@ const Timer = ({ onBack }) => {
 
   const handleSummaryKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Impede o Enter normal de apenas saltar a linha
-      setSummaryText(prev => prev + '\n> '); // Adiciona linha nova + o símbolo
+      e.preventDefault(); // prevents Enter to skip a line
+      setSummaryText(prev => prev + '\n> '); //adds a new line + symbol
     }
   };
 
   const handleSummaryChange = (e) => {
     const value = e.target.value;
-    // Garante que o utilizador não apaga o primeiro ">" por acidente
+    // prevents the user from deleting the 1st ">"
     if (!value.startsWith('> ')) {
       setSummaryText('> ' + value.replace(/^>+/, '').trimStart());
     } else {
@@ -79,9 +79,9 @@ const Timer = ({ onBack }) => {
   };
 
   const handleSaveSummary = () => {
-    // 1. Criar o objeto da sessão atual
+    // create the object from the session
     const newSession = {
-      id: Date.now(), // ID único baseado no tempo
+      id: Date.now(), // id based on the time
       recipe: selectedRecipe.name,
       img: selectedRecipe.img,
       duration: selectedTime,
@@ -89,18 +89,16 @@ const Timer = ({ onBack }) => {
       notes: summaryText
     };
 
-    // 2. Obter o histórico antigo do LocalStorage (ou criar um vazio)
+    // get the old history in the LocalStorage (or creates an empty one)
     const existingHistory = JSON.parse(localStorage.getItem('focusHistory')) || [];
 
-    // 3. Adicionar a nova sessão ao início da lista
+    // adds a new session in the beggining of the list
     const updatedHistory = [newSession, ...existingHistory];
 
-    // 4. Guardar de volta no LocalStorage
+    // saves it back to LocalStorage
     localStorage.setItem('focusHistory', JSON.stringify(updatedHistory));
 
-    // 5. Feedback visual e voltar para a Home
-    console.log("Sessão guardada com sucesso!");
-    onBack(); // Volta para o ecrã inicial da app
+    onBack(); // goes back to the Dashboard
   };
 
   // minimize app
@@ -157,6 +155,7 @@ const Timer = ({ onBack }) => {
           </div>
         </>
       )}
+      
       {/* 2 - select time/minutes */}
       {step === 'select-time' && (
         <>
