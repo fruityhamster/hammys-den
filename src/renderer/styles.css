@@ -699,7 +699,7 @@ input, textarea {
 /* recipe square */
 .selected-recipe-display {
   background: var(--colour-hammy-beige-dark);
-  padding: 30px;
+  padding: 10px;
   border-radius: 20px;
   margin: 20px 0;
   width: 180px;
