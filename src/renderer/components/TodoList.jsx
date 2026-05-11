@@ -1,34 +1,66 @@
 // src/renderer/components/TodoList.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import seedImg from '../assets/dashboard-almond.png';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+const { ipcRenderer } = window.require('electron');
+
+// temporary variable for communication with DB
+const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
 
 // the component has 'onBack' as a property so home button functions
 const TodoList = ({ onBack }) => {
   // state to control what the user writes in the input
   const [taskInput, setTaskInput] = useState('');
-  
   // state to save task list (starts empty)
   const [tasks, setTasks] = useState([]);
 
-  // function to add a new task
-  const addNewSeed = () => {
-    if (taskInput.trim()) {
-      // new task
-      const newSeed = {
-        id: Date.now(),
-        text: taskInput,
-        germinated: false // task 'not completed'
-      };
-      // add task to the list
-      setTasks([...tasks, newSeed]);
-      // cleans input
-      setTaskInput('');
+  // load tasks from database
+  useEffect(() => {
+    async function loadTasks() {
+      const dbTasks = await ipcRenderer.invoke('get-tasks', TEMP_USER_ID);
+      
+      // names changed
+      const formattedTasks = dbTasks.map(t => ({
+        id: t.id,
+        text: t.title,
+        completed: t.isCompleted,
+        position: t.position
+      }));
+      
+      setTasks(formattedTasks);
     }
+    loadTasks();
+  }, []);
+
+  // function to add a new task
+  const addNewSeed = async () => {
+    if (taskInput.trim()) {
+      try {
+        // new task
+        const newTask = await ipcRenderer.invoke('add-task', {
+          title: taskInput,
+          userId: TEMP_USER_ID,
+          isCompleted: false,
+          position: tasks.length
+        });
+        
+        const newSeed = {
+          id: newTask.id,
+          text: newTask.title,
+          completed: newTask.isCompleted,
+          position: newTask.position
+        };
+
+        setTasks([...tasks, newSeed]);
+        setTaskInput('');
+      } catch (error) {
+        console.error("Erro ao guardar tarefa:", error);
+      }
+    } 
   };
 
   // allows the user to order the tasks
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     if (!result.destination) return;
 
     const items = Array.from(tasks);
@@ -36,18 +68,49 @@ const TodoList = ({ onBack }) => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     setTasks(items); // updates the state with the new order
+
+    // save new order
+    try {
+      // goes through the list looking at the positions. loop to give too each task a number 
+      for (let i = 0; i < items.length; i++) {
+        await ipcRenderer.invoke('update-task', {
+          id: items[i].id,
+          data: { position: i }
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao guardar nova ordem:", error);
+    }
   };
 
   // function to change the conclusion state (cross out)
-  const toggleComplete = (id) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+  const toggleComplete = async (id) => {
+    const taskToUpdate = tasks.find(t => t.id === id);
+    const newStatus = !taskToUpdate.completed;
+
+    try {
+      await ipcRenderer.invoke('update-task', {
+        id: id,
+        data: { isCompleted: newStatus }
+      });
+
+      setTasks(tasks.map(task => 
+        task.id === id ? { ...task, completed: newStatus } : task
+      ));
+    } catch (error) {
+      console.error("Erro ao atualizar tarefa:", error);
+    }
   };
 
   // function to delete task
-  const deleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const deleteTask = async (id) => {
+    try {
+      await ipcRenderer.invoke('delete-task', id);
+
+      setTasks(tasks.filter(task => task.id !== id));
+    } catch (error) {
+      console.error("Erro ao apagar tarefa:", error);
+    }
   };
 
   // minimize app
@@ -66,9 +129,7 @@ const TodoList = ({ onBack }) => {
     // close app
     const closeApp = () => {
         // wait for animation
-        setTimeout(() => {
-            window.close();
-        }, 150);
+        setTimeout(() => window.close(), 150);
     };
 
   return (

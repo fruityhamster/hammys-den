@@ -1,6 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+/* import recipes images */
+import bubble_tea from '../assets/timer-bubble-tea.png'; 
+import sushi from '../assets/timer-sushi.png';
+import blueberry_cake from '../assets/timer-blueberry-cake.png';
+import pancakes from '../assets/timer-pancakes.png';
+const { ipcRenderer } = window.require('electron');
 
-const History = ({ onBack }) => {
+// temporary variable for communication with DB
+const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
+
+const History = ({ onBack, onEditSession }) => {
+  const [sessions, setSessions] = useState([]);
+
+  // dictionary to connect the text from BD to the real image (add here for future images)
+  const recipeImages = {
+    bubble_tea,
+    sushi,
+    blueberry_cake,
+    pancakes
+  };
+
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const data = await ipcRenderer.invoke('get-sessions', TEMP_USER_ID);
+        setSessions(data);
+      } catch (error) {
+        console.error("Erro ao carregar histórico:", error);
+      }
+    };
+
+    loadHistory();
+  }, []);
+
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
+  };
 
   // minimize app
   const minimizeApp = () => {
@@ -38,8 +74,21 @@ const History = ({ onBack }) => {
 
       <h2 className="page-title">history</h2>
 
-
-
+      <div className="history-grid">
+        {sessions.map((session) => (
+          <button key={session.id} onClick={() => onEditSession(session)} className="history-grid-button">
+            <div className="history-card">
+              <img src={recipeImages[session.recipe]} alt="" draggable="false" />
+            </div>
+              <p className="history-text">
+                <span className="history-text-number">{session.duration}</span>
+                {' '} {session.duration === 1 ? 'minute' : 'minutes'} on {' '}
+                <span className="history-text-number">{formatDate(session.createdAt)}</span>
+              </p>
+          </button>
+        ))}
+      </div>
+    
       {/* "home" button */}
       <div className="flex justify-center">
         <button onClick={onBack} className="button-center1">home</button>

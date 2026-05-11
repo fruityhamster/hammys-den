@@ -1,11 +1,120 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { default as LibCalendar } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import seedImg from '../assets/dashboard-almond.png';
+const { ipcRenderer } = window.require('electron');
+
+// temporary variable for communication with DB
+const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
 
 const CalendarPage = ({ onBack }) => {
 
   const [date, setDate] = useState(new Date());
+  const [view, setView] = useState("calendar");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [tasksByDate, setTasksByDate] = useState({});
+  // state to control what the user writes in the input
+  const [taskInput, setTaskInput] = useState('');
+  // function to add a new task
+  const [taskTime, setTaskTime] = useState("");
+
+  // load BD events
+  useEffect(() => {
+    async function loadEvents() {
+      try {
+        const dbEvents = await ipcRenderer.invoke('get-events', TEMP_USER_ID);
+        
+        // transform the list in the date format wanted { "2026-05-07": [...] }
+        const organized = {};
+
+        dbEvents.forEach(ev => {
+          try {
+            // extract only the YYYY-MM-DD part of the date from ISOString
+            const d = new Date(ev.startDate);
+            if (isNaN(d.getTime())) return; // ignores if invalid date
+
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            
+            if (!organized[dateStr]) organized[dateStr] = [];
+            
+            // time + text = tittle. "HH:mm | description"
+            organized[dateStr].push({
+              id: ev.id,
+              time: ev.title.includes(' | ') ? ev.title.split(' | ')[0] : "",
+              text: ev.title.includes(' | ') ? ev.title.split(' | ')[1] : ev.title,
+              completed: ev.completed || false
+            });
+          } catch (e) {
+            console.error("Erro ao processar evento individual:", e);
+          }
+        });
+        setTasksByDate(organized);
+      } catch (err) {
+        console.error("Erro ao carregar eventos:", err);
+      }
+    }
+    loadEvents();
+  }, []);
+
+  // add new tasks
+  const addNewSeed = async () => {
+    if (taskInput.trim() === "" || !selectedDate) return;
+
+    try {
+      // completed date matching selectedDate (YYYY-MM-DD) com taskTime (HH:mm)
+      const combinedDateTime = new Date(`${selectedDate}T${taskTime || "00:00"}:00`);
+
+      const newEvent = await ipcRenderer.invoke('add-event', {
+        title: `${taskTime} | ${taskInput}`, // time + text = tittle
+        startDate: combinedDateTime,
+        userId: TEMP_USER_ID,
+        allDay: false
+      });
+
+      const newTask = {
+        id: newEvent.id,
+        time: taskTime,
+        text: taskInput,
+        completed: false
+      };
+
+      setTasksByDate(prev => ({
+        ...prev,
+        [selectedDate]: [...(prev[selectedDate] || []), newTask]
+      }));
+
+      setTaskTime("");
+      setTaskInput("");
+    } catch (err) {
+      console.error("Erro ao adicionar evento:", err);
+    }
+  };
+
+  // delete BD events
+  const deleteTask = async (id) => {
+    try {
+      await ipcRenderer.invoke('delete-event', id);
+      setTasksByDate(prev => ({
+        ...prev,
+        [selectedDate]: (prev[selectedDate] || []).filter(task => task.id !== id)
+      }));
+    } catch (err) {
+      console.error("Erro ao apagar evento:", err);
+    }
+  };
+
+  // filter and order tasks from the selected day
+  const currentTasksUnsorted = (selectedDate && tasksByDate[selectedDate]) ? tasksByDate[selectedDate] : [];
+
+  const currentTasks = [...currentTasksUnsorted].sort((a, b) => {
+    if (!a.time && b.time) return 1;
+    if (a.time && !b.time) return -1;
+    if (a.time && b.time) return a.time.localeCompare(b.time);
+    return 0;
+  });
 
   // function to add especial classes to days
   const getTileClassName = ({ date: tileDate, view }) => {
@@ -17,7 +126,7 @@ const CalendarPage = ({ onBack }) => {
 
       let classes = "";
       
-      // if it's today, add 'is-today'
+      // if it's today, add "is-today"
       if (isToday) classes += " is-today";
       
       // if it's weekend (Sábado=6, Domingo=0)
@@ -43,10 +152,6 @@ const CalendarPage = ({ onBack }) => {
     return null;
   };
 
-  const [view, setView] = useState("calendar");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [tasksByDate, setTasksByDate] = useState({});
-
   // function to open tasks from the selected day
   const handleDayClick = (date) => {
     // local methods to prevent skipping days
@@ -60,65 +165,32 @@ const CalendarPage = ({ onBack }) => {
     setView("day-tasks");
   };
 
-  // state to control what the user writes in the input
-  const [taskInput, setTaskInput] = useState('');
-
-  // function to add a new task
-  const [taskTime, setTaskTime] = useState("");
-
-  const addNewSeed = () => {
-    if (taskInput.trim() === "" || !selectedDate) return;
-
-    const newTask = {
-      id: Date.now(),
-      time: taskTime,
-      text: taskInput,
-      completed: false // task 'not completed'
-    };
-
-    setTasksByDate(prev => {
-      // gets the existing tasks list from the day (or empty)
-      const existingTasks = prev[selectedDate] || [];
-      // creates the new object with new the new task added
-      return {
-        ...prev,
-        [selectedDate]: [...existingTasks, newTask]
-      };
-    });
-    // cleans input
-    setTaskTime("");
-    setTaskInput("");
-    };
-
-  // gets the original list (or empty)
-  const currentTasksUnsorted = tasksByDate[selectedDate] || [];
-
-  // create a new orderedd version
-  const currentTasks = [...currentTasksUnsorted].sort((a, b) => {
-    // if 'a' doesn't has a time but 'b' has, 'a' goes under (vice versa)
-    if (!a.time && b.time) return 1;
-    if (a.time && !b.time) return -1;
-  
-    // if both have time, compare strings/time
-    return a.time.localeCompare(b.time);
-  });
-
   // complete button
-  const toggleComplete = (id) => {
-    setTasksByDate(prev => ({
-      ...prev,
-      [selectedDate]: (prev[selectedDate] || []).map(task =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    }));
-  };
+  const toggleComplete = async (id) => {
+    const dayTasks = tasksByDate[selectedDate] || [];
+    const taskToUpdate = dayTasks.find(t => t.id === id);
+    
+    if (!taskToUpdate) return;
 
-  // delete button
-  const deleteTask = (id) => {
-    setTasksByDate(prev => ({
-      ...prev,
-      [selectedDate]: (prev[selectedDate] || []).filter(task => task.id !== id)
-    }));
+    const newStatus = !taskToUpdate.completed;
+
+    try {
+      await ipcRenderer.invoke('update-event', {
+        id: id,
+        data: { completed: newStatus }
+      });
+
+      // update state creating a new object
+      setTasksByDate(prev => {
+        const newTasksByDate = { ...prev };
+        newTasksByDate[selectedDate] = prev[selectedDate].map(t =>
+          t.id === id ? { ...t, completed: newStatus } : t
+        );
+        return newTasksByDate;
+      });
+    } catch (err) {
+      console.error("Erro ao atualizar status:", err);
+    }
   };
 
   // function to format date (2026-04-09 to 09-04-2026)

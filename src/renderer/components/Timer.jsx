@@ -4,10 +4,14 @@ import bubble_tea from '../assets/timer-bubble-tea.png';
 import sushi from '../assets/timer-sushi.png';
 import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
+const { ipcRenderer } = window.require('electron');
 
-const Timer = ({ onBack }) => {
+// temporary variable for communication with DB
+const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
+
+const Timer = ({ onBack, editData }) => {
   
-  // recipes images (add here for future images)
+  // recipes images (add here for future images + history)
   const recipes = [
   { id: 1, name: 'bubble_tea', img: bubble_tea },
   { id: 2, name: 'sushi', img: sushi },
@@ -52,18 +56,28 @@ const Timer = ({ onBack }) => {
 
       // gets the atual date and formats DD-MM-AAAA
       const now = new Date();
-      const formattedDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
+      const displayDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
       
-      setEndDate(formattedDate);
+      setEndDate(displayDate);
       setStep('finished');
     }
-
     return () => clearInterval(interval);
-  }, [isActive, secondsLeft]);
+  }, [isActive, secondsLeft, editData]);
+
+  useEffect(() => {
+    if (editData) {
+      // if there is editing date jumps directly to summary page
+      setSelectedRecipe({ name: editData.recipe, img: editData.img });
+      setSelectedTime(editData.duration);
+      setEndDate(editData.date);
+      setSummaryText(editData.notes);
+      setStep('summary'); 
+    }
+  }, [editData]);
 
   const handleSummaryKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // prevents Enter to skip a line
+      e.preventDefault(); // prevents Enter key to skip a line
       setSummaryText(prev => prev + '\n> '); //adds a new line + symbol
     }
   };
@@ -78,29 +92,44 @@ const Timer = ({ onBack }) => {
     }
   };
 
-  const handleSaveSummary = () => {
-    // create the object from the session
-    const newSession = {
-      id: Date.now(), // id based on the time
-      recipe: selectedRecipe.name,
-      img: selectedRecipe.img,
-      duration: selectedTime,
-      date: endDate,
-      notes: summaryText
-    };
+  const handleSaveSummary = async () => {
+    try {
+      // preparing data for Prisma: if editing use original date, if new use a new date in ISO format
+      const sessionDate = editData ? new Date(editData.originalDate) : new Date();
 
-    // get the old history in the LocalStorage (or creates an empty one)
-    const existingHistory = JSON.parse(localStorage.getItem('focusHistory')) || [];
+      const sessionData = {
+        userId: TEMP_USER_ID,
+        recipe: selectedRecipe.name,
+        duration: selectedTime,
+        notes: summaryText,
+      };
 
-    // adds a new session in the beggining of the list
-    const updatedHistory = [newSession, ...existingHistory];
+      if (editData) {
+        // updating existent session
+        await ipcRenderer.invoke('update-session', {
+          id: editData.id,
+          data: {
+            notes: summaryText // change only the notes
+          }
+        });
+        console.log("Sessão atualizada na DB!");
 
-    // saves it back to LocalStorage
-    localStorage.setItem('focusHistory', JSON.stringify(updatedHistory));
+        // clears after saving
+        setSelectedTime(null);
+        onBack();
+      } else {
+        // create new session
+        await ipcRenderer.invoke('add-session', sessionData);
+        console.log("Nova sessão salva na DB!");
+      }
 
-    onBack(); // goes back to the Dashboard
+      onBack(); // back to dashboard
+    } catch (error) {
+      console.error("Erro ao salvar sessão:", error);
+      alert("Erro ao salvar na base de dados!");
+    }
   };
-
+  
   // minimize app
   const minimizeApp = () => {
       if (window.require) {
@@ -155,7 +184,7 @@ const Timer = ({ onBack }) => {
           </div>
         </>
       )}
-      
+
       {/* 2 - select time/minutes */}
       {step === 'select-time' && (
         <>
@@ -222,7 +251,7 @@ const Timer = ({ onBack }) => {
           </p>
 
           <div className="button-group">
-            <button className="button-left" onClick={() => {setStep('summary'); setSelectedTime(null); setIsActive(false)}}>summary</button>
+            <button className="button-left" onClick={() => {setStep('summary'); }}>summary</button>
             <button className="button-right" onClick={onBack}>home</button>
           </div>
         </>
