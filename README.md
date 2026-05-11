@@ -34,7 +34,12 @@ The visual idea and the final push came from content creators on YouTube. They s
 ```
 electron-app-template
 ├── node_modules/
+├── prisma/
+│   └── schema.prisma           # Database map and tables
 ├── src/
+│   ├── lib/                    
+│   │   ├── prisma.ts           # Unic configuration with Prisma Client
+│   │   └── supabase.ts         # Direct configuration to the Supabase client
 │   ├── main/                   # Electron main process
 │   │   └── main.js             # Window management and OS-level logic
 │   ├── renderer/               # React Frontend Process (UI)
@@ -50,6 +55,7 @@ electron-app-template
 │   │       └── App.jsx         # Main router and state management
 │   ├── main.jsx                # React entry point (mounting the app)
 │   └── styles.css              # Global styles (CSS) and Pixel Art design variables
+├── .gitignore                  # Files Git should ignore for safety
 ├── index.html                  # HTML template for the renderer process and React root container
 ├── package-lock.json
 ├── package.json                # App metadata, scripts, and dependencies
