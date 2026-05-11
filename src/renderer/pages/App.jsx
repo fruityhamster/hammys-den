@@ -16,6 +16,13 @@ function App() {
   // function to change pages
   const navigateTo = (page) => setCurrentPage(page);
 
+  const [editingSession, setEditingSession] = useState(null);
+
+  const openHistorySession = (session) => {
+    setEditingSession(session); // saves the data from the clicked session
+    setCurrentPage('timer');    // sends the user to the timer page
+  };
+
   return (
     <div>
       {/* app chooses what to render based on the state */}
@@ -27,11 +34,9 @@ function App() {
       {/* if state changes to 'calendar' shows 'Calendar' page */}
       {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} />}
       
-      {/* if state changes to 'timer' shows 'Timer' page */}
-      {currentPage === 'timer' && <Timer onBack={() => setCurrentPage('dashboard')} />}
+      {currentPage === 'timer' && (<Timer onBack={() => { setCurrentPage('dashboard'); setEditingSession(null); }} editData={editingSession} />)}
 
-      {/* if state changes to 'history' shows 'History' page */}
-      {currentPage === 'history' && <History onBack={() => setCurrentPage('dashboard')} />}
+      {currentPage === 'history' && (<History onBack={() => setCurrentPage('dashboard')} onEditSession={openHistorySession} />)}
     </div>
   );
 }
