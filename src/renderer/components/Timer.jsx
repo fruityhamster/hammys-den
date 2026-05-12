@@ -6,10 +6,7 @@ import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
 const { ipcRenderer } = window.require('electron');
 
-// temporary variable for communication with DB
-const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
-
-const Timer = ({ onBack, editData }) => {
+const Timer = ({ onBack, editData, userId }) => {
   
   // recipes images (add here for future images + history)
   const recipes = [
@@ -65,7 +62,7 @@ const Timer = ({ onBack, editData }) => {
       // save session when countdown = 0
       const saveInitialSession = async () => {
         const sessionData = {
-          userId: TEMP_USER_ID,
+          userId: userId,
           recipe: selectedRecipe.name,
           duration: selectedTime,
           notes: "", // starts empty
@@ -116,7 +113,7 @@ const Timer = ({ onBack, editData }) => {
       const sessionDate = editData ? new Date(editData.originalDate) : new Date();
 
       const sessionData = {
-        userId: TEMP_USER_ID,
+        userId: userId,
         recipe: selectedRecipe.name,
         duration: selectedTime,
         notes: summaryText,

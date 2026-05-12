@@ -6,10 +6,7 @@ import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
 const { ipcRenderer } = window.require('electron');
 
-// temporary variable for communication with DB
-const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
-
-const History = ({ onBack, onEditSession }) => {
+const History = ({ onBack, onEditSession, userId }) => {
   const [sessions, setSessions] = useState([]);
 
   // dictionary to connect the text from BD to the real image (add here for future images)
@@ -23,7 +20,7 @@ const History = ({ onBack, onEditSession }) => {
   useEffect(() => {
     const loadHistory = async () => {
       try {
-        const data = await ipcRenderer.invoke('get-sessions', TEMP_USER_ID);
+        const data = await ipcRenderer.invoke('get-sessions', userId);
         setSessions(data);
       } catch (error) {
         console.error("Erro ao carregar histórico:", error);

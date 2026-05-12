@@ -4,10 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import seedImg from '../assets/dashboard-almond.png';
 const { ipcRenderer } = window.require('electron');
 
-// temporary variable for communication with DB
-const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
-
-const CalendarPage = ({ onBack }) => {
+const CalendarPage = ({ onBack, userId }) => {
 
   const [date, setDate] = useState(new Date());
   const [view, setView] = useState("calendar");
@@ -22,7 +19,7 @@ const CalendarPage = ({ onBack }) => {
   useEffect(() => {
     async function loadEvents() {
       try {
-        const dbEvents = await ipcRenderer.invoke('get-events', TEMP_USER_ID);
+        const dbEvents = await ipcRenderer.invoke('get-events', userId);
         
         // transform the list in the date format wanted { "2026-05-07": [...] }
         const organized = {};
@@ -70,7 +67,7 @@ const CalendarPage = ({ onBack }) => {
       const newEvent = await ipcRenderer.invoke('add-event', {
         title: `${taskTime} | ${taskInput}`, // time + text = tittle
         startDate: combinedDateTime,
-        userId: TEMP_USER_ID,
+        userId: userId,
         allDay: false
       });
 

@@ -4,11 +4,8 @@ import seedImg from '../assets/dashboard-almond.png';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 const { ipcRenderer } = window.require('electron');
 
-// temporary variable for communication with DB
-const TEMP_USER_ID = "6a259554-32b2-43dc-adb8-0a884e7d7d11";
-
 // the component has 'onBack' as a property so home button functions
-const TodoList = ({ onBack }) => {
+const TodoList = ({ onBack, userId }) => {
   // state to control what the user writes in the input
   const [taskInput, setTaskInput] = useState('');
   // state to save task list (starts empty)
@@ -17,7 +14,7 @@ const TodoList = ({ onBack }) => {
   // load tasks from database
   useEffect(() => {
     async function loadTasks() {
-      const dbTasks = await ipcRenderer.invoke('get-tasks', TEMP_USER_ID);
+      const dbTasks = await ipcRenderer.invoke('get-tasks', userId);
       
       // names changed
       const formattedTasks = dbTasks.map(t => ({
@@ -39,7 +36,7 @@ const TodoList = ({ onBack }) => {
         // new task
         const newTask = await ipcRenderer.invoke('add-task', {
           title: taskInput,
-          userId: TEMP_USER_ID,
+          userId: userId,
           isCompleted: false,
           position: tasks.length
         });
