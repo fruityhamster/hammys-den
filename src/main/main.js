@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
+import bcrypt from 'bcrypt';
 
 // defines App's ID so Windows recognises the icon in Taskbar
 app.setAppUserModelId("com.hammysden.app");
@@ -140,4 +141,33 @@ ipcMain.handle('get-sessions', async (event, userId) => {
     console.error("Erro Prisma (get-sessions):", error);
     throw error;
   }
+});
+
+// LOGIN
+// create account
+ipcMain.handle('auth-signup', async (event, { name, email, password }) => {
+  const saltRounds = 10;
+  // generates the "hidden" password
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+  return await prisma.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword, // saves the Hash, not the real password
+    },
+  });
+});
+
+// login
+ipcMain.handle('auth-login', async (event, { email, password }) => {
+  const user = await prisma.user.findUnique({ where: { email } });
+  
+  if (user) {
+    // compares the written password with the saved hash
+    const match = await bcrypt.compare(password, user.password);
+    if (match) return user;
+  }
+  
+  throw new Error('Access denied');
 });
