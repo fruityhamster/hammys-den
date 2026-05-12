@@ -108,17 +108,16 @@ ipcMain.handle('update-event', async (event, { id, data }) => {
 // TIMER
 // save/add session
 ipcMain.handle('add-session', async (event, sessionData) => {
-  return await prisma.TimerSession.create({
+  const session = await prisma.TimerSession.create({
     data: {
       duration: parseInt(sessionData.duration) || 0, // not null
       recipe: sessionData.recipe,
       notes: sessionData.notes,
       // telling Prisma: "connect this session to this user ID"
-      user: {
-        connect: { id: sessionData.userId }
-      }
+      user: {connect: { id: sessionData.userId }}
     }
   });
+  return session;
 });
 
 // update existing session (for History editing)

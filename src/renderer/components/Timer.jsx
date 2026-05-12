@@ -28,6 +28,7 @@ const Timer = ({ onBack, editData }) => {
   const seconds = secondsLeft % 60;
   const [endDate, setEndDate] = useState('');
   const [summaryText, setSummaryText] = useState('> '); // starts with 1st topic
+  const [createdSessionId, setCreatedSessionId] = useState(null);
 
   // function called when cliking on the food
   const handleRecipeClick = (recipe) => {
@@ -60,6 +61,23 @@ const Timer = ({ onBack, editData }) => {
       
       setEndDate(displayDate);
       setStep('finished');
+
+      // save session when countdown = 0
+      const saveInitialSession = async () => {
+        const sessionData = {
+          userId: TEMP_USER_ID,
+          recipe: selectedRecipe.name,
+          duration: selectedTime,
+          notes: "", // starts empty
+        };
+        
+        // saves and get back the session created
+        const newSession = await ipcRenderer.invoke('add-session', sessionData);
+        
+        // save the ID in a state to update the notes in the future
+        setCreatedSessionId(newSession.id);
+      }
+      saveInitialSession();
     }
     return () => clearInterval(interval);
   }, [isActive, secondsLeft, editData]);
@@ -108,28 +126,27 @@ const Timer = ({ onBack, editData }) => {
         // updating existent session
         await ipcRenderer.invoke('update-session', {
           id: editData.id,
-          data: {
-            notes: summaryText // change only the notes
-          }
+          data: { notes: summaryText } // change only the notes
         });
-        console.log("Sessão atualizada na DB!");
-
-        // clears after saving
-        setSelectedTime(null);
-        onBack();
-      } else {
+      } else if (createdSessionId) {
         // create new session
-        await ipcRenderer.invoke('add-session', sessionData);
-        console.log("Nova sessão salva na DB!");
+        await ipcRenderer.invoke('update-session', {
+          id: createdSessionId,
+          data: { notes: summaryText }
+        });
       }
-
+      setCreatedSessionId(null);
       onBack(); // back to dashboard
     } catch (error) {
       console.error("Erro ao salvar sessão:", error);
-      alert("Erro ao salvar na base de dados!");
-    }
+    };
   };
   
+  const handleHomeClick = async () => {
+    setCreatedSessionId(null);
+    onBack();
+  };
+
   // minimize app
   const minimizeApp = () => {
       if (window.require) {
@@ -252,7 +269,7 @@ const Timer = ({ onBack, editData }) => {
 
           <div className="button-group">
             <button className="button-left" onClick={() => {setStep('summary'); }}>summary</button>
-            <button className="button-right" onClick={onBack}>home</button>
+            <button className="button-right" onClick={handleHomeClick}>home</button>
           </div>
         </>
       )}
@@ -274,7 +291,7 @@ const Timer = ({ onBack, editData }) => {
 
           <div className="button-group">
             <button className="button-left" onClick={handleSaveSummary}>save</button>
-            <button className="button-right" onClick={onBack}>home</button>
+            <button className="button-right" onClick={handleHomeClick}>home</button>
           </div>
         </>
       )}
