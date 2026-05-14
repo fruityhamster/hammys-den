@@ -6,7 +6,20 @@ import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
 const { ipcRenderer } = window.require('electron');
 
-const History = ({ onBack, onEditSession, userId }) => {
+import ExitModal from '../components/Exit';
+import useAppControls from '../components/ButtonsME';
+
+const History = ({ onBack, onEditSession, userId, setUser }) => {
+  // ButtonsME
+  const { 
+    isModalOpen, 
+    setIsModalOpen, 
+    minimizeApp, 
+    closeApp, 
+    handleExit, 
+    handleLogout 
+  } = useAppControls(userId, setUser);
+
   const [sessions, setSessions] = useState([]);
 
   // dictionary to connect the text from BD to the real image (add here for future images)
@@ -33,27 +46,6 @@ const History = ({ onBack, onEditSession, userId }) => {
   const formatDate = (date) => {
     const d = new Date(date);
     return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
-  };
-
-  // minimize app
-  const minimizeApp = () => {
-      if (window.require) {
-          const { ipcRenderer } = window.require('electron');
-          // wait for animation
-          setTimeout(() => {
-              ipcRenderer.send('minimize-app');
-          }, 150);
-      } else {
-          console.warn("Electron IPC não encontrado");
-      };
-  };
-
-  // close app
-  const closeApp = () => {
-      // wait for animation
-      setTimeout(() => {
-          window.close();
-      }, 150);
   };
 
   return (
@@ -90,6 +82,13 @@ const History = ({ onBack, onEditSession, userId }) => {
       <div className="flex justify-center">
         <button onClick={onBack} className="button-center1">home</button>
       </div>
+      {isModalOpen && (
+        <ExitModal 
+          onCancel={() => setIsModalOpen(false)} 
+          onLogout={handleLogout} 
+          onExit={handleExit} 
+        />
+      )}
     </div>
   );
 };

@@ -6,7 +6,19 @@ import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
 const { ipcRenderer } = window.require('electron');
 
-const Timer = ({ onBack, editData, userId }) => {
+import ExitModal from '../components/Exit';
+import useAppControls from '../components/ButtonsME';
+
+const Timer = ({ onBack, editData, userId, setUser }) => {
+  // ButtonsME
+  const { 
+    isModalOpen, 
+    setIsModalOpen, 
+    minimizeApp, 
+    closeApp, 
+    handleExit, 
+    handleLogout 
+  } = useAppControls(userId, setUser);
   
   // recipes images (add here for future images + history)
   const recipes = [
@@ -144,27 +156,6 @@ const Timer = ({ onBack, editData, userId }) => {
     onBack();
   };
 
-  // minimize app
-  const minimizeApp = () => {
-      if (window.require) {
-          const { ipcRenderer } = window.require('electron');
-          // wait for animation
-          setTimeout(() => {
-              ipcRenderer.send('minimize-app');
-          }, 150);
-      } else {
-          console.warn("Electron IPC não encontrado");
-      };
-  };
-
-  // close app
-  const closeApp = () => {
-      // wait for animation
-      setTimeout(() => {
-          window.close();
-      }, 150);
-  };
-
   return (
     <div className="app-container">
       {/* superior bar (draggable) */}
@@ -292,7 +283,13 @@ const Timer = ({ onBack, editData, userId }) => {
           </div>
         </>
       )}
-
+      {isModalOpen && (
+        <ExitModal 
+          onCancel={() => setIsModalOpen(false)} 
+          onLogout={handleLogout} 
+          onExit={handleExit} 
+        />
+      )}
     </div>
   );
 };

@@ -4,8 +4,21 @@ import seedImg from '../assets/dashboard-almond.png';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 const { ipcRenderer } = window.require('electron');
 
+import ExitModal from '../components/Exit';
+import useAppControls from '../components/ButtonsME';
+
 // the component has 'onBack' as a property so home button functions
-const TodoList = ({ onBack, userId }) => {
+const TodoList = ({ onBack, userId, setUser }) => {
+  // ButtonsME
+  const { 
+    isModalOpen, 
+    setIsModalOpen, 
+    minimizeApp, 
+    closeApp, 
+    handleExit, 
+    handleLogout 
+  } = useAppControls(userId, setUser);
+
   // state to control what the user writes in the input
   const [taskInput, setTaskInput] = useState('');
   // state to save task list (starts empty)
@@ -110,25 +123,6 @@ const TodoList = ({ onBack, userId }) => {
     }
   };
 
-  // minimize app
-    const minimizeApp = () => {
-        if (window.require) {
-            const { ipcRenderer } = window.require('electron');
-            // wait for animation
-            setTimeout(() => {
-                ipcRenderer.send('minimize-app');
-            }, 150);
-        } else {
-            console.warn("Electron IPC não encontrado");
-        };
-    };
-
-    // close app
-    const closeApp = () => {
-        // wait for animation
-        setTimeout(() => window.close(), 150);
-    };
-
   return (
     <div className="app-container">
       {/* superior bar (draggable) */}
@@ -202,6 +196,13 @@ const TodoList = ({ onBack, userId }) => {
       <div className="flex justify-center">
         <button onClick={onBack} className="button-center1">home</button>
       </div>
+      {isModalOpen && (
+        <ExitModal 
+            onCancel={() => setIsModalOpen(false)} 
+            onLogout={handleLogout} 
+            onExit={handleExit} 
+        />
+      )}
     </div>
   );
 };

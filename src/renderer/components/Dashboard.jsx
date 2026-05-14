@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
+import ExitModal from '../components/Exit';
+import useAppControls from '../components/ButtonsME';
+
 // images imports
 import to_do_list from '../assets/dashboard-to-do-list.png'; 
 import calendar from '../assets/dashboard-calendar.png';
 import timer from '../assets/dashboard-timer.png';
 import history from '../assets/dashboard-history.png';
 
-const Dashboard = ({ onNavigate }) => {
+const Dashboard = ({ onNavigate, userId, setUser }) => {
+    // ButtonsME
+    const { 
+        isModalOpen, 
+        setIsModalOpen, 
+        minimizeApp, 
+        closeApp, 
+        handleExit, 
+        handleLogout 
+    } = useAppControls(userId, setUser);
+
     // date state
     const [today, setToday] = useState(new Date());
     // function checks the time every minute (60 seconds)
@@ -34,27 +47,6 @@ const Dashboard = ({ onNavigate }) => {
         { id: 'timer', label:'timer', img: timer },
         { id: 'history', label:'history', img: history },
     ];
-
-    // minimize app
-    const minimizeApp = () => {
-        if (window.require) {
-            const { ipcRenderer } = window.require('electron');
-            // wait for animation
-            setTimeout(() => {
-                ipcRenderer.send('minimize-app');
-            }, 150);
-        } else {
-            console.warn("Electron IPC não encontrado");
-        };
-    };
-
-    // close app
-    const closeApp = () => {
-        // wait for animation
-        setTimeout(() => {
-            window.close();
-        }, 150);
-    };
 
     return (
         <div className="app-container">
@@ -99,6 +91,13 @@ const Dashboard = ({ onNavigate }) => {
                     </button>
                 ))}
             </div>
+            {isModalOpen && (
+                <ExitModal 
+                    onCancel={() => setIsModalOpen(false)} 
+                    onLogout={handleLogout} 
+                    onExit={handleExit} 
+                />
+            )}
         </div>
     );
 };

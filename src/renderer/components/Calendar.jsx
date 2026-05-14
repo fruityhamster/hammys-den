@@ -4,7 +4,19 @@ import 'react-calendar/dist/Calendar.css';
 import seedImg from '../assets/dashboard-almond.png';
 const { ipcRenderer } = window.require('electron');
 
-const CalendarPage = ({ onBack, userId }) => {
+import ExitModal from '../components/Exit';
+import useAppControls from '../components/ButtonsME';
+
+const CalendarPage = ({ onBack, userId, setUser }) => {
+  // ButtonsME
+  const { 
+    isModalOpen, 
+    setIsModalOpen, 
+    minimizeApp, 
+    closeApp, 
+    handleExit, 
+    handleLogout 
+  } = useAppControls(userId, setUser);
 
   const [date, setDate] = useState(new Date());
   const [view, setView] = useState("calendar");
@@ -197,27 +209,6 @@ const CalendarPage = ({ onBack, userId }) => {
     return `${day}-${month}-${year}`;
   };
 
-  // minimize app
-  const minimizeApp = () => {
-      if (window.require) {
-          const { ipcRenderer } = window.require('electron');
-          // wait for animation
-          setTimeout(() => {
-              ipcRenderer.send('minimize-app');
-          }, 150);
-      } else {
-          console.warn("Electron IPC não encontrado");
-      };
-  };
-
-  // close app
-  const closeApp = () => {
-      // wait for animation
-      setTimeout(() => {
-          window.close();
-      }, 150);
-  };
-
   return (
     <div className="app-container">
     {/* superior bar (draggable) */}
@@ -321,6 +312,13 @@ const CalendarPage = ({ onBack, userId }) => {
       </div>
       </>
     )}
+      {isModalOpen && (
+        <ExitModal 
+          onCancel={() => setIsModalOpen(false)} 
+          onLogout={handleLogout} 
+          onExit={handleExit} 
+        />
+      )}
     </div>
   );
 };
