@@ -31,17 +31,17 @@ function App() {
   return (
     <div>
       {/* if there is an user, send the ID of the user to everything */}
-      {currentPage === 'dashboard' && (<Dashboard onNavigate={navigateTo} user={user} />)}
+      {currentPage === 'dashboard' && (<Dashboard onNavigate={navigateTo} userId={user.id} setUser={setUser}/>)}
 
       {/* if state changes to 'todo' shows 'To-do List' page */}
-      {currentPage === 'todo' && <TodoList onBack={() => setCurrentPage('dashboard')} userId={user.id} />}
+      {currentPage === 'todo' && <TodoList onBack={() => setCurrentPage('dashboard')} userId={user.id} setUser={setUser} />}
 
       {/* if state changes to 'calendar' shows 'Calendar' page */}
-      {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} userId={user.id} />}
+      {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} userId={user.id} setUser={setUser} />}
       
-      {currentPage === 'timer' && (<Timer onBack={() => { setCurrentPage('dashboard'); setEditingSession(null);}} editData={editingSession} userId={user.id} />)}
+      {currentPage === 'timer' && (<Timer onBack={() => { setCurrentPage('dashboard'); setEditingSession(null);}} editData={editingSession} userId={user.id} setUser={setUser}/>)}
 
-      {currentPage === 'history' && (<History onBack={() => setCurrentPage('dashboard')} onEditSession={openHistorySession} userId={user.id} />)}
+      {currentPage === 'history' && (<History onBack={() => setCurrentPage('dashboard')} onEditSession={openHistorySession} userId={user.id} setUser={setUser}/>)}
     </div>
   );
 }
