@@ -91,10 +91,10 @@ const Login = ({ onLoginSuccess }) => {
     };
 
     return (
-        <div className="app-container">
+        <div className="app-container" >
             {/* superior bar (draggable) */}
-            <div className="flex justify-between items-center mb-6" style={{ WebkitAppRegion: 'drag' }}>
-                <div className="main-title">hammy's den &lt;3</div>
+            <div className="flex justify-between items-center mb-6" >
+                <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
                 {/* buttons min&close (not draggable) */}
                 <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
                     <button className="min-close-buttons" onClick={minimizeApp}>_</button>
