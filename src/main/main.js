@@ -36,6 +36,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
+// for button exit app (closes app)
+ipcMain.on('force-close', () => {
+  app.quit();
+});
+
 // minimize window
 ipcMain.on('minimize-app', () => {
   const win = BrowserWindow.getFocusedWindow();
