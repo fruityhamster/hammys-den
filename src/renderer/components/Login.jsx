@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Eye, EyeOff } from 'lucide-react';
 const { ipcRenderer } = window.require('electron');
 
-const Login = ({ onLoginSuccess }) => {
+const Login = ({ onLoginSuccess, userId, setUser }) => {
+
     const [view, setView] = useState('welcome'); // 'welcome' ou 'signup'
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -84,10 +85,17 @@ const Login = ({ onLoginSuccess }) => {
         };
     };
 
-    // close app
+    // exit button
     const closeApp = () => {
-        // wait for animation
-        setTimeout(() => window.close(), 150);
+        // if the user is in login/sign up, it closes
+        if (!userId) {
+            setTimeout(() => {
+                window.close();
+            }, 150);
+        } else {
+            // if the user is logged in, shows modal
+            setIsModalOpen(true);
+        }
     };
 
     return (
