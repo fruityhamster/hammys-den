@@ -10,6 +10,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
     const [name, setName] = useState('');
     const [error, setError] = useState(null);
     const [showPassword, setShowPassword] = useState(false); // show password
+    const [rememberMe, setRememberMe] = useState(false); // remember login
 
     // function for rule validation (Regex)
     const validateFields = () => {
@@ -53,6 +54,15 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                 // login
                 const user = await ipcRenderer.invoke('auth-login', { email, password });
                 if (user) {
+                    // remember login
+                    if (rememberMe) {
+                        // saves the object as string in the PC
+                        localStorage.setItem('savedUser', JSON.stringify(user));
+                    } else {
+                        // if not checked, make sure there's nothing in there
+                        localStorage.removeItem('savedUser');
+                    }
+
                     onLoginSuccess(user);
                 } else {
                     setError("access denied, try again");
@@ -161,7 +171,16 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                         </button>
                     </div>
                 </div>
-                
+
+                {/* checkbox remember login */}
+                {view === 'welcome' && (
+                    <div className="auth-input-group" >
+                        <div className="remember-me-container">
+                            <input type="checkbox" id="remember" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+                            <label htmlFor="remember" className="auth-label">keep me logged in</label>
+                        </div>
+                    </div>
+                )}
 
                 {/* warnings */}
                 {error && (
