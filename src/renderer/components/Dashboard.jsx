@@ -9,7 +9,7 @@ import calendar from '../assets/dashboard-calendar.png';
 import timer from '../assets/dashboard-timer.png';
 import history from '../assets/dashboard-history.png';
 
-const Dashboard = ({ onNavigate, userId, setUser }) => {
+const Dashboard = ({ onNavigate, userId, user, setUser }) => {
     // ButtonsME
     const { 
         isModalOpen, 
@@ -30,7 +30,6 @@ const Dashboard = ({ onNavigate, userId, setUser }) => {
             if (now.getDate() !== today.getDate()) {
                 setToday(now);
             }
-            console.log("Verifiquei a hora!"); // for tests
         }, 60000);
         // clear timer when not in the page
         return () => clearInterval(timer);
@@ -91,6 +90,11 @@ const Dashboard = ({ onNavigate, userId, setUser }) => {
                     </button>
                 ))}
             </div>
+
+            <div className="hello-user">
+                hello {user?.name || 'Hammy'} !
+            </div>
+                
             {isModalOpen && (
                 <ExitModal 
                     onCancel={() => setIsModalOpen(false)} 

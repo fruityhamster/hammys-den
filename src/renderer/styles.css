@@ -190,6 +190,7 @@ input, textarea {
 .grid-button span {
   position: absolute;
   bottom: -35px;
+  letter-spacing: 1px;
 }
 
 /* calendar */
@@ -256,6 +257,7 @@ input, textarea {
   background-color: var(--colour-hammy-brown-dark);
   color: var(--colour-hammy-beige);
   font-family: var(--font-pixel-1);
+  letter-spacing: 1px;
   font-size: 24px;
   padding: 0px 15px;
   border-radius: 10px;
@@ -695,6 +697,7 @@ input, textarea {
   justify-content: center;
   border-radius: 10px;
   transition: transform 0.1s;
+  letter-spacing: 1px;
 }
 
 /* ======= timer 3rd page ======= */
@@ -886,9 +889,27 @@ input, textarea {
   font-size: 16px;
 }
 
+/* checkbox */
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* checkbox checked */
+.remember-me-container input[type="checkbox"] {
+    accent-color: var(--colour-hammy-brown-dark);
+    background-color: var(--colour-hammy-beige);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
 /* warning section */
 .warning-section {
-  margin-top: 10px;
+  margin-top: 5px;
   color: var(--colour-hammy-beige);
   font-size: 14px;
 }
@@ -942,7 +963,9 @@ input, textarea {
   width: 200px;  
   padding: 30px;
   border-radius: 20px;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-color: var(--colour-hammy-brown-dark);
+  border-width: 6px;
 }
 
 /* buttons container */
@@ -961,4 +984,21 @@ input, textarea {
   padding: 2px;
   border-radius: 10px;
   cursor: pointer;
+  letter-spacing: 1px;
+}
+
+/* ==============
+    HELLO *USER* 
+   ============== */
+/* hello *user name* ! */
+.hello-user {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%); /* to be in the center */
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-beige);
+  font-size: 18px;
+  opacity: 0.8;  
+  letter-spacing: 1px;
 }
