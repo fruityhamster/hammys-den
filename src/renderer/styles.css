@@ -117,7 +117,8 @@ input, textarea {
 .recipe-card:hover,
 .button-left:hover,
 .button-right:hover,
-.history-grid-button:hover {
+.history-grid-button:hover,
+.btn-modal-exit:hover {
   filter: brightness(1.1);
   transform: translateY(-1.5px);
 }
@@ -130,7 +131,8 @@ input, textarea {
 .recipe-card:active,
 .button-left:active,
 .button-right:active,
-.history-grid-button:active {
+.history-grid-button:active,
+.btn-modal-exit:active {
   border-bottom-width: 0;
   transform: translateY(1px);
 }
@@ -915,4 +917,48 @@ input, textarea {
 /* symbol apperance */
 .password-toggle svg {
   stroke-width: 1.5px;
+}
+
+/* ==========================
+    BUTTONS MIN&EXIT OVERLAY
+   ========================== */
+/* darker background (full screen) */
+.modal-overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25); /* background darker */
+  justify-content: center; /* horizontal*/
+  align-items: center; /* vertical*/
+  border-radius: 20px; /* round corners for no excess */
+}
+
+/* brown square in the back */
+.modal-content-buttonME {
+  background-color: var(--colour-hammy-brown);
+  width: 200px;  
+  padding: 30px;
+  border-radius: 20px;
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); */
+}
+
+/* buttons container */
+.modal-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* buttons logout, exit, back */
+.btn-modal-exit {
+  background-color: var(--colour-hammy-brown-dark);
+  color: var(--colour-hammy-beige);
+  font-size: 24px;
+  font-family: var(--font-pixel-1);
+  padding: 2px;
+  border-radius: 10px;
+  cursor: pointer;
 }
