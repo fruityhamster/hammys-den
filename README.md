@@ -64,6 +64,11 @@ electron-app-template
 
 ---
 
+## Download & Install App
+If you just want to use the app without touching the code, download the latest version for Windows here:
+[Download Hammy's Den v1.0.0](https://github.com/fruityhamster/hammys-den/releases/tag/v1.0.0)
+
+
 ## How to Launch App
 
 Before using this repository, make sure you have:
