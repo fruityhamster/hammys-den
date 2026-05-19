@@ -2,7 +2,7 @@
   "name": "hammys-den",
   "type": "module",
   "version": "1.0.0",
-  "main": "./src/main/main.js",
+  "main": "dist/main.js",
   "homepage": "./",
   "description": "Hammy's Den",
   "author": "fruityhamster",
@@ -10,7 +10,7 @@
     "dev": "vite",
     "electron": "electron .",
     "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\"",
-    "build": "vite build",
+    "build": "vite build && xcopy /y src\\main\\main.js dist\\",
     "dist": "npm run build && electron-builder"
   },
   "build": {
@@ -19,23 +19,43 @@
     "directories": {
       "output": "dist_electron"
     },
+    "asar": false,
     "files": [
-      "dist/**/*",
-      "./src/main/main.js",
-      "prisma/**/*",
-      "assets/**/*"
+      "dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/.prisma",
+        "to": "node_modules/.prisma"
+      },
+      {
+        "from": "node_modules/@prisma/client",
+        "to": "node_modules/@prisma/client"
+      },
+      { 
+        "from": ".env", 
+        "to": ".env" 
+      }
     ],
     "win": {
-      "target": "portable"
+      "target": "nsis",
+      "icon": "src/renderer/assets/app-icon.ico"
+    },
+    "nsis": {
+      "installerIcon": "src/renderer/assets/app-icon.ico",
+      "uninstallerIcon": "src/renderer/assets/app-icon.ico",
+      "uninstallDisplayName": "Hammy's Den",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "devDependencies": {
-    "@prisma/client": "^6.19.3",
+    "@prisma/client": "^6.1.0",
     "@vitejs/plugin-react": "^6.0.1",
     "concurrently": "^9.2.1",
     "electron": "^41.1.1",
     "electron-builder": "^26.8.1",
-    "prisma": "^6.19.3",
+    "prisma": "^6.1.0",
     "vite": "^8.0.3",
     "wait-on": "^9.0.4"
   },
@@ -44,6 +64,7 @@
     "@supabase/supabase-js": "^2.105.2",
     "@tailwindcss/vite": "^4.2.2",
     "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
     "electron-reload": "^2.0.0-alpha.1",
     "lucide-react": "^1.14.0",
     "react": "^19.2.4",
