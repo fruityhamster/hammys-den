@@ -90,16 +90,32 @@ npm -v
 ```
 If both commands return version numbers, you’re good to go 
 
-5. Data base:
+5. Environment variables:
+Create a .env file in the root folder and add your database connection string.
+
+```bash
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+```
+
+6. Database set up:
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
 ```
 
-6. Execute app:
+7. Execute app:
 ```bash
 npm run start
 ```
-
 This will launch the Electron desktop window.
-Now you can enjoy organising and focusing in the company of your adorable hammy! <3
+
+8. Building for Production:
+To create the Windows installer (.env):
+```bash
+npm run build
+```
+
+Run the packager:
+```bash
+npm run dist
+```
