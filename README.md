@@ -90,7 +90,13 @@ npm -v
 ```
 If both commands return version numbers, you’re good to go 
 
-5. Execute app:
+5. Data base:
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+6. Execute app:
 ```bash
 npm run start
 ```
