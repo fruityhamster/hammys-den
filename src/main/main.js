@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 // defines App's ID so Windows recognises the icon in Taskbar
 app.setAppUserModelId("com.hammysden.app");
