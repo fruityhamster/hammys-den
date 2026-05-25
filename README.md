@@ -21,7 +21,8 @@ The visual idea and the final push came from content creators on YouTube. They s
 
 ## Functionalities
 
-- **Dashboard Modular:** Intuitive interface for quick access to all tools.
+- **Login screen:** Easy sign up and login interface. 
+- **Dashboard Modular:** Intuitive interface for quick access to all tool - To-do List, Calendar, Timer, History.
 - **To-Do List:** Task management.
 - **Calendar:** Real-time widget that automatically updates at midnight, displaying the current date. Allows monthly viewing and adding future appointments.
 - **Timer:** Pomodoro Timer (goes up to 60 minutes) to help focus on tasks.
@@ -45,12 +46,9 @@ electron-app-template
 │   ├── renderer/               # React Frontend Process (UI)
 │   │   ├── assets/             # Pixel Art sprites and icons
 │   │   ├── components/         # Functional UI components
+│   │   │   ├── ButtonsME.jsx
 │   │   │   ├── Calendar.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── History.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Timer.jsx
-│   │   │   └── TodoList.jsx  
+│   │   │   └── (...).jsx  
 │   │   └── pages/
 │   │       └── App.jsx         # Main router and state management
 │   ├── main.jsx                # React entry point (mounting the app)
