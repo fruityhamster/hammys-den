@@ -94,10 +94,12 @@ npm -v
 If both commands return version numbers, you’re good to go 
 
 5. Environment variables:
-Create a .env file in the root folder and add your database connection string.
+Create a .env file in the root folder and add your database connection string, Supabase URL and Supabase anon key.
 
 ```bash
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+VITE_SUPABASE_URL=https://example.supabase.co
+VITE_SUPABASE_ANON_KEY=example
 ```
 
 6. Database set up:
@@ -113,7 +115,8 @@ npm run start
 This will launch the Electron desktop window.
 
 8. Building for Production:
-To create the Windows installer (.env):
+
+To create the Windows installer (.exe):
 ```bash
 npm run build
 ```
