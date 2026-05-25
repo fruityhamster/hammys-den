@@ -94,6 +94,7 @@ npm -v
 If both commands return version numbers, you’re good to go 
 
 5. Environment variables:
+
 Create a .env file in the root folder and add your database connection string, Supabase URL and Supabase anon key.
 
 ```bash
