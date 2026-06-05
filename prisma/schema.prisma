@@ -12,6 +12,7 @@ model User {
   id            String         @id @default(uuid())
   email         String         @unique
   name          String
+  userCode      String         @unique
   password      String
   createdAt     DateTime       @default(now())
   tasks         Task[]
@@ -20,22 +21,26 @@ model User {
 }
 
 model Task {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
-  isCompleted Boolean  @default(false)
-  position    Int      @default(0)
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  userCode    String
+  position    Int       @default(0)
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Event {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
   startDate DateTime
-  allDay    Boolean  @default(false)
-  completed Boolean  @default(false)
+  allDay    Boolean   @default(false)
+  completed Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  userCode  String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model TimerSession {
@@ -44,6 +49,7 @@ model TimerSession {
   recipe    String?
   notes     String?
   createdAt DateTime @default(now())
+  userCode  String
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

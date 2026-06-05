@@ -102,8 +102,16 @@ ipcMain.on('minimize-app', () => {
 // TO-DO LIST
 // add tasks
 ipcMain.handle('add-task', async (event, taskData) => {
+  const user = await prisma.user.findUnique({
+    where: { id: taskData.userId },
+    select: { userCode: true }
+  });
+
   return await prisma.task.create({
-    data: taskData
+    data: {
+      ...taskData,
+      userCode: user.userCode
+    }
   });
 });
 
@@ -141,8 +149,16 @@ ipcMain.handle('get-events', async (event, userId) => {
 
 // new event
 ipcMain.handle('add-event', async (event, eventData) => {
+  const user = await prisma.user.findUnique({
+    where: { id: eventData.userId },
+    select: { userCode: true }
+  });
+
   return await prisma.event.create({
-    data: eventData
+    data: {
+      ...eventData,
+      userCode: user.userCode
+    }
   });
 });
 
@@ -164,11 +180,17 @@ ipcMain.handle('update-event', async (event, { id, data }) => {
 // TIMER
 // save/add session
 ipcMain.handle('add-session', async (event, sessionData) => {
+  const user = await prisma.user.findUnique({
+    where: { id: sessionData.userId },
+    select: { userCode: true }
+  });
+
   const session = await prisma.TimerSession.create({
     data: {
       duration: parseInt(sessionData.duration) || 0, // not null
       recipe: sessionData.recipe,
       notes: sessionData.notes,
+      userCode: user.userCode,
       // telling Prisma: "connect this session to this user ID"
       user: {connect: { id: sessionData.userId }}
     }
@@ -205,11 +227,36 @@ ipcMain.handle('auth-signup', async (event, { name, email, password }) => {
   // generates the "hidden" password
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+  const generateUserCodeInitials = (fullName) => {
+    const words = fullName.trim().toUpperCase().split(/\s+/);
+    let initials = '';
+
+    if (words.length >= 2) {
+      initials = words[0][0] + words[words.length - 1][0];
+    } else if (words.length === 1 && words[0].length >= 2) {
+      initials = words[0].substring(0, 2);
+    } else {
+      initials = 'HM';
+    }
+
+    const randomNumber = Math.floor(100 + Math.random() * 900);
+    return `${initials}-${randomNumber}`;
+  };
+
+  let generatedCode = generateUserCodeInitials(name);
+  
+  let existCode = await prisma.user.findUnique({ where: { userCode: generatedCode } });
+  while (existCode) {
+    generatedCode = generateUserCodeInitials(name);
+    existCode = await prisma.user.findUnique({ where: { userCode: generatedCode } });
+  }
+
   return await prisma.user.create({
     data: {
       name,
       email,
       password: hashedPassword, // saves the Hash, not the real password
+      userCode: generatedCode,
     },
   });
 });
