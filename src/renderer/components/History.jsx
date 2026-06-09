@@ -7,7 +7,6 @@ import pancakes from '../assets/timer-pancakes.png';
 import ExitModal from '../components/Exit';
 import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
-import useAppControls2 from '../components/ButtonS';
 import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 const { ipcRenderer } = window.require('electron');
@@ -23,14 +22,7 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
     handleLogout 
   } = useAppControls(userId, setUser);
 
-  //ButtonS
-  const {
-    isSettingsOpen, // variable
-    setIsSettingsOpen,
-    handleAccount,
-    handleLanguage,
-    handleContact
-  } = useAppControls2();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const { t, i18n } = useTranslation();
 
@@ -117,12 +109,7 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
       )}
       {/* Settings Modal */}
       {isSettingsOpen && (
-        <SettingsModal 
-          onCancel={() => setIsSettingsOpen(false)} 
-          onAccount={handleAccount}
-          onLanguage={handleLanguage}
-          onContact={handleContact}
-        />
+        <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
       )}
     </div>
   );

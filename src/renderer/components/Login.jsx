@@ -3,19 +3,11 @@ import { Eye, EyeOff } from 'lucide-react';
 import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import SettingsModal from '../components/Settings';
-import useAppControls2 from '../components/ButtonS';
 const { ipcRenderer } = window.require('electron');
 
 const Login = ({ onLoginSuccess, userId, setUser }) => {
 
-    //ButtonS
-    const {
-        isSettingsOpen, // variable
-        setIsSettingsOpen,
-        handleAccount,
-        handleLanguage,
-        handleContact
-    } = useAppControls2();
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const { t } = useTranslation();
 
@@ -230,12 +222,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
             {/* Settings Modal */}
             {isSettingsOpen && (
-                <SettingsModal 
-                onCancel={() => setIsSettingsOpen(false)} 
-                onAccount={handleAccount}
-                onLanguage={handleLanguage}
-                onContact={handleContact}
-                />
+                <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
             )}
         </div>
     );

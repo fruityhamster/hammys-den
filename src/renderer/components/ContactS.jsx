@@ -16,12 +16,12 @@ const ContactS = ({ onBack }) => {
       <div className="contact-title">{t('contact.title')}</div>
       
       <div className="contact-info-box">
-        <p className="contact-label">{t('contact.subtitle1')}</p>
+        <p className="contact-label">{t('contact.subtittle1')}</p>
         <span className="contact-value"><Mail/>hammys.contact@gmail.com</span>
       </div>
 
       <div className="contact-info-box">
-        <p className="contact-label">{t('contact.subtitle2')}</p>
+        <p className="contact-label">{t('contact.subtittle2')}</p>
         <button className="btn-github-link" onClick={openGitHub}><FolderGit/>https://github.com/fruityhamster/hammys-den</button>
       </div>
 

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import ExitModal from '../components/Exit';
 import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
-import useAppControls2 from '../components/ButtonS';
 
 // images imports
 import to_do_list from '../assets/dashboard-to-do-list.png'; 
@@ -24,14 +23,7 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
         handleLogout 
     } = useAppControls(userId, setUser);
 
-    //ButtonS
-    const {
-        isSettingsOpen, // variable
-        setIsSettingsOpen,
-        handleAccount,
-        handleLanguage,
-        handleContact
-    } = useAppControls2();
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const { t, i18n } = useTranslation();
 
@@ -126,12 +118,7 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
 
             {/* Settings Modal */}
             {isSettingsOpen && (
-                <SettingsModal 
-                    onCancel={() => setIsSettingsOpen(false)} 
-                    onAccount={handleAccount}
-                    onLanguage={handleLanguage}
-                    onContact={handleContact}
-                />
+                <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
             )}
         </div>
     );
