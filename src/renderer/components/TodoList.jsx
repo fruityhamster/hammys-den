@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import seedImg from '../assets/dashboard-almond.png';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-const { ipcRenderer } = window.require('electron');
-
 import ExitModal from '../components/Exit';
+import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
+import useAppControls2 from '../components/ButtonS';
+import { Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+const { ipcRenderer } = window.require('electron');
 
 // the component has 'onBack' as a property so home button functions
 const TodoList = ({ onBack, userId, setUser }) => {
@@ -18,6 +21,17 @@ const TodoList = ({ onBack, userId, setUser }) => {
     handleExit, 
     handleLogout 
   } = useAppControls(userId, setUser);
+
+  //ButtonS
+  const {
+    isSettingsOpen, // variable
+    setIsSettingsOpen,
+    handleAccount,
+    handleLanguage,
+    handleContact
+  } = useAppControls2();
+
+  const { t } = useTranslation();
 
   // state to control what the user writes in the input
   const [taskInput, setTaskInput] = useState('');
@@ -130,6 +144,11 @@ const TodoList = ({ onBack, userId, setUser }) => {
         <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
         {/* buttons min&close (not draggable) */}
         <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
+            {/* settings button */}
+            <button className="min-close-buttons settings-top-btn" onClick={() => setIsSettingsOpen(true)}>
+                <Settings className="settings-icon" />
+            </button>
+
             <button className="min-close-buttons" onClick={minimizeApp}>_</button>
             <button className="min-close-buttons" onClick={closeApp}>x</button>
         </div>
@@ -201,6 +220,15 @@ const TodoList = ({ onBack, userId, setUser }) => {
             onCancel={() => setIsModalOpen(false)} 
             onLogout={handleLogout} 
             onExit={handleExit} 
+        />
+      )}
+      {/* Settings Modal */}
+      {isSettingsOpen && (
+        <SettingsModal 
+          onCancel={() => setIsSettingsOpen(false)} 
+          onAccount={handleAccount}
+          onLanguage={handleLanguage}
+          onContact={handleContact}
         />
       )}
     </div>

@@ -4,10 +4,13 @@ import bubble_tea from '../assets/timer-bubble-tea.png';
 import sushi from '../assets/timer-sushi.png';
 import blueberry_cake from '../assets/timer-blueberry-cake.png';
 import pancakes from '../assets/timer-pancakes.png';
-const { ipcRenderer } = window.require('electron');
-
 import ExitModal from '../components/Exit';
+import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
+import useAppControls2 from '../components/ButtonS';
+import { Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+const { ipcRenderer } = window.require('electron');
 
 const Timer = ({ onBack, editData, userId, setUser }) => {
   // ButtonsME
@@ -19,7 +22,18 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
     handleExit, 
     handleLogout 
   } = useAppControls(userId, setUser);
+
+  //ButtonS
+  const {
+    isSettingsOpen, // variable
+    setIsSettingsOpen,
+    handleAccount,
+    handleLanguage,
+    handleContact
+  } = useAppControls2();
   
+  const { t } = useTranslation();
+
   // recipes images (add here for future images + history)
   const recipes = [
   { id: 1, name: 'bubble_tea', img: bubble_tea },
@@ -163,6 +177,10 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
         <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
         {/* buttons min&close (not draggable) */}
         <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
+            {/* settings button */}
+            <button className="min-close-buttons settings-top-btn" onClick={() => setIsSettingsOpen(true)}>
+                <Settings className="settings-icon" />
+            </button>
             <button className="min-close-buttons" onClick={minimizeApp}>_</button>
             <button className="min-close-buttons" onClick={closeApp}>x</button>
         </div>
@@ -288,6 +306,15 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
           onCancel={() => setIsModalOpen(false)} 
           onLogout={handleLogout} 
           onExit={handleExit} 
+        />
+      )}
+      {/* Settings Modal */}
+      {isSettingsOpen && (
+        <SettingsModal 
+          onCancel={() => setIsSettingsOpen(false)} 
+          onAccount={handleAccount}
+          onLanguage={handleLanguage}
+          onContact={handleContact}
         />
       )}
     </div>

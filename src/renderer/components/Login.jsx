@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { Eye, EyeOff } from 'lucide-react';
+import { Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import SettingsModal from '../components/Settings';
+import useAppControls2 from '../components/ButtonS';
 const { ipcRenderer } = window.require('electron');
 
 const Login = ({ onLoginSuccess, userId, setUser }) => {
+
+    //ButtonS
+    const {
+        isSettingsOpen, // variable
+        setIsSettingsOpen,
+        handleAccount,
+        handleLanguage,
+        handleContact
+    } = useAppControls2();
+
+    const { t } = useTranslation();
 
     const [view, setView] = useState('welcome'); // 'welcome' ou 'signup'
     const [email, setEmail] = useState('');
@@ -115,6 +130,10 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                 <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
                 {/* buttons min&close (not draggable) */}
                 <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
+                    {/* settings button */}
+                    <button className="min-close-buttons settings-top-btn" onClick={() => setIsSettingsOpen(true)}>
+                        <Settings className="settings-icon" />
+                    </button>
                     <button className="min-close-buttons" onClick={minimizeApp}>_</button>
                     <button className="min-close-buttons" onClick={closeApp}>x</button>
                 </div>
@@ -204,6 +223,16 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                     </>
                 )}
             </div>
+
+            {/* Settings Modal */}
+            {isSettingsOpen && (
+                <SettingsModal 
+                onCancel={() => setIsSettingsOpen(false)} 
+                onAccount={handleAccount}
+                onLanguage={handleLanguage}
+                onContact={handleContact}
+                />
+            )}
         </div>
     );
 };

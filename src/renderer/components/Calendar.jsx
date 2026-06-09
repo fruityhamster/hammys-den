@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { default as LibCalendar } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import seedImg from '../assets/dashboard-almond.png';
-const { ipcRenderer } = window.require('electron');
-
 import ExitModal from '../components/Exit';
+import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
+import useAppControls2 from '../components/ButtonS';
+import { Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+const { ipcRenderer } = window.require('electron');
 
 const CalendarPage = ({ onBack, userId, setUser }) => {
   // ButtonsME
@@ -17,6 +20,17 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
     handleExit, 
     handleLogout 
   } = useAppControls(userId, setUser);
+
+  //ButtonS
+    const {
+      isSettingsOpen, // variable
+      setIsSettingsOpen,
+      handleAccount,
+      handleLanguage,
+      handleContact
+    } = useAppControls2();
+
+  const { t, i18n } = useTranslation();
 
   const [date, setDate] = useState(new Date());
   const [view, setView] = useState("calendar");
@@ -216,6 +230,12 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
       <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
       {/* buttons min&close (not draggable) */}
       <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
+
+          {/* settings button */}
+          <button className="min-close-buttons settings-top-btn" onClick={() => setIsSettingsOpen(true)}>
+              <Settings className="settings-icon" />
+          </button>
+
           <button className="min-close-buttons" onClick={minimizeApp}>_</button>
           <button className="min-close-buttons" onClick={closeApp}>x</button>
       </div>
@@ -251,7 +271,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
 
         {/* "home" button */}
         <div className="flex justify-center">
-          <button onClick={onBack} className="button-center1">home</button>
+          <button onClick={onBack} className="button-center1">{t('settings.back')}</button>
         </div>
       </>
     ) : (
@@ -317,6 +337,15 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
           onCancel={() => setIsModalOpen(false)} 
           onLogout={handleLogout} 
           onExit={handleExit} 
+        />
+      )}
+      {/* Settings Modal */}
+      {isSettingsOpen && (
+        <SettingsModal 
+          onCancel={() => setIsSettingsOpen(false)} 
+          onAccount={handleAccount}
+          onLanguage={handleLanguage}
+          onContact={handleContact}
         />
       )}
     </div>

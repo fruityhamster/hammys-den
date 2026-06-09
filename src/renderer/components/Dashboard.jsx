@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Settings } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import ExitModal from '../components/Exit';
+import SettingsModal from '../components/Settings';
 import useAppControls from '../components/ButtonsME';
+import useAppControls2 from '../components/ButtonS';
 
 // images imports
 import to_do_list from '../assets/dashboard-to-do-list.png'; 
@@ -20,6 +24,17 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
         handleLogout 
     } = useAppControls(userId, setUser);
 
+    //ButtonS
+    const {
+        isSettingsOpen, // variable
+        setIsSettingsOpen,
+        handleAccount,
+        handleLanguage,
+        handleContact
+    } = useAppControls2();
+
+    const { t, i18n } = useTranslation();
+
     // date state
     const [today, setToday] = useState(new Date());
     // function checks the time every minute (60 seconds)
@@ -35,16 +50,16 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
         return () => clearInterval(timer);
     }, [today]);
 
-    const month = today.toLocaleString('en-US', { month: 'long' });
+    const month = today.toLocaleString(i18n.language, { month: 'long' });
     const dayNum = today.getDate().toString().padStart(2, '0');
-    const weekDay = today.toLocaleString('en-US', { weekday: 'long' });
+    const weekDay = today.toLocaleString(i18n.language, { weekday: 'long' }).replace('-feira', ''); // removes "-feira" if exists
 
     // buttons configurations - avoids repeting code
     const modules = [
-        { id: 'todo', label:'to-do list', img: to_do_list },
-        { id: 'calendar', label:'calendar', img: calendar },
-        { id: 'timer', label:'timer', img: timer },
-        { id: 'history', label:'history', img: history },
+        { id: 'todo', label:'dashboard.todo', img: to_do_list },
+        { id: 'calendar', label:'dashboard.calendar', img: calendar },
+        { id: 'timer', label:'dashboard.timer', img: timer },
+        { id: 'history', label:'dashboard.history', img: history },
     ];
 
     return (
@@ -54,6 +69,12 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
                 <div className="main-title" style={{ WebkitAppRegion: 'drag' }}>hammy's den &lt;3</div>
                 {/* buttons min&close (not draggable) */}
                 <div className="flex gap-1" style={{ WebkitAppRegion: 'no-drag' }}>
+
+                    {/* settings button */}
+                    <button className="min-close-buttons settings-top-btn" onClick={() => setIsSettingsOpen(true)}>
+                        <Settings className="settings-icon" />
+                    </button>
+
                     <button className="min-close-buttons" onClick={minimizeApp}>_</button>
                     <button className="min-close-buttons" onClick={closeApp}>x</button>
                 </div>
@@ -86,13 +107,13 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
                         )}
                         
                         {/* texts under buttons */}
-                        <span>{mod.label}</span> 
+                        <span>{t(mod.label)}</span> 
                     </button>
                 ))}
             </div>
-
+            
             <div className="hello-user">
-                hello {user?.name || 'Hammy'} !
+                hey {user?.name || 'Hammy'} !
             </div>
                 
             {isModalOpen && (
@@ -100,6 +121,16 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
                     onCancel={() => setIsModalOpen(false)} 
                     onLogout={handleLogout} 
                     onExit={handleExit} 
+                />
+            )}
+
+            {/* Settings Modal */}
+            {isSettingsOpen && (
+                <SettingsModal 
+                    onCancel={() => setIsSettingsOpen(false)} 
+                    onAccount={handleAccount}
+                    onLanguage={handleLanguage}
+                    onContact={handleContact}
                 />
             )}
         </div>
