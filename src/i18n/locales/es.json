@@ -1,0 +1,86 @@
+{
+  "dashboard": {
+    "todo": "lista de tareas",
+    "calendar": "calendario",
+    "timer": "temporizador",
+    "history": "historial"
+  },
+  "todo-list": {
+    "title": "lista de tareas",
+    "placeholder": "añade una nueva semillha...",
+    "menu": "menú"
+  },
+  "calendar": {
+    "tittle": "calendario",
+    "placeholder": "añade una nueva semillha...",
+    "menu": "menú",
+    "back": "volver"
+  },
+  "timer": {
+    "tittle": "recetas de cocina",
+    "tittle2": "selecciona el tiempo",
+    "min": "minutos",
+    "confirm": "confirmar",
+    "start": "empezar",
+    "cancel": "cancelar",
+    "pause": "pausa",
+    "continue": "continuar", 
+    "tittle3": "¡tu receta estará lista en...!",
+    "tittle4": "¡tu receta está lista!",
+    "focused": "te has concentrado durante",
+    "on": "el día",
+    "summary": "resumen",
+    "menu": "menú",
+    "save": "guardar",
+    "back": "volver",
+    "minute": "minuto",
+    "minutes": "minutos"
+  },
+  "history": {
+    "tittle": "historial",
+    "menu": "menú"
+  },
+  "exit": {
+    "logout": "cerrar sesión",
+    "exit-app": "salir",
+    "back": "volver"
+  },
+  "settings": {
+    "account": "cuenta",
+    "language": "idioma",
+    "contact": "contacto",
+    "back": "volver"
+  },
+  "account": {
+
+  },
+  "language": {
+    "title": "idioma",
+    "back": "volver"
+  },
+  "contact": {
+    "title": "contáctame",
+    "subtittle1": "para ayuda, errores y sugerencias:",
+    "subtittle2": "repositorio GitHub del proyecto:",
+    "back": "volver"
+  },
+  "login": {
+    "welcome": "¡bienvenido!",
+    "new-acc": "¡creando una nueva cuenta!",
+    "email": "correo electrónico:",
+    "password": "contraseña:",
+    "keep-login": "mantener la sesión iniciada",
+    "name": "nombre:",
+    "warning": "advertencia",
+    "signup": "crear cuenta",
+    "login": "iniciar sesión",
+    "back": "volver"
+  },
+  "warning": {
+    "missing-fields": "asegúrate de rellenar todos los campos",
+    "invalid-email-format": "formato de correo inválido (falta @ o .)",
+    "invalid-password-format": "la contraseña debe tener: más de 12 caracteres, 1 mayúscula, 1 número y 1 carácter especial",
+    "access-denied": "acceso denegado, inténtalo de nuevo",
+    "email-exists": "este email ya está asociado a una cuenta existente"
+  }
+}
