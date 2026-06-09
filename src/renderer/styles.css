@@ -67,10 +67,10 @@ input, textarea {
 
 /* title: hammy's den */
 .main-title {
-  font-size: 36px;
+  font-size: 33px;
   font-weight: 400;
   line-height: 1.2;
-  height: 44px;
+  height: 40px;
   letter-spacing: 0px;
   margin-left: 10px;
   color: var(--colour-hammy-beige);
@@ -85,7 +85,7 @@ input, textarea {
   height: 40px;
   border-radius: 10px;
   background-color: var(--colour-hammy-brown);
-  padding-bottom: 5px;
+  padding-bottom: 6px;
   font-size: 48px;
   color: var(--colour-hammy-beige);
   align-content: center;
@@ -94,6 +94,25 @@ input, textarea {
   transition: all 0.1s ease;
   border-bottom: 3px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+/* settings button */
+.settings-top-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7px;
+}
+
+/* settings button - icon inside */
+.settings-icon {
+  color: var(--colour-hammy-beige);
+  transition: transform 0.2s ease;
+}
+
+/* settigns icon rotates when button hovered */
+.settings-top-btn:hover .settings-icon {
+  transform: rotate(90deg);
 }
 
 /* background retangle */
@@ -118,7 +137,9 @@ input, textarea {
 .button-left:hover,
 .button-right:hover,
 .history-grid-button:hover,
-.btn-modal-exit:hover {
+.btn-modal-exit:hover,
+.btn-github-link:hover,
+.btn-lang-select:hover {
   filter: brightness(1.1);
   transform: translateY(-1.5px);
 }
@@ -132,7 +153,9 @@ input, textarea {
 .button-left:active,
 .button-right:active,
 .history-grid-button:active,
-.btn-modal-exit:active {
+.btn-modal-exit:active,
+.btn-github-link:active,
+.btn-lang-select:active {
   border-bottom-width: 0;
   transform: translateY(1px);
 }
@@ -841,7 +864,7 @@ input, textarea {
   white-space: nowrap;
 }
 
-/* text - numebers */
+/* text - numbers */
 .history-text-number {
   font-family: var(--font-pixel-2);
   font-size: 11px;
@@ -947,6 +970,22 @@ input, textarea {
   stroke-width: 1.5px;
 }
 
+/* ==============
+    HELLO *USER* 
+   ============== */
+/* hello *user name* ! */
+.hello-user {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%); /* to be in the center */
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-beige);
+  font-size: 18px;
+  opacity: 0.8;  
+  letter-spacing: 1px;
+}
+
 /* ==========================
     BUTTONS MIN&EXIT OVERLAY
    ========================== */
@@ -994,18 +1033,138 @@ input, textarea {
   letter-spacing: 1px;
 }
 
-/* ==============
-    HELLO *USER* 
-   ============== */
-/* hello *user name* ! */
-.hello-user {
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%); /* to be in the center */
-  font-family: var(--font-pixel-1);
-  color: var(--colour-hammy-beige);
-  font-size: 18px;
-  opacity: 0.8;  
-  letter-spacing: 1px;
+/* ===================================
+    BUTTON CONTACT (SETTINGS) OVERLAY
+   =================================== */
+
+/* when the box has modal-wide class gets wider */
+.modal-content-buttonME.modal-wide {
+  width: 320px;
 }
+
+/* contact container */
+.settings-contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+/* title */
+.contact-title {
+  font-size: 24px;
+  font-weight: bold;
+  color:  var(--colour-hammy-beige);
+  border-bottom: 3px dashed var(--colour-hammy-brown-dark);
+  padding-bottom: 6px;
+}
+
+/* info squares */
+.contact-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+/* subtitles */
+.contact-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--colour-hammy-beige);
+}
+
+/* inside the square */
+.contact-value {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--colour-hammy-brown-dark);
+  background-color: var(--colour-hammy-beige-dark);
+  border: 2px solid var(--colour-hammy-brown-dark);
+  border-radius: 10px;
+  padding: 6px 10px;
+  width: 100%;
+  word-break: break-all; /* email doesn´t leave the box */
+  box-shadow: 3px 3px 0px var(--colour-hammy-brown-dark);
+}
+
+/* button for GitHub link */
+.btn-github-link {
+  background-color: var(--colour-hammy-beige-dark);
+  border: 3px solid var(--colour-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
+  border-radius: 10px;
+  padding: 8px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--colour-hammy-brown-dark);
+  word-break: break-all;
+  min-height: 70px;
+}
+
+/* mail & foldergit symbol apperance */
+.contact-value svg,
+.btn-github-link svg {
+  stroke-width: 1.5px;
+  width: 20px;
+  display: inline-flex;
+  margin-right: 10px;
+}
+
+
+/* ===================================
+    BUTTON LANGUAGE (SETTINGS) OVERLAY
+   =================================== */
+
+/* page title */
+.settings-language-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+/* language name */
+.language-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--colour-hammy-beige);
+  border-bottom: 3px dashed var(--colour-hammy-brown-dark);
+  padding-bottom: 4px;
+}
+
+/* language buttons */
+.btn-lang-select {
+  background-color: var(--colour-hammy-beige-dark);
+  border: 3px solid var(--colour-hammy-brown-dark);
+  color: var(--colour-hammy-brown-dark);
+  border-radius: 10px;
+  padding: 8px;
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 4px;
+  min-height: 45px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--colour-hammy-brown-dark);
+  word-break: break-all;
+}
+
+/* language highlighted */
+.btn-lang-select.active-lang {
+  background-color: var(--colour-hammy-beige);
+  font-weight: bold;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--colour-hammy-brown-dark);
+}
+
+/* ===================================
+    BUTTON ACCOUNT (SETTINGS) OVERLAY
+   =================================== */
+
+/* x */
+
