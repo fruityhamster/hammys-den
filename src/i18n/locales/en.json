@@ -1,0 +1,85 @@
+{
+  "dashboard": {
+    "todo": "to-do list",
+    "calendar": "calendar",
+    "timer": "timer",
+    "history": "history"
+  },
+  "todo-list": {
+    "title": "to-do list",
+    "placeholder": "add a new seed...",
+    "menu": "menu"
+  },
+  "calendar": {
+    "tittle": "calendar",
+    "placeholder": "add a new seed...",
+    "menu": "menu",
+    "back": "back"
+  },
+  "timer": {
+    "tittle": "cooking recipes",
+    "tittle2": "select time",
+    "min": "minutes",
+    "confirm": "confirm",
+    "start": "start",
+    "cancel": "cancel",
+    "pause": "pause",
+    "continue": "continue", 
+    "tittle3": "your recipe is done in ...",
+    "tittle4": "your recipe is ready! enjoy!",
+    "focused": "you focused for",
+    "on": "on",
+    "summary": "summary",
+    "menu": "menu",
+    "save": "save",
+    "back": "back",
+    "minute": "minute",
+    "minutes": "minutes"
+  },
+  "history": {
+    "tittle": "history",
+    "menu": "menu"
+  },
+  "exit": {
+    "logout": "logout",
+    "exit-app": "exit",
+    "back": "back"
+  },
+  "settings": {
+    "account": "account",
+    "language": "language",
+    "contact": "contact",
+    "back": "back"
+  },
+  "account": {
+
+  },
+  "language": {
+    "title": "language",
+    "back": "back"
+  },
+  "contact": {
+    "title": "contact me",
+    "bugs": "for help, bugs & suggestions:",
+    "project": "project GitHub repository:"
+  },
+  "login": {
+    "welcome": "welcome!",
+    "new-acc": "creating new account!",
+    "email": "email:",
+    "password": "password:",
+    "keep-login": "keep me logged in",
+    "name": "name:",
+    "warning": "warning",
+    "signup": "create",
+    "login": "login",
+    "back": "back"
+  },
+  "warning": {
+    "missing-fields": "make sure to fill all fields",
+    "invalid-email-format": "invalid email format (missing @ or . )",
+    "invalid-password-format": "password must have: 12+ chars, 1 uppercase, 1 number and 1 special char",
+    "access-denied": "access denied, try again",
+    "email-exists": "email already associated with an existing account"
+  }
+}

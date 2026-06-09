@@ -1,0 +1,86 @@
+{
+  "dashboard": {
+    "todo": "lista de tarefas",
+    "calendar": "calendário",
+    "timer": "temporizador",
+    "history": "histórico"
+  },
+  "todo-list": {
+    "title": "lista de tarefas",
+    "placeholder": "adiciona uma semente...",
+    "menu": "menu"
+  },
+  "calendar": {
+    "tittle": "calendário",
+    "placeholder": "adiciona uma semente...",
+    "menu": "menu",
+    "back": "voltar"
+  },
+  "timer": {
+    "tittle": "receitas",
+    "tittle2": "seleciona o tempo",
+    "min": "minutos",
+    "confirm": "confirmar",
+    "start": "começar",
+    "cancel": "cancelar",
+    "pause": "parar",
+    "continue": "continuar",
+    "tittle3": "receita pronta em...",
+    "tittle4": "receita pronta! aproveite!",
+    "focused": "focaste durante",
+    "on": "no dia",
+    "summary": "resumo",
+    "menu": "menu",
+    "save": "gravar",
+    "back": "voltar",
+    "minute": "minuto",
+    "minutes": "minutos"
+  },
+  "history": {
+    "tittle": "histórico",
+    "menu": "menu"
+  },
+  "exit": {
+    "logout": "mudar conta",
+    "exit-app": "fechar app",
+    "back": "voltar"
+  },
+  "settings": {
+    "account": "conta",
+    "language": "idioma",
+    "contact": "contacto",
+    "back": "voltar"
+  },
+  "account": {
+
+  },
+  "language": {
+    "title": "idioma",
+    "back": "voltar"
+  },
+  "contact": {
+    "title": "contacta-me",
+    "subtitle1": "para ajuda, bugs e sugestões:",
+    "subtitle2": "projeto no repositório GitHub:",
+    "back": "voltar"
+  }, 
+  "login": {
+    "welcome": "bem-vindo/a!",
+    "new-acc": "criação da conta!",
+    "email": "e-mail:",
+    "password": "palavra-passe:",
+    "keep-login": "manter a sessão iniciada",
+    "name": "nome:",
+    "warning": "aviso:",
+    "signup": "criar",
+    "login": "entrar",
+    "back": "voltar"
+  },
+  "warning": {
+    "missing-fields": "preencha todos os campos",
+    "invalid-email-format": "formato de e-mail inválido (falta @ ou .)",
+    "invalid-password-format": "palavra-passe deve ter: 12+ letras, 1 maiúscula, 1 número e 1 símbolo",
+    "access-denied": "acesso negado, tente novamente",
+    "email-exists": "e-mail já associado a uma conta existente"
+  }
+}
