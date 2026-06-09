@@ -78,7 +78,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
         setTasks([...tasks, newSeed]);
         setTaskInput('');
       } catch (error) {
-        console.error("Erro ao guardar tarefa:", error);
+        console.error("Error saving task:", error);
       }
     } 
   };
@@ -103,7 +103,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
         });
       }
     } catch (error) {
-      console.error("Erro ao guardar nova ordem:", error);
+      console.error("Error saving new order:", error);
     }
   };
 
@@ -122,7 +122,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
         task.id === id ? { ...task, completed: newStatus } : task
       ));
     } catch (error) {
-      console.error("Erro ao atualizar tarefa:", error);
+      console.error("Error updating task:", error);
     }
   };
 
@@ -133,7 +133,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
 
       setTasks(tasks.filter(task => task.id !== id));
     } catch (error) {
-      console.error("Erro ao apagar tarefa:", error);
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -157,7 +157,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
       <div className="base-background"></div>
 
       {/* page title: to-do list */}
-      <h2 className="page-title">to-do list</h2>
+      <h2 className="page-title">{t('todo-list.title')}</h2>
 
       {/* add button + input section */}
       <div className="add-input-group">
@@ -175,7 +175,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
               addNewSeed();
             }
           }}
-          placeholder="add a new seed..." 
+          placeholder={t('todo-list.placeholder')}
           className="input-field" 
           style={{ imageRendering: 'pixelated' }}/>
           
@@ -213,7 +213,7 @@ const TodoList = ({ onBack, userId, setUser }) => {
 
       {/* "home" button */}
       <div className="flex justify-center">
-        <button onClick={onBack} className="button-center1">home</button>
+        <button onClick={onBack} className="button-center1">{t('todo-list.menu')}</button>
       </div>
       {isModalOpen && (
         <ExitModal 

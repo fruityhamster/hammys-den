@@ -31,20 +31,20 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
     const validateFields = () => {
         // if empty
         if (!email || !password || (view === 'signup' && !name)) {
-            return "make sure to fill all the fields";
+            return t('warning.missing-fields');
         }
 
         // email (@ and .)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return "invalid email format (missing @ or . )";
+            return t('warning.invalid-email-format');
         }
 
         // password (only for sign up)
         if (view === 'signup') {
             const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|`~]).{12,}$/;
             if (!passwordRegex.test(password)) {
-                return "password must have: 12+ chars, 1 uppercase, 1 number and 1 special char";
+                return t('warning.invalid-password-format');
             }
         }
         return null; // everything ok
@@ -61,10 +61,14 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
         try {
             if (view === 'signup') {
-                // new account
-                await ipcRenderer.invoke('auth-signup', { name, email, password });
-                setView('welcome'); // back to login after creating new account
-                setPassword(''); // clear password
+                try {
+                    // new account
+                    await ipcRenderer.invoke('auth-signup', { name, email, password });
+                    setView('welcome'); // back to login after creating new account
+                    setPassword(''); // clear password
+                } catch (err) {
+                    setError('warning.email-exists');
+                }
             } else {
                 // login
                 const user = await ipcRenderer.invoke('auth-login', { email, password });
@@ -80,11 +84,11 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
                     onLoginSuccess(user);
                 } else {
-                    setError("access denied, try again");
+                    setError('warning.access-denied');
                 }
             }
         }   catch (err) {
-            setError("access denied,  try again");
+            setError('warning.access-denied');
         }
     };
 
@@ -142,13 +146,13 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
             <div className="base-background"></div>
 
             {/* page title: welcome! / creating new account! */}
-            <h2 className="page-title">{view === 'welcome' ? 'welcome!' : 'creating new account'}</h2>
+            <h2 className="page-title">{view === 'welcome' ? t('login.welcome') : t('login.new-acc')}</h2>
 
             <div className="auth-box">
                 {/* name field (sign up) */}
                 {view === 'signup' && (
                     <div className="auth-input-group">
-                        <label className="auth-label">name:</label>
+                        <label className="auth-label">{t('login.name')}</label>
                         <input 
                             className="auth-input" 
                             type="text" 
@@ -160,7 +164,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
                 {/* email field */}
                 <div className="auth-input-group">
-                    <label className="auth-label">email:</label>
+                    <label className="auth-label">{t('login.email')}</label>
                     <input 
                         className="auth-input" 
                         type="email" 
@@ -172,7 +176,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
                 {/* password field */}
                 <div className="auth-input-group">
-                    <label className="auth-label">password:</label>
+                    <label className="auth-label">{t('login.password')}</label>
                     <div className="password-group">
                         <input 
                             className="auth-input" 
@@ -196,7 +200,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                     <div className="auth-input-group" >
                         <div className="remember-me-container">
                             <input type="checkbox" id="remember" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
-                            <label htmlFor="remember" className="auth-label">keep me logged in</label>
+                            <label htmlFor="remember" className="auth-label">{t('login.keep-login')}</label>
                         </div>
                     </div>
                 )}
@@ -204,8 +208,8 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
                 {/* warnings */}
                 {error && (
                     <div className="warning-section">
-                        <p className="warning-title">warning:</p>
-                        <p> &gt; {error}</p>
+                        <p className="warning-title">{t('login.warning')}</p>
+                        <p> &gt; {t(error)}</p>
                     </div>
                 )}     
             </div>
@@ -213,13 +217,13 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
             <div className="button-group">
                 {view === 'welcome' ? (
                     <>
-                        <button className="button-left" onClick={() => { resetFields(); setView('signup'); setError(null); }}>sign up</button>
-                        <button className="button-right" onClick={handleAuth}>login</button>
+                        <button className="button-left" onClick={() => { resetFields(); setView('signup'); setError(null); }}>{t('login.signup')}</button>
+                        <button className="button-right" onClick={handleAuth}>{t('login.login')}</button>
                     </>
                 ) : (
                     <>
-                        <button className="button-left" onClick={handleAuth}>create</button>
-                        <button className="button-right" onClick={() => { resetFields(); setView('welcome'); setError(null); }}>back</button>
+                        <button className="button-left" onClick={handleAuth}>{t('login.signup')}</button>
+                        <button className="button-right" onClick={() => { resetFields(); setView('welcome'); setError(null); }}>{t('login.back')}</button>
                     </>
                 )}
             </div>

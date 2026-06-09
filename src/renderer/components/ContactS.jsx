@@ -13,19 +13,19 @@ const ContactS = ({ onBack }) => {
 
   return (
     <div className="settings-contact-container">
-      <div className="contact-title">contact me</div>
+      <div className="contact-title">{t('contact.title')}</div>
       
       <div className="contact-info-box">
-        <p className="contact-label">for help, bugs & suggestions:</p>
+        <p className="contact-label">{t('contact.subtitle1')}</p>
         <span className="contact-value"><Mail/>hammys.contact@gmail.com</span>
       </div>
 
       <div className="contact-info-box">
-        <p className="contact-label">project GitHub repository:</p>
+        <p className="contact-label">{t('contact.subtitle2')}</p>
         <button className="btn-github-link" onClick={openGitHub}><FolderGit/>https://github.com/fruityhamster/hammys-den</button>
       </div>
 
-      <button className="btn-modal-exit btn-back" onClick={onBack}>back</button>
+      <button className="btn-modal-exit btn-back" onClick={onBack}>{t('contact.back')}</button>
     </div>
   );
 };

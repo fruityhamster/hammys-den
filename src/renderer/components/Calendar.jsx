@@ -71,12 +71,12 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
               completed: ev.completed || false
             });
           } catch (e) {
-            console.error("Erro ao processar evento individual:", e);
+            console.error("Error processing individual event:", e);
           }
         });
         setTasksByDate(organized);
       } catch (err) {
-        console.error("Erro ao carregar eventos:", err);
+        console.error("Error loading events:", err);
       }
     }
     loadEvents();
@@ -112,7 +112,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
       setTaskTime("");
       setTaskInput("");
     } catch (err) {
-      console.error("Erro ao adicionar evento:", err);
+      console.error("Error adding event:", err);
     }
   };
 
@@ -125,7 +125,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
         [selectedDate]: (prev[selectedDate] || []).filter(task => task.id !== id)
       }));
     } catch (err) {
-      console.error("Erro ao apagar evento:", err);
+      console.error("Error deleting event:", err);
     }
   };
 
@@ -216,11 +216,16 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
     }
   };
 
-  // function to format date (2026-04-09 to 09-04-2026)
+  // function to format date (EN: MM-DD-YYYY | PT: DD-MM-YYYY)
   const formatDateDisplay = (dateStr) => {
     if (!dateStr) return "";
     const [year, month, day] = dateStr.split("-");
-    return `${day}-${month}-${year}`;
+    
+    if (i18n.language && i18n.language.startsWith('en')) {
+      return `${month}-${day}-${year}`; // US
+    }
+    
+    return `${day}-${month}-${year}`; // PT+
   };
 
   return (
@@ -242,7 +247,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
     </div>
     <div className="base-background"></div>
 
-    <h2 className="page-title">calendar</h2>
+    <h2 className="page-title">{t('calendar.tittle')}</h2>
 
     {/* page: monthly view */}
     {view === "calendar" ? (
@@ -253,11 +258,11 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
             value={date}
             tileClassName={getTileClassName}
             locale="en-US" // week starts on sunday
-            formatShortWeekday={(locale, date) => ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()]}
+            formatShortWeekday={(locale, date) => date.toLocaleString(i18n.language, { weekday: 'short' }).charAt(0).toUpperCase()}
             navigationLabel={({ date }) => (
               <div className="calendar-title-container">
                 <span className="calendar-title-month">
-                  {date.toLocaleString('en-US', { month: 'long' }).toUpperCase()}
+                  {date.toLocaleString(i18n.language, { month: 'long' }).toUpperCase()}
                 </span>
                 <span className="calendar-title-year">
                   {date.getFullYear()}
@@ -271,7 +276,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
 
         {/* "home" button */}
         <div className="flex justify-center">
-          <button onClick={onBack} className="button-center1">{t('settings.back')}</button>
+          <button onClick={onBack} className="button-center1">{t('calendar.menu')}</button>
         </div>
       </>
     ) : (
@@ -301,7 +306,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
                 addNewSeed();
               }
             }}
-            placeholder="add a new seed..." 
+            placeholder={t('calendar.placeholder')}
             className="input-field-calendar" 
             style={{ imageRendering: 'pixelated' }}/>         
         </div>
@@ -328,7 +333,7 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
       </div>
 
       <div className="flex justify-center">
-        <button onClick={() => setView("calendar")} className="button-center1">back</button>
+        <button onClick={() => setView("calendar")} className="button-center1">{t('calendar.back')}</button>
       </div>
       </>
     )}

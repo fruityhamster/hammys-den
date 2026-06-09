@@ -32,7 +32,7 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
     handleContact
   } = useAppControls2();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [sessions, setSessions] = useState([]);
 
@@ -59,7 +59,14 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
 
   const formatDate = (date) => {
     const d = new Date(date);
-    return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+
+    if (i18n.language && i18n.language.startsWith('en')) {
+      return `${month}-${day}-${year}`; // US: MM-DD-YYYY
+    }
+    return `${day}-${month}-${year}`; // PT+ DD-MM-YYYY
   };
 
   return (
@@ -79,7 +86,7 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
       </div>
       <div className="base-background"></div>
 
-      <h2 className="page-title">history</h2>
+      <h2 className="page-title">{t('history.tittle')}</h2>
 
       <div className="history-grid">
         {sessions.map((session) => (
@@ -89,7 +96,8 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
             </div>
               <p className="history-text">
                 <span className="history-text-number">{session.duration}</span>
-                {' '} {session.duration === 1 ? 'minute' : 'minutes'} on {' '}
+                {' '}{session.duration === 1 ? t('timer.minute') : t('timer.minutes')}{' '} 
+                {t('timer.on')}{' '}
                 <span className="history-text-number">{formatDate(session.createdAt)}</span>
               </p>
           </button>
@@ -98,7 +106,7 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
     
       {/* "home" button */}
       <div className="flex justify-center">
-        <button onClick={onBack} className="button-center1">home</button>
+        <button onClick={onBack} className="button-center1">{t('history.menu')}</button>
       </div>
       {isModalOpen && (
         <ExitModal 

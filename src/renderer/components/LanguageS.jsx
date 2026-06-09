@@ -17,7 +17,7 @@ const LanguageS = ({ onBack }) => {
   return (
     <div className="settings-language-container">
       {/* use json keys instead of normal text */}
-      <div className="language-title">{t('languages.title')}</div>
+      <div className="language-title">{t('language.title')}</div>
 
       {/* column for the languages buttons */}
       <div className="language-grid">
@@ -32,7 +32,7 @@ const LanguageS = ({ onBack }) => {
         ))}
       </div>
 
-      <button className="btn-modal-exit btn-back" onClick={onBack}>{t('settings.back')}</button>
+      <button className="btn-modal-exit btn-back" onClick={onBack}>{t('language.back')}</button>
     </div>
   );
 };

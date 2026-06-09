@@ -32,7 +32,7 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
     handleContact
   } = useAppControls2();
   
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // recipes images (add here for future images + history)
   const recipes = [
@@ -78,11 +78,14 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       setIsActive(false);
       clearInterval(interval);
 
-      // gets the atual date and formats DD-MM-AAAA
+      // saves in ISO format YYYY-MM-DD
       const now = new Date();
-      const displayDate = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const isoDate = `${year}-${month}-${day}`;
       
-      setEndDate(displayDate);
+      setEndDate(isoDate);
       setStep('finished');
 
       // save session when countdown = 0
@@ -161,13 +164,36 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       setCreatedSessionId(null);
       onBack(); // back to dashboard
     } catch (error) {
-      console.error("Erro ao salvar sessão:", error);
+      console.error("Error saving session:", error);
     };
   };
   
   const handleHomeClick = async () => {
     setCreatedSessionId(null);
     onBack();
+  };
+
+  // format date depending on the language
+  const formatEndDateDisplay = (dateStr) => {
+    if (!dateStr) return "";
+    
+    // split
+    let parts = dateStr.split("-");
+    let year, month, day;
+
+    if (parts[0].length === 4) {
+      // YYYY-MM-DD
+      [year, month, day] = parts;
+    } else {
+      // DD-MM-YYYY
+      [day, month, year] = parts;
+    }
+    
+    // show
+    if (i18n.language && i18n.language.startsWith('en')) {
+      return `${month}-${day}-${year}`; // US MM-DD-YYYY
+    }
+    return `${day}-${month}-${year}`; // PT+ DD-MM-YYYY
   };
 
   return (
@@ -190,7 +216,7 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       {/* 1 - recipes */}
       {step === 'recipes' && (
         <>
-          <h2 className="page-title">cooking recipes</h2>
+          <h2 className="page-title">{t('timer.tittle')}</h2>
 
           {/* recipes buttons */}
           <div className="recipes-grid">
@@ -203,7 +229,7 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
 
           {/* "home" button */}
           <div className="flex justify-center">
-            <button onClick={onBack} className="button-center1">home</button>
+            <button onClick={onBack} className="button-center1">{t('timer.back')}</button>
           </div>
         </>
       )}
@@ -211,8 +237,8 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       {/* 2 - select time/minutes */}
       {step === 'select-time' && (
         <>
-          <h2 className="page-title">select timer</h2>
-          <h3 className="page-subtitle">minutes</h3>
+          <h2 className="page-title">{t('timer.tittle2')}</h2>
+          <h3 className="page-subtitle">{t('timer.min')}</h3>
 
           <div className="time-picker-container">
             {/* numbers list with scroll */}
@@ -230,8 +256,8 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
           </div>
 
           <div className="button-group">
-            <button className={`button-left ${!selectedTime ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={handleConfirmTime}>confirm</button>
-            <button className="button-right" onClick={() => setStep('recipes')}>back</button>
+            <button className={`button-left ${!selectedTime ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={handleConfirmTime}>{t('timer.confirm')}</button>
+            <button className="button-right" onClick={() => setStep('recipes')}>{t('timer.back')}</button>
           </div>
         </>
       )}
@@ -239,7 +265,7 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       {/* 3 - countdown */}
       {step === 'countdown' && (
         <>
-          <h2 className="page-title">your recipe is done in ...</h2>
+          <h2 className="page-title">{t('timer.tittle3')}</h2>
         <div>  
           <div className="selected-recipe-display">
             <img src={selectedRecipe?.img} alt=""/>
@@ -250,8 +276,8 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
           </div>
 
           <div className="button-group">
-            <button className="button-left" onClick={() => setIsActive(!isActive)}>{!isActive && secondsLeft === selectedTime * 60 ? 'start' : isActive ? 'pause' : 'continue'}</button>
-            <button onClick={onBack} className="button-right">cancel</button>
+            <button className="button-left" onClick={() => setIsActive(!isActive)}>{!isActive && secondsLeft === selectedTime * 60 ? t('timer.start') : isActive ? t('timer.pause') : t('timer.continue')}</button>
+            <button onClick={onBack} className="button-right">{t('timer.cancel')}</button>
           </div>
         </div>
       </>
@@ -260,22 +286,23 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       {/* 4 - finished */}
       {step === 'finished' && (
         <>
-          <h2 className="page-title">your recipe is ready! enjoy!</h2>
+          <h2 className="page-title">{t('timer.tittle4')}</h2>
           
           <div className="selected-recipe-display">
             <img src={selectedRecipe?.img} alt="" className="pulse-animation" />
           </div>
 
-          <p className="finished">you focused for{' '}
+          <p className="finished">{t('timer.focused')}{' '}
             <br />
-            <span className="finished-number">{selectedTime}</span>
-            {' '}{selectedTime === 1 ? 'minute' : 'minutes'} on{' '}
-            <span className="finished-number">{endDate}</span>
+            <span className="finished-number">{selectedTime}</span>{' '}
+            {' '}{selectedTime === 1 ? t('timer.minute') : t('timer.minutes')}{' '}
+            {t('timer.on')}{' '}
+            <span className="finished-number">{formatEndDateDisplay(endDate)}</span>
           </p>
 
           <div className="button-group">
-            <button className="button-left" onClick={() => {setStep('summary'); }}>summary</button>
-            <button className="button-right" onClick={handleHomeClick}>home</button>
+            <button className="button-left" onClick={() => {setStep('summary'); }}>{t('timer.summary')}</button>
+            <button className="button-right" onClick={handleHomeClick}>{t('timer.menu')}</button>
           </div>
         </>
       )}
@@ -283,7 +310,7 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       {/* 5 - summary */}
       {step === 'summary' && (
         <>
-          <h2 className="page-title">summary</h2>
+          <h2 className="page-title">{t('timer.summary')}</h2>
 
           <div className="summary-container">
             <textarea
@@ -296,8 +323,8 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
           </div>
 
           <div className="button-group">
-            <button className="button-left" onClick={handleSaveSummary}>save</button>
-            <button className="button-right" onClick={handleHomeClick}>home</button>
+            <button className="button-left" onClick={handleSaveSummary}>{t('timer.save')}</button>
+            <button className="button-right" onClick={handleHomeClick}>{t('timer.menu')}</button>
           </div>
         </>
       )}
