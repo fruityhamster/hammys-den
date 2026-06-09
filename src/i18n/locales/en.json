@@ -60,8 +60,9 @@
   },
   "contact": {
     "title": "contact me",
-    "bugs": "for help, bugs & suggestions:",
-    "project": "project GitHub repository:"
+    "subtittle1": "for help, bugs & suggestions:",
+    "subtittle2": "project GitHub repository:",
+    "back": "back"
   },
   "login": {
     "welcome": "welcome!",
