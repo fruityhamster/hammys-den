@@ -1014,7 +1014,7 @@ input, textarea {
   /* for translation adaptation */
   width: auto;
   min-width: 200px; /* settings page */
-  max-width: 300px; /* contact page */
+  max-width: 340px; /* contact page */
 }
 
 /* buttons container */
@@ -1084,7 +1084,7 @@ input, textarea {
   border-radius: 10px;
   padding: 6px 10px;
   width: 100%;
-  word-break: break-all; /* email doesn´t leave the box */
+  word-break: break-all; /* email doesn't leave the box */
   box-shadow: 3px 3px 0px var(--colour-hammy-brown-dark);
 }
 

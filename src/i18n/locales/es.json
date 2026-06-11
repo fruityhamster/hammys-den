@@ -7,12 +7,12 @@
   },
   "todo-list": {
     "title": "lista de tareas",
-    "placeholder": "añade una nueva semillha...",
+    "placeholder": "añade una semillha...",
     "menu": "menú"
   },
   "calendar": {
     "tittle": "calendario",
-    "placeholder": "añade una nueva semillha...",
+    "placeholder": "añade una semillha...",
     "menu": "menú",
     "back": "volver"
   },
@@ -67,18 +67,18 @@
   "login": {
     "welcome": "¡bienvenido!",
     "new-acc": "¡creando una nueva cuenta!",
-    "email": "correo electrónico:",
+    "email": "email:",
     "password": "contraseña:",
     "keep-login": "mantener la sesión iniciada",
     "name": "nombre:",
-    "warning": "advertencia",
-    "signup": "crear cuenta",
-    "login": "iniciar sesión",
+    "warning": "advertencia:",
+    "signup": "crear",
+    "login": "entrar",
     "back": "volver"
   },
   "warning": {
     "missing-fields": "asegúrate de rellenar todos los campos",
-    "invalid-email-format": "formato de correo inválido (falta @ o .)",
+    "invalid-email-format": "formato de email inválido (falta @ o .)",
     "invalid-password-format": "la contraseña debe tener: más de 12 caracteres, 1 mayúscula, 1 número y 1 carácter especial",
     "access-denied": "acceso denegado, inténtalo de nuevo",
     "email-exists": "este email ya está asociado a una cuenta existente"
