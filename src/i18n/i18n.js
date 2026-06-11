@@ -11,11 +11,14 @@ const resources = {
   es: { translation: translationES }
 };
 
+// saves the chosen language
+const savedLanguage = localStorage.getItem('user-language') || 'en';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en', // default language
+    lng: savedLanguage, // chosen (or default) language
     fallbackLng: 'en', // if a key is missing in a language shows in english
     interpolation: {
       escapeValue: false 

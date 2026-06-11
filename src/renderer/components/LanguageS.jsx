@@ -14,6 +14,12 @@ const LanguageS = ({ onBack }) => {
     { code: 'ko', name: '한국어' }
   ];
 
+  // save chosen laguage
+  const handleLanguageChange = (langCode) => {
+    i18n.changeLanguage(langCode);
+    localStorage.setItem('user-language', langCode);
+  };
+
   return (
     <div className="settings-language-container">
       {/* use json keys instead of normal text */}
@@ -26,7 +32,7 @@ const LanguageS = ({ onBack }) => {
             key={lang.code}
             /* if selected language gets highlighted */
             className={`btn-lang-select ${i18n.language === lang.code ? 'active-lang' : ''}`}
-            onClick={() => i18n.changeLanguage(lang.code)}>
+            onClick={() => handleLanguageChange(lang.code)}>
             {lang.name}
           </button>
         ))}
