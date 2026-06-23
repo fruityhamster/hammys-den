@@ -118,7 +118,11 @@ const Dashboard = ({ onNavigate, userId, user, setUser }) => {
 
             {/* Settings Modal */}
             {isSettingsOpen && (
-                <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+                <SettingsModal onCancel={() => setIsSettingsOpen(false)}
+                    isLoggedIn={true}
+                    userId={user} // saves logged user
+                    setUser={setUser} // updates user
+                />
             )}
         </div>
     );

@@ -48,14 +48,14 @@ function App() {
       {currentPage === 'dashboard' && (<Dashboard onNavigate={navigateTo} userId={uid} user={user} setUser={handleLogout}/>)}
 
       {/* if state changes to 'todo' shows 'To-do List' page */}
-      {currentPage === 'todo' && <TodoList onBack={() => setCurrentPage('dashboard')} userId={uid} setUser={handleLogout} />}
+      {currentPage === 'todo' && <TodoList onBack={() => setCurrentPage('dashboard')} userId={uid} user={user} setUser={handleLogout} />}
 
       {/* if state changes to 'calendar' shows 'Calendar' page */}
-      {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} userId={uid} setUser={handleLogout} />}
+      {currentPage === 'calendar' && <CalendarPage onBack={() => setCurrentPage('dashboard')} userId={uid} user={user} setUser={handleLogout} />}
       
-      {currentPage === 'timer' && (<Timer onBack={() => { setCurrentPage('dashboard'); setEditingSession(null);}} editData={editingSession} userId={uid} setUser={handleLogout}/>)}
+      {currentPage === 'timer' && (<Timer onBack={() => { setCurrentPage('dashboard'); setEditingSession(null);}} user={user} editData={editingSession} userId={uid} setUser={handleLogout}/>)}
 
-      {currentPage === 'history' && (<History onBack={() => setCurrentPage('dashboard')} onEditSession={openHistorySession} userId={uid} setUser={handleLogout}/>)}
+      {currentPage === 'history' && (<History onBack={() => setCurrentPage('dashboard')} onEditSession={openHistorySession} userId={uid} user={user} setUser={handleLogout}/>)}
     </div>
   );
 }

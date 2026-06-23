@@ -9,7 +9,7 @@ import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 const { ipcRenderer } = window.require('electron');
 
-const CalendarPage = ({ onBack, userId, setUser }) => {
+const CalendarPage = ({ onBack, user, userId, setUser }) => {
   // ButtonsME
   const { 
     isModalOpen, 
@@ -338,7 +338,11 @@ const CalendarPage = ({ onBack, userId, setUser }) => {
       )}
       {/* Settings Modal */}
       {isSettingsOpen && (
-        <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+        <SettingsModal onCancel={() => setIsSettingsOpen(false)}
+        isLoggedIn={true}
+        userId={user}
+        setUser={setUser}
+        />
       )}
     </div>
   );

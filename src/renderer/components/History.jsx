@@ -11,7 +11,7 @@ import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 const { ipcRenderer } = window.require('electron');
 
-const History = ({ onBack, onEditSession, userId, setUser }) => {
+const History = ({ onBack, onEditSession, user, userId, setUser }) => {
   // ButtonsME
   const { 
     isModalOpen, 
@@ -109,7 +109,11 @@ const History = ({ onBack, onEditSession, userId, setUser }) => {
       )}
       {/* Settings Modal */}
       {isSettingsOpen && (
-        <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+        <SettingsModal onCancel={() => setIsSettingsOpen(false)}
+        isLoggedIn={true}
+        userId={user}
+        setUser={setUser}
+        />
       )}
     </div>
   );

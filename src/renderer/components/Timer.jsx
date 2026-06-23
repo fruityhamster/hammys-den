@@ -11,7 +11,7 @@ import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 const { ipcRenderer } = window.require('electron');
 
-const Timer = ({ onBack, editData, userId, setUser }) => {
+const Timer = ({ onBack, editData, user, userId, setUser }) => {
   // ButtonsME
   const { 
     isModalOpen, 
@@ -329,7 +329,11 @@ const Timer = ({ onBack, editData, userId, setUser }) => {
       )}
       {/* Settings Modal */}
       {isSettingsOpen && (
-        <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+        <SettingsModal onCancel={() => setIsSettingsOpen(false)}
+        isLoggedIn={true}
+        userId={user} 
+        setUser={setUser}
+        />
       )}
     </div>
   );

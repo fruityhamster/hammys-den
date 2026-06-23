@@ -21,6 +21,11 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
     // function for rule validation (Regex)
     const validateFields = () => {
+        // trim
+        const cleanEmail = email ? email.trim() : '';
+        const cleanPassword = password ? password.trim() : '';
+        const cleanName = name ? name.trim() : '';
+
         // if empty
         if (!email || !password || (view === 'signup' && !name)) {
             return t('warning.missing-fields');
@@ -34,7 +39,7 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
         // password (only for sign up)
         if (view === 'signup') {
-            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|`~]).{12,}$/;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|`~])\S{12,}$/;
             if (!passwordRegex.test(password)) {
                 return t('warning.invalid-password-format');
             }
@@ -50,6 +55,11 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
         }
 
         setError(null);
+
+        // trim for database
+        const cleanEmail = email.trim();
+        const cleanPassword = password.trim();
+        const cleanName = name ? name.trim() : '';
 
         try {
             if (view === 'signup') {
@@ -222,7 +232,11 @@ const Login = ({ onLoginSuccess, userId, setUser }) => {
 
             {/* Settings Modal */}
             {isSettingsOpen && (
-                <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+                <SettingsModal onCancel={() => setIsSettingsOpen(false)} 
+                    isLoggedIn={false}
+                    userId={null}
+                    setUser={setUser} // updates user
+                />
             )}
         </div>
     );

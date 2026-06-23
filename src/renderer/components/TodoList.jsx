@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 const { ipcRenderer } = window.require('electron');
 
 // the component has 'onBack' as a property so home button functions
-const TodoList = ({ onBack, userId, setUser }) => {
+const TodoList = ({ onBack, userId, user, setUser }) => {
   // ButtonsME
   const { 
     isModalOpen, 
@@ -216,7 +216,11 @@ const TodoList = ({ onBack, userId, setUser }) => {
       )}
       {/* Settings Modal */}
       {isSettingsOpen && (
-        <SettingsModal onCancel={() => setIsSettingsOpen(false)}/>
+        <SettingsModal onCancel={() => setIsSettingsOpen(false)}
+          isLoggedIn={true}
+          userId={user}
+          setUser={setUser}
+        />
       )}
     </div>
   );
