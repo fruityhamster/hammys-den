@@ -52,7 +52,9 @@
     "back": "back"
   },
   "account": {
-
+    "logout-warning": "changing your email will terminate your current session and you will need to log in again. do you want to continue?",
+    "email-updated": "email updated successfully!",
+    "email-exists": "this email is already associated with another account or an error occurred."
   },
   "language": {
     "title": "language",

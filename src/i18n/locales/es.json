@@ -52,7 +52,9 @@
     "back": "volver"
   },
   "account": {
-
+    "logout-warning": "advertencia: cambiar tu correo electrónico finalizará tu sesión actual y tendrás que iniciar sesión de nuevo. ¿deseas continuar?",
+    "email-updated": "¡email actualizado correctamente!",
+    "email-exists": "este correo electrónico ya está asociado a otra cuenta o se ha producido un error."
   },
   "language": {
     "title": "idioma",

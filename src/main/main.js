@@ -273,3 +273,39 @@ ipcMain.handle('auth-login', async (event, { email, password }) => {
   
   throw new Error('Access denied');
 });
+
+// SETTINGS - ACCOUNT 
+// update user email
+ipcMain.handle('update-user-email', async (event, { id, email }) => {
+  try {
+    const cleanEmail = email.trim();
+
+    // verify is another user (different id) already uses this email
+    const existingUserWithEmail = await prisma.user.findFirst({
+      where: {
+        email: cleanEmail,
+        id: {
+          not: id // different id from this account
+        }
+      }
+    });
+
+    if (existingUserWithEmail) {
+      // if founds, error
+      throw new Error('Email already in use');
+    }
+
+    // if not used, update
+    const updatedUser = await prisma.user.update({
+      where: { id: id },
+      data: { email: cleanEmail }
+    });
+
+    // returns updated user
+    return updatedUser;
+
+  } catch (error) {
+    console.error("Erro Prisma (update-user-email):", error);
+    throw new Error(error.message || 'Error updating email');
+  }
+});
