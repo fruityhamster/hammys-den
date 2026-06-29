@@ -275,7 +275,7 @@ ipcMain.handle('auth-login', async (event, { email, password }) => {
 });
 
 // SETTINGS - ACCOUNT 
-// update user email
+// update user EMAIL
 ipcMain.handle('update-user-email', async (event, { id, email }) => {
   try {
     const cleanEmail = email.trim();
@@ -308,4 +308,53 @@ ipcMain.handle('update-user-email', async (event, { id, email }) => {
     console.error("Erro Prisma (update-user-email):", error);
     throw new Error(error.message || 'Error updating email');
   }
+});
+
+// update user PASSWORD
+ipcMain.handle('update-user-password', async (event, { id, password }) => {
+  console.log("O HANDLER FOI CHAMADO!");
+  try {
+    const cleanPassword = password.trim();
+
+    // gets the user - for the old password hash
+    const currentUser = await prisma.user.findUnique({
+      where: { id: id }
+    });
+
+    if (!currentUser) {
+      throw new Error('User not found');
+    }
+
+    // compares the new password with old hash (in DB)
+    const isSamePassword = await bcrypt.compare(cleanPassword, currentUser.password);
+
+    if (isSamePassword) {
+      // if the same, cancels and warns frontend
+      throw new Error('Password cannot be the same as the current one');
+    }
+
+    // if different, new hash
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(cleanPassword, saltRounds);
+
+    // updates DB using Prisma
+    const updatedUser = await prisma.user.update({
+      where: { id: id },
+      data: { password: hashedPassword }
+    });
+
+    // user used
+    return updatedUser;
+
+  } catch (error) {
+    console.error("Erro Prisma/Bcrypt (update-user-password):", error);
+    throw new Error(error.message || 'Error updating password');
+  }
+});
+
+// check if same password
+ipcMain.handle('check-password-match', async (event, { id, password }) => {
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user) return false;
+  return await bcrypt.compare(password, user.password);
 });
