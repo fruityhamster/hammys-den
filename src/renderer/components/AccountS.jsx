@@ -119,6 +119,13 @@ const AccountS = ({ onBack, userId, setUser }) => {
             return;
         }
 
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|`~])\S{12,}$/;
+            
+        if (!passwordRegex.test(cleanPassword)) {
+            alert(t('warning.invalid-password-format'));
+            return;
+        }
+
         const confirmar = window.confirm(t('account.pass-warning'));
         if (!confirmar) {
             resetToDefault();
