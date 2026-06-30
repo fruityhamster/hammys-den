@@ -1,0 +1,100 @@
+{
+  "dashboard": {
+    "todo": "lista cose da fare",
+    "calendar": "calendario",
+    "timer": "timer",
+    "history": "cronologia"
+  },
+  "todo-list": {
+    "title": "lista cose da fare",
+    "placeholder": "aggiungi un nuovo seme...",
+    "menu": "menu"
+  },
+  "calendar": {
+    "tittle": "calendario",
+    "placeholder": "aggiungi un nuovo seme...",
+    "menu": "menu",
+    "back": "indietro"
+  },
+  "timer": {
+    "tittle": "ricette di cucina",
+    "tittle2": "seleziona il tempo",
+    "min": "minuti",
+    "confirm": "conferma",
+    "start": "avvia",
+    "cancel": "annulla",
+    "pause": "pausa",
+    "continue": "continua",
+    "tittle3": "la tua ricetta sarà pronta tra...",
+    "tittle4": "la tua ricetta è pronta! buon appetito!",
+    "focused": "ti sei concentrato per",
+    "on": "su",
+    "summary": "riepilogo",
+    "menu": "menu",
+    "save": "salva",
+    "back": "indietro",
+    "minute": "minuto",
+    "minutes": "minuti"
+  },
+  "history": {
+    "tittle": "cronologia",
+    "menu": "menu"
+  },
+  "exit": {
+    "logout": "disconnetti",
+    "exit-app": "esci",
+    "back": "indietro"
+  },
+  "settings": {
+    "account": "account",
+    "language": "lingua",
+    "contact": "contatti",
+    "back": "indietro"
+  },
+  "account": {
+    "title": "account",
+    "logout-warning": "modificare l'email terminerà la sessione corrente e dovrai accedere nuovamente. vuoi continuare?",
+    "email-updated": "email aggiornata con successo!",
+    "email-exists": "questa email è già associata a un altro account o si è verificato un errore.",
+    "pass-empty": "la password non può essere vuota!",
+    "pass-warning": "sei sicuro di voler cambiare la password?",
+    "pass-updated": "password aggiornata con successo!",
+    "pass-same": "la nuova password non può essere uguale a quella attuale!",
+    "pass-error": "errore durante l'aggiornamento della password. riprova.",
+    "delete-btn": "elimina account",
+    "delete-confirm-1": "sei sicuro di voler eliminare il tuo account? questa azione è irreversibile.",
+    "delete-confirm-2": "tutti i tuoi dati verranno eliminati permanentemente e non potranno essere recuperati. vuoi continuare?",
+    "deleted-success": "account eliminato con successo.",
+    "delete-error": "si è verificato un errore durante il tentativo di eliminazione dell'account.",
+    "back": "indietro"
+  },
+  "language": {
+    "title": "lingua",
+    "back": "indietro"
+  },
+  "contact": {
+    "title": "contattami",
+    "subtittle1": "per aiuto, bug e suggerimenti:",
+    "subtittle2": "repository GitHub del progetto:",
+    "back": "indietro"
+  },
+  "login": {
+    "welcome": "benvenuto!",
+    "new-acc": "creazione nuovo account!",
+    "email": "email:",
+    "password": "password:",
+    "keep-login": "mantienimi connesso",
+    "name": "nome:",
+    "warning": "avviso:",
+    "signup": "crea",
+    "login": "accedi",
+    "back": "indietro"
+  },
+  "warning": {
+    "missing-fields": "assicurati di compilare tutti i campi",
+    "invalid-email-format": "formato email non valido (manca @ o .)",
+    "invalid-password-format": "la password deve contenere: 12+ caratteri, 1 maiuscola, 1 numero e 1 carattere speciale",
+    "access-denied": "accesso negato, riprova",
+    "email-exists": "email già associata a un account esistente"
+  }
+}
