@@ -4,11 +4,17 @@ import { initReactI18next } from 'react-i18next';
 import translationEN from './locales/en.json';
 import translationPT from './locales/pt.json';
 import translationES from './locales/es.json';
+import translationFR from './locales/fr.json';
+import translationIT from './locales/it.json';
+import translationKO from './locales/ko.json';
 
 const resources = {
   en: { translation: translationEN },
   pt: { translation: translationPT },
-  es: { translation: translationES }
+  es: { translation: translationES },
+  fr: { translation: translationFR },
+  it: { translation: translationIT },
+  ko: { translation: translationKO }
 };
 
 // saves the chosen language
