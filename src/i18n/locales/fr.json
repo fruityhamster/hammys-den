@@ -1,0 +1,100 @@
+{
+  "dashboard": {
+    "todo": "liste de tâches",
+    "calendar": "calendrier",
+    "timer": "minuteur",
+    "history": "historique"
+  },
+  "todo-list": {
+    "title": "liste de tâches",
+    "placeholder": "ajouter une nouvelle graine...",
+    "menu": "menu"
+  },
+  "calendar": {
+    "tittle": "calendrier",
+    "placeholder": "ajouter une graine...",
+    "menu": "menu",
+    "back": "retour"
+  },
+  "timer": {
+    "tittle": "recettes de cuisine",
+    "tittle2": "sélectionner le temps",
+    "min": "minutes",
+    "confirm": "confirmer",
+    "start": "démarrer",
+    "cancel": "annuler",
+    "pause": "pause",
+    "continue": "continuer",
+    "tittle3": "votre recette sera prête dans...",
+    "tittle4": "votre recette est prête ! régalez-vous !",
+    "focused": "vous vous êtes concentré pendant",
+    "on": "sur",
+    "summary": "résumé",
+    "menu": "menu",
+    "save": "enregistrer",
+    "back": "retour",
+    "minute": "minute",
+    "minutes": "minutes"
+  },
+  "history": {
+    "tittle": "historique",
+    "menu": "menu"
+  },
+  "exit": {
+    "logout": "déconnexion",
+    "exit-app": "quitter",
+    "back": "retour"
+  },
+  "settings": {
+    "account": "compte",
+    "language": "langue",
+    "contact": "contact",
+    "back": "retour"
+  },
+  "account": {
+    "title": "compte",
+    "logout-warning": "changer votre e-mail terminera votre session actuelle et vous devrez vous reconnecter. souhaitez-vous continuer ?",
+    "email-updated": "e-mail mis à jour avec succès !",
+    "email-exists": "cet e-mail est déjà associé à un autre compte ou une erreur est survenue.",
+    "pass-empty": "le mot de passe ne peut pas être vide !",
+    "pass-warning": "êtes-vous sûr de vouloir changer votre mot de passe ?",
+    "pass-updated": "mot de passe mis à jour avec succès !",
+    "pass-same": "le nouveau mot de passe ne peut pas être identique à l'actuel !",
+    "pass-error": "erreur lors de la mise à jour du mot de passe. veuillez réessayer.",
+    "delete-btn": "supprimer le compte",
+    "delete-confirm-1": "êtes-vous sûr de vouloir supprimer votre compte ? cette action est irréversible.",
+    "delete-confirm-2": "toutes vos données seront définitivement supprimées et ne pourront pas être récupérées. souhaitez-vous continuer ?",
+    "deleted-success": "compte supprimé avec succès.",
+    "delete-error": "une erreur est survenue lors de la tentative de suppression du compte.",
+    "back": "retour"
+  },
+  "language": {
+    "title": "langue",
+    "back": "retour"
+  },
+  "contact": {
+    "title": "contactez-moi",
+    "subtittle1": "pour de l'aide, des bugs ou des suggestions :",
+    "subtittle2": "dépôt GitHub du projet :",
+    "back": "retour"
+  },
+  "login": {
+    "welcome": "bienvenue !",
+    "new-acc": "création d'un nouveau compte !",
+    "email": "e-mail :",
+    "password": "mot de passe :",
+    "keep-login": "rester connecté",
+    "name": "nom :",
+    "warning": "attention :",
+    "signup": "créer",
+    "login": "connexion",
+    "back": "retour"
+  },
+  "warning": {
+    "missing-fields": "assurez-vous de remplir tous les champs",
+    "invalid-email-format": "format d'e-mail invalide (il manque @ ou .)",
+    "invalid-password-format": "le mot de passe doit contenir : 12+ caractères, 1 majuscule, 1 chiffre et 1 caractère spécial",
+    "access-denied": "accès refusé, réessayez",
+    "email-exists": "e-mail déjà associé à un compte existant"
+  }
+}
