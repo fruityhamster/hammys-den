@@ -358,3 +358,23 @@ ipcMain.handle('check-password-match', async (event, { id, password }) => {
   if (!user) return false;
   return await bcrypt.compare(password, user.password);
 });
+
+// delete account button
+ipcMain.handle('delete-account', async (event, userId) => {
+    try {
+
+        await prisma.task.deleteMany({ where: { userId: userId } });
+        await prisma.event.deleteMany({ where: { userId: userId } });
+        await prisma.timerSession.deleteMany({ where: { userId: userId } });
+
+        // deletes user (Prisma deletes tasks/events if Cascade ON)
+        await prisma.user.delete({
+            where: { id: userId }
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Erro ao apagar conta:", error);
+        throw new Error('Erro ao eliminar conta');
+    }
+});
+

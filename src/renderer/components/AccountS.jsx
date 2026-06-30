@@ -10,7 +10,7 @@ const validateEmail = (emailToTest) => {
   return emailRegex.test(cleanEmail);
 };
 
-const AccountS = ({ onBack, userId, setUser }) => {
+const AccountS = ({ onBack, userId, setUser, onLogoutSuccess }) => {
     const { t } = useTranslation();
 
     console.log("componente pai:", userId);
@@ -159,10 +159,35 @@ const AccountS = ({ onBack, userId, setUser }) => {
             }
     };
 
+    const handleDeleteAccount = async () => {
+        // 1st confirmation
+        const primeira = window.confirm(t('account.delete-confirm-1'));
+        if (!primeira) return;
+
+        // 2nd confirmation
+        const segunda = window.confirm(t('account.delete-confirm-2'));
+        if (!segunda) return;
+
+        try {
+            const targetId = typeof userId === 'object' ? userId.id : userId;
+            await ipcRenderer.invoke('delete-account', targetId);
+            
+            alert(t('account.deleted-success'));
+            
+            // "logout"
+            if (typeof setUser === 'function') {
+                setUser(); 
+            }
+            
+        } catch (error) {
+            alert(t('account.delete-error'));
+        }
+    };
+
     return (
         <div className="settings-account-container">
             <div className="account-title" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
-                {t('account.title', 'account')}
+                {t('account.title')}
             </div>
 
             <div className="account-form-grid">
@@ -210,10 +235,14 @@ const AccountS = ({ onBack, userId, setUser }) => {
                         )}
                     </div>
                 </div>
+                {/* delete button */}
+                <div className="justify-center">
+                    <button className="btn-delete-account" onClick={handleDeleteAccount}>{t('account.delete-btn')}</button>
+                </div>
             </div>
 
             <button className="btn-modal-exit btn-back" onClick={onBack} style={{ marginTop: '20px' }}>
-                {t('account.back', 'back')}
+                {t('account.back')}
             </button>
         </div>
     );
