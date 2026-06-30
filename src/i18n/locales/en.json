@@ -52,9 +52,21 @@
     "back": "back"
   },
   "account": {
+    "title": "account",
     "logout-warning": "changing your email will terminate your current session and you will need to log in again. do you want to continue?",
     "email-updated": "email updated successfully!",
-    "email-exists": "this email is already associated with another account or an error occurred."
+    "email-exists": "this email is already associated with another account or an error occurred.",
+    "pass-empty": "the password cannot be empty!",
+    "pass-warning": "are you sure you want to change your password?",
+    "pass-updated": "password updated successfully!",
+    "pass-same": "the new password cannot be the same as the current one!",
+    "pass-error": "error updating password. please try again.",
+    "delete-btn": "delete account",
+    "delete-confirm-1": "are you sure you want to delete your account? this action is irreversible.",
+    "delete-confirm-2": "all your data will be permanently deleted and cannot be recovered. do you want to continue?",
+    "deleted-success": "account successfully deleted.",
+    "delete-error": "an error occurred while trying to delete the account.",
+    "back": "back"
   },
   "language": {
     "title": "language",

@@ -52,9 +52,21 @@
     "back": "voltar"
   },
   "account": {
+    "title": "conta",
     "logout-warning": "ao alterar o seu email, a sua sessão será encerrada e terá de fazer login novamente. deseja continuar?",
     "email-updated": "email atualizado com sucesso!",
-    "email-exists": "este email já está associado a outra conta ou ocorreu um erro."
+    "email-exists": "este email já está associado a outra conta ou ocorreu um erro.",
+    "pass-empty": "a palavra-passe não pode estar vazia!",
+    "pass-warning": "tem a certeza que deseja alterar a sua palavra-passe? a sessão será encerrada.",
+    "pass-updated": "palavra-passe atualizada com sucesso!",
+    "pass-same": "a nova palavra-passe não pode ser igual à atual!",
+    "pass-error": "erro ao atualizar a palavra-passe. Tente novamente.",
+    "delete-btn": "eliminar conta",
+    "delete-confirm-1": "tem a certeza que deseja eliminar a sua conta? esta ação é irreversível",
+    "delete-confirm-2": "todos os seus dados serão apagados permanentemente e não poderão ser recuperados. deseja continuar?",
+    "deleted-success": "conta eliminada com sucesso.",
+    "delete-error": "ocorreu um erro ao tentar eliminar a conta.",
+    "back": "voltar"
   },
   "language": {
     "title": "idioma",
