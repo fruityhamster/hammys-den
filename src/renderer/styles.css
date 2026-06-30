@@ -665,7 +665,8 @@ input, textarea {
   position: absolute;
   color: var(--colour-hammy-beige);
   top: 27%;
-  left: 40%; 
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* minutes opitions */
