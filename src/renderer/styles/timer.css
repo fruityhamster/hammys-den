@@ -1,0 +1,199 @@
+/* =============
+    PAGE: TIMER
+   ============= */
+
+/* ======= recipes 1st page ======= */
+/* recipes grid (for the squares) */
+.recipes-grid {
+  display: grid;
+  position: absolute;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  /* fixed height so scrolling exists */
+  width: 390px;
+  height: 320px; 
+  padding-top: 2px; /* for the button animation*/
+  padding-bottom: 2px; /* for the button animation*/
+  top: 25%;
+  left: 8%;
+  overflow-y: auto; /* activates the scroll when multiple items exist */
+  /* scroll bar */
+  scrollbar-width: thin;
+  scrollbar-color: #5c3a2e transparent;
+}
+
+/* recipe card (square) */
+.recipe-card {
+  background: var(--colour-hammy-beige-dark);
+  height: 180px;
+  width: 180px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* button shadow */
+  border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* image inside the square (food/drink) */
+.recipe-card img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain;  
+  image-rendering: pixelated;
+}
+
+/* ======= timer 2nd page ======= */
+
+/* page subtitle - minutes */
+.page-subtitle {
+  font-family: var(--font-pixel-1);
+  font-size: 22px;
+  position: absolute;
+  color: var(--colour-hammy-beige);
+  top: 27%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* minutes opitions */
+.time-picker-container {
+  position: absolute;
+  top: 40%;
+  left: 39%;
+  background: var(--colour-minutes);
+  border: 4px solid var(--colour-hammy-brown-dark);
+  border-radius: 20px;
+  width: 100px;
+  height: 200px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  scrollbar-width: none; /* hides scroll */
+}
+
+/* numbers */
+.time-item {
+  font-family: var(--font-pixel-2);
+  font-size: 30px;
+  color: var(--colour-hammy-brown-dark);
+  padding: 5px 0;
+  text-align: center;
+  border-bottom: 3px solid var(--colour-hammy-brown-dark);
+  cursor: pointer;
+}
+
+.time-item:hover, .time-item.active {
+  background: var(--colour-hammy-beige);
+}
+
+/* 2 buttons centered */
+.button-group {
+  position:absolute;
+  bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  width: 85%;
+}
+
+/* buttons (2) */
+.button-left, .button-right {
+  background-color: var(--colour-hammy-brown-dark);
+  width: 135px;
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 24px;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 10px;
+  transition: transform 0.1s;
+  letter-spacing: 1px;
+}
+
+/* ======= timer 3rd page ======= */
+/* recipe square */
+.selected-recipe-display {
+  background: var(--colour-hammy-beige-dark);
+  padding: 10px;
+  border-radius: 20px;
+  margin: 20px 0;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  position: absolute;
+  bottom: 35%;
+  left: 30%;
+  justify-content: center;
+  align-items: center;
+  image-rendering: pixelated;
+}
+
+/* image inside the square (food/drink) */
+.selected-recipe-display img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain;  
+  image-rendering: pixelated;
+}
+
+/* timer countdown */
+.timer-display {
+  font-family: var(--font-pixel-2);
+  font-size: 36px;
+  color: var(--colour-hammy-beige);
+  letter-spacing: 5px;
+  margin: 15px 0;
+  position: absolute;
+  bottom: 20%;
+  left: 29%;
+}
+
+/* ======== timer 4th page ======== */
+/* finished recipe page - text */
+.finished {
+  color: var(--colour-hammy-beige);
+  text-align: center;
+  position: absolute;
+  font-size: 22px;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap; /* text in only 1 line */
+}
+
+/* finished recipe page - text (number) */
+.finished-number {
+  font-family: var(--font-pixel-2);
+  font-size: 19px;
+}
+
+/* text container */
+.summary-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 23%;
+    left: 10%;
+}
+
+/* ======== timer 5th page ======== */
+/* inside text container */
+.summary-text {
+  width: 360px;
+  height: 310px;
+  background-color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 14px;
+  color: var(--colour-hammy-brown-dark);
+  border-radius: 20px;
+  padding: 20px;
+  resize: none; /* prevents resizing the text box */
+  outline: none; /* removes outline when clicking in the box */
+  line-height: 1.5;
+  scrollbar-width: none;
+}

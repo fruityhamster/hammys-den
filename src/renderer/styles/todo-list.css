@@ -1,0 +1,178 @@
+/* ==================
+    PAGE: TO-DO LIST
+   ================== */
+
+/* page tittle */
+.page-title {
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-beige);
+  position: absolute;
+  font-size: 24px;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap; /* text in only 1 line */
+}
+
+/* 1 button in the end of the page */
+.button-center1 {
+  background-color: var(--colour-hammy-brown-dark);
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  letter-spacing: 1px;
+  font-size: 24px;
+  padding: 0px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 8%;
+}
+
+/* add-input-group */
+.add-input-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* add button */
+.add-button {
+  width: 35px;
+  height: 35px;
+  background-color: var(--colour-hammy-brown-dark);
+  border-radius: 10px; 
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 36px;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 25%;
+  left: 15%;
+}
+
+/* input field */
+.input-field {
+  position: absolute;
+  height: 35px;
+  background-color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-brown-dark);
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 0 10px;
+  width: 60%;
+  right: 15%;
+  top: 25%;
+  outline: none;
+}
+
+/* rectangle where shows the tasks added */
+.task-show-field {
+  background-color: var(--colour-hammy-beige);
+  position: absolute;
+  border-radius: 10px;
+  padding: 15px;
+  width: 80%;
+  height: 260px;
+  top: 35%;
+  left: 44px;
+  
+  /* scroll if it has many tasks */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* almond image as a marker */
+.task-seed-icon {
+  width: 20px;
+  height: 20px;
+  /* image-rendering: pixelated; - use for a more defined image */
+  margin-right: 10px;
+  flex-shrink: 0;
+  transform: rotate(45deg); /* rotate image */
+}
+
+/* individual task item */
+.task-item {
+  display: flex;
+  align-items: center;
+  background-color: #fcf0d9;
+  padding: 5px 10px;
+  gap: 5px;
+  width: 100%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--colour-hammy-brown);
+  color: var(--colour-hammy-brown-dark);
+  font-family: var(--font-pixel-1);
+  font-size: 16px;
+  animation: popIn 0.3s ease-out; /* small animação when it shows */
+
+  /* doesn't let the text get outside the rectangle */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* adding animation */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* scroll bar: size */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* scroll bar: moving bar */
+::-webkit-scrollbar-thumb {
+  background: var(--colour-hammy-brown);
+  border: 4px solid var(--colour-hammy-beige);
+  border-radius: 10px; 
+}
+
+/* check and delete buttons */
+.task-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+/* base for circular buttons */
+.btn-check, .btn-delete {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+}
+
+/* button check colour */
+.btn-check { background-color: var(--colour-check-button); }
+
+/* button delete colour*/
+.btn-delete { background-color: var(--colour-delete-button); }
+
+/* cross out text effect */
+.task-text.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+  color: #4a2c2a;
+}
+
+/* button animation */
+.btn-check:hover, .btn-delete:hover {
+  transform: scale(1.1);
+  filter: brightness(1.05);
+}

@@ -1,0 +1,168 @@
+/* ================
+    PAGE: CALENDAR
+   ================ */
+
+/* main container - calendar */
+.calendar-main-box .react-calendar {
+  background: var(--colour-hammy-brown-dark);
+  border: none;
+  font-family: var(--font-pixel-1);
+  color: var(--colour-hammy-beige);
+  width: 80%;
+  position: absolute;
+  top: 125px;
+  left: 45px;
+  border-radius: 15px;
+}
+
+/* calendar "header" (month/year and arrows) */
+.react-calendar__navigation {
+  color: var(--colour-hammy-beige);
+  font-size: 24px;
+  font-family: var(--font-pixel-1);
+  margin-bottom: 4px;
+  border-radius: 15px;
+}
+
+/* title and year */
+.calendar-title-container {
+  display: flex;
+  justify-content: space-between; /* opposite sides */
+  width: 100%;
+}
+
+/* year font */
+.calendar-title-year { font-family: var(--font-pixel-2); }
+
+/* header buttons */
+.react-calendar__navigation button {
+  min-width: 20px;
+  padding: 8px;
+}
+
+/* header buttons hover colour */
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus { background-color: var(--colour-hover-calendar); }
+
+/* week days (S, M, T, W, T, F, S) */
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  /* separation lines */
+  border-top: 3px solid var(--colour-hammy-brown);
+  border-bottom: 3px solid var(--colour-hammy-brown);
+}
+
+/* removes default dotted line from week days */
+.react-calendar__month-view__weekdays__weekday abbr { text-decoration: none !important; }
+
+/* square of days */
+.react-calendar__tile {
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-2);
+  padding: 10px 5px;
+  background: none;
+}
+
+/* size of the number of days */
+.react-calendar__month-view__days__day { font-size: 20px; }
+
+/* weekend days */
+.react-calendar__tile.weekend-tile { color:var(--colour-hammy-beige-dark); }
+
+/* selected/hovered day */
+.react-calendar__tile--active, 
+.react-calendar__tile:enabled:hover {
+  background: var(--colour-hover-calendar);
+  border-radius: 15px;
+}
+
+/* days of other months */
+.react-calendar__month-view__days__day--neighboringMonth { opacity: 0.4;}
+
+/* actual day underlined */
+.react-calendar__tile.is-today {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* task dot (under number) */
+.task-dot {
+  color: var(--colour-hammy-beige);
+  font-size: 24px;
+  line-height: 0;
+  bottom: 4px;
+  display: block;
+  text-align: center;
+}
+
+/* =========== CALENDAR - PAGE 2 (adding tasks) =========== */
+
+/* subtitle: chosen day */
+.selected-date-title {
+ font-family: var(--font-pixel-2);
+ font-size: 18px;
+ position: absolute;
+ color: var(--colour-hammy-beige);
+ top: 21%;
+ left: 35%; 
+}
+
+/* add task button "+" */
+.add-button-calendar {
+  width: 35px;
+  height: 35px;
+  background-color: var(--colour-hammy-brown-dark);
+  border-radius: 10px; 
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 36px;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 27%;
+  left: 10%;
+}
+
+/* time input */
+.time-input-box {
+  background-color: var(--colour-hammy-beige);
+  color: var(--colour-hammy-brown-dark);
+  font-family: var(--font-pixel-2);
+  border-radius: 10px;
+  width: 100px;
+  height: 35px;
+  padding: 5px;
+  position: absolute;
+  top: 27%;
+  left: 20%;
+}
+
+/* text (task) input */
+.input-field-calendar {
+  position: absolute;
+  height: 35px;
+  background-color: var(--colour-hammy-beige);
+  color: var(--colour-hammy-brown-dark);
+  font-family: var(--font-pixel-1);
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  width: 45%;
+  padding: 0 10px;
+  top: 27%;
+  right: 10%;
+}
+
+/* time inside tasks list */
+.task-time-text {
+  font-family: var(--font-pixel-2);
+  color: var(--colour-hammy-brown);
+  font-size: 14px;
+  margin-right: 5px;
+  font-weight: bold;
+}

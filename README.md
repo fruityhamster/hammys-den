@@ -38,6 +38,9 @@ electron-app-template
 ├── prisma/
 │   └── schema.prisma           # Database map and tables
 ├── src/
+│   ├── i18n/
+│   │   ├── locales/            # JSON files containing translations for each language
+│   │   └── i18n.js             # main i18next initialization and configuration file
 │   ├── lib/                    
 │   │   ├── prisma.ts           # Unic configuration with Prisma Client
 │   │   └── supabase.ts         # Direct configuration to the Supabase client
@@ -49,10 +52,12 @@ electron-app-template
 │   │   │   ├── ButtonsME.jsx
 │   │   │   ├── Calendar.jsx
 │   │   │   └── (...).jsx  
-│   │   └── pages/
-│   │       └── App.jsx         # Main router and state management
-│   ├── main.jsx                # React entry point (mounting the app)
-│   └── styles.css              # Global styles (CSS) and Pixel Art design variables
+│   │   ├── pages/
+│   │   │   └── App.jsx         # Main router and state management
+│   │   └── styles/             # Global styles (CSS) and Pixel Art design variables
+│   │       ├── base.css  
+│   │       └── (...).jsx      
+│   └── main.jsx                # React entry point (mounting the app)         
 ├── .gitignore                  # Files Git should ignore for safety
 ├── index.html                  # HTML template for the renderer process and React root container
 ├── package-lock.json

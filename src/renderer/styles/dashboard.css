@@ -1,0 +1,98 @@
+/* =================
+    PAGE: DASHBOARD
+   ================= */
+
+.dashboard {
+  display: grid;
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-rows: 180px 180px;
+  grid-template-columns: 180px 180px;
+  gap: 40px 15px;
+  padding: 15px;
+  border-radius: 20px;
+  position: relative;
+  align-content: top;
+  justify-content: center;
+}
+
+/* buttons */
+.grid-button {
+  display: flex;
+  width: 180px;
+  position: relative;
+  height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colour-hammy-beige-dark);
+  color: var(--colour-hammy-beige);
+  font-family: var(--font-pixel-1);
+  font-size: 18px;
+  border-radius: 20px;
+  border: none;
+  /* button shadow */
+  border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* image inside button */
+.grid-button img {
+  width: 180px;
+  height: 180px;
+  padding: 8px;
+  object-fit: contain;
+  image-rendering: pixelated; /* maintains the crisp pixel art look */
+}
+
+/* text under button */
+.grid-button span {
+  position: absolute;
+  bottom: -35px;
+  letter-spacing: 1px;
+}
+
+/* calendar */
+.calendar-widget {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  top: 0;
+}
+
+/* seed image */
+.cal-seed-img {
+  opacity: 0.8;
+  transform: scale(0.6); /* slightly smaller */
+}
+
+/* month text */
+.cal-month {
+  position: absolute;
+  color: var(--colour-hammy-brown-dark);
+  font-size: 24px;
+  text-transform: uppercase;
+  width: 100%;
+  height: 115%;
+}
+
+/* day number text */
+.cal-day-number {
+  position: absolute;
+  font-family: var(--font-pixel-2);
+  color: var(--colour-hammy-brown-dark);
+  font-size: 36px;
+  top: 35%;
+  right: 36%;
+}
+ /* weekday text */
+.cal-weekday {
+  color: var(--colour-hammy-brown-dark);
+  font-size: 24px;
+  top: 75%;
+  justify-content: center;
+}
