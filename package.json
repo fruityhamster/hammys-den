@@ -1,7 +1,7 @@
 {
   "name": "hammys-den",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "dist/main.js",
   "homepage": "./",
   "description": "Hammy's Den",
@@ -16,6 +16,7 @@
   "build": {
     "appId": "com.hammy.den",
     "productName": "Hammy's Den",
+    "artifactName": "${productName} v${version}.${ext}",
     "directories": {
       "output": "dist_electron"
     },
