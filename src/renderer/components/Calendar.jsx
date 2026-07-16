@@ -144,7 +144,7 @@ const CalendarPage = ({ onBack, user, userId, setUser }) => {
       // if it's today, add "is-today"
       if (isToday) classes += " is-today";
       
-      // if it's weekend (Sábado=6, Domingo=0)
+      // if it's weekend (Saturday=6, Sunday=0)
       if (tileDate.getDay() === 0 || tileDate.getDay() === 6) classes += " weekend-tile";
 
       return classes;
